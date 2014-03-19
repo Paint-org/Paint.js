@@ -3,3 +3,13 @@
     width: 100%;
     background: linear-gradient(to bottom, #C5CFDF, #DCE5F2);
 }
+
+#topBar {
+    height: 100px;
+    background-color: #c0c0c0;
+}
+
+#bottomBar {
+    height: 30px;
+    background-color: #c0c0c0;
+}
