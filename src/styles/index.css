@@ -3,6 +3,11 @@ html, body {
     height: 100%;
 }
 
+#mainTable {
+    height: 100%;
+    width: 100%;
+}
+
 #workspace {
     height: 100%;
     width: 100%;
@@ -10,7 +15,6 @@ html, body {
 }
 
 #topBar {
-    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -19,15 +23,11 @@ html, body {
 }
 
 #bottomBar {
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
     height: 30px;
     background-color: #c0c0c0;
 }
 
 #paper {
-    margin-top: 100px;
+    border: 1px solid black;
     background: white;
 }

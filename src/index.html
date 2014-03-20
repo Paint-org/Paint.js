@@ -4,13 +4,37 @@
         <link type="text/css" rel="stylesheet" href="styles/index.css">
     </head>
     <body>
-        <div id="topBar">
-            <button>Pen</button>
-            <button>Gomm</button>
-        </div>
-        <div id="workspace">
-            <canvas id="paper" />
-        </div>
-        <div id="bottomBar">barra di sotto</div>
+        <table id="mainTable">
+            <thead>
+                <tr>
+                    <td>
+                        <div id="topBar">
+                            <button>Pen</button>
+                            <button>Gomm</button>
+                        </div>                    
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div id="workspace">
+                            <canvas id="paper" />
+                        </div>
+                        
+                        
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <div id="bottomBar">
+                            barra di sotto
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
     </body>
 </html>
