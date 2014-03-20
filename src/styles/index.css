@@ -3,9 +3,14 @@ html, body {
     height: 100%;
 }
 
+tr, td {
+    padding: 0;
+}
+
 #mainTable {
     height: 100%;
     width: 100%;
+    border-spacing: 0;  
 }
 
 #workspace {
@@ -15,9 +20,6 @@ html, body {
 }
 
 #topBar {
-    top: 0;
-    left: 0;
-    right: 0;
     height: 100px;
     background-color: #c0c0c0;
 }
