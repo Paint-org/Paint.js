@@ -2,9 +2,7 @@ html, body {
     margin: 0;
     height: 100%;
     font: 13px/1.4 Helvetica,arial,freesans,clean,sans-serif;
-    -webkit-touch-callout: none;
     -webkit-user-select: none;
-    user-select: none;
     cursor: default;
 }
 
