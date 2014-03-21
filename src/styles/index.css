@@ -1,6 +1,7 @@
 html, body {
     margin: 0;
     height: 100%;
+    font: 13px/1.4 Helvetica,arial,freesans,clean,sans-serif;
 }
 
 tr, td {
@@ -21,15 +22,16 @@ tr, td {
 
 #topBar {
     height: 100px;
-    background-color: #c0c0c0;
+    background-color: #f0f0f0;
 }
 
 #bottomBar {
-    height: 30px;
-    background-color: #c0c0c0;
+    height: 25px;
+    background-color: #f0f0f0;
 }
 
 #paper {
-    border: 1px solid black;
+    margin: 5px;
     background: white;
+    box-shadow: 6px 6px 3px 0px rgba(50, 50, 50, 0.2);
 }
