@@ -39,7 +39,33 @@ tr, td {
 }
 
 #paper {
-    margin: 5px;
     background: white;
     box-shadow: 6px 6px 3px 0px rgba(50, 50, 50, 0.2);
+}
+
+#paperWrapper {
+    display: inline-block;
+    margin: 5px 7px 5px 7px;
+}
+
+#segrip, #egrip, #sgrip {
+    width: 3px;
+    height: 3px;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+}
+
+#segrip {
+    bottom: -5px;
+    right: -5px;
+}
+
+#sgrip {
+    bottom: -5px;
+    left: 50%;
+}
+
+#egrip {
+    right: -5px;
+    top: 50%;
 }

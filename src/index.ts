@@ -1,7 +1,27 @@
 /// <reference path="libs/node/node.d.ts" />
 /// <reference path="libs/jquery/jquery.d.ts" />
+/// <reference path="libs/jqueryui/jqueryui.d.ts" />
 
 $(document).ready(function() {
+    
+    
+    // Initialize resize handles
+    
+    $("#paperWrapper").resizable({
+        handles: {
+            'e': '#egrip',
+            'se': '#segrip',
+            's': '#sgrip'
+        }
+    });
+    
+    $("#paperWrapper").width($("#paper").attr("width"));
+    $("#paperWrapper").height($("#paper").attr("height"));
+    $("#paperWrapper").resize(function() {
+        $("#paper").attr("width", $(this).width());
+        $("#paper").attr("height", $(this).height());
+    });
+    
     
     var paper = <HTMLCanvasElement> $("#paper")[0];
     var context = paper.getContext('2d');

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link type="text/css" rel="stylesheet" href="libs/jqueryui/themes/base/jquery-ui.css">
         <link type="text/css" rel="stylesheet" href="styles/index.css">
         <script type="text/javascript" src="libs/jquery/jquery-2.1.0.min.js"></script>
+        <script type="text/javascript" src="libs/jqueryui/ui/minified/jquery-ui.min.js"></script>
         <script type="text/javascript" src="index.js"></script>
     </head>
     <body>
@@ -21,10 +23,13 @@
                 <tr>
                     <td>
                         <div id="workspace">
-                            <canvas id="paper" width="400" height="200" />
+                            <div id="paperWrapper">
+                                <canvas id="paper" width="400" height="200"></canvas>
+                                <div class="ui-resizable-handle ui-resizable-se" id="segrip"></div>
+                                <div class="ui-resizable-handle ui-resizable-s" id="sgrip"></div>
+                                <div class="ui-resizable-handle ui-resizable-e" id="egrip"></div>
+                            </div>
                         </div>
-                        
-                        
                     </td>
                 </tr>
             </tbody>
