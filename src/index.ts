@@ -72,12 +72,10 @@ $(document).ready(function() {
     
     // Initialize buttons
     $("#btnPen").click(function() {
-        paint.currentBrush.color = "#000000";
-        paint.currentBrush.width = 1;
+        paint.currentBrush = paint.brushes.Pen;
     });
     
     $("#btnEraser").click(function() {
-        paint.currentBrush.color = "#ffffff";
-        paint.currentBrush.width = 10;
+        paint.currentBrush = paint.brushes.Rubber;
     });
 });
