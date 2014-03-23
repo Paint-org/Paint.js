@@ -2,13 +2,16 @@
 /// <reference path="libs/jquery/jquery.d.ts" />
 /// <reference path="libs/jqueryui/jqueryui.d.ts" />
 
-import brush = require('./classes/Brush');
+import global = require('./classes/Global');
+    
+declare var paint:global.Paint;
 
-$(document).ready(function() { 
-    
-    
+$(document).ready(function() {
+   
+    // Initialize global object containing Paper and Brush up to now
+    paint = new global.Paint($);
+       
     // Initialize resize handles
-    
     $("#paperWrapper").resizable({
         handles: {
             'e': '#egrip',
@@ -25,16 +28,16 @@ $(document).ready(function() {
     });
     
     
-    var paper = <HTMLCanvasElement> $("#paper")[0];
-    var context = paper.getContext('2d');
-    
-    
+    // Load context
+    var paper = paint.currentPaper.canvas,
+        context = paint.currentPaper.getContext();
     // Load the default brush
-    var currentBrush = new brush.Brush();
+    var currentBrush = paint.currentBrush;
     
     
     var mousedown = false;
     var started = false;
+
     $(paper).mousedown(function() {
         mousedown = true;
         started = false;
@@ -68,5 +71,4 @@ $(document).ready(function() {
         mousedown = false;
         context.closePath();
     });
-    
 });

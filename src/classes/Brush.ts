@@ -1,4 +1,12 @@
+/// <reference path="../libs/jquery/jquery.d.ts" />
+
 export class Brush {
+    
+    private $ : JQueryStatic;
+    
+    constructor($ : JQueryStatic) {
+        this.$ = $;
+    }
     
     get width():number {
         return 3;
@@ -7,5 +15,4 @@ export class Brush {
     get color():string {
         return "#000000";
     }
-    
 }
