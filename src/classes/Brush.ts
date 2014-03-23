@@ -2,22 +2,10 @@
 
 export class Brush {
     
-    private $ : JQueryStatic;
-    private _width = 1;
-    private _color = "#000000";
+    private _color;
     
-    constructor($ : JQueryStatic, width : any, color : any) {
-        this.$ = $;
-        
-        this._width = (typeof(width) === 'number') ? width : 3;  
-        this._color = (typeof(color) === 'string') ? color : "#000000";
-    }
-    
-    get width():number {
-        return this._width;
-    }
-    set width(value:number) {
-        this._width = value;
+    constructor(color : string) {
+        this._color = color;
     }
     
     get color():string {
@@ -30,19 +18,19 @@ export class Brush {
 
 export class Brushes {
 
-    private _pen : Brush;
-    private _rubber : Brush;
+    private _black : Brush;
+    private _white : Brush;
 
-    constructor($ : JQueryStatic) {
-        this._pen = new Brush($, 3, "#000000");
-        this._rubber = new Brush($, 10, "#ffffff"); 
+    constructor() {
+        this._black = new Brush("#000000");
+        this._white = new Brush("#ffffff"); 
     }
     
-    get Rubber():Brush {
-        return this._rubber;
+    get White():Brush {
+        return this._white;
     }
     
-    get Pen():Brush {
-        return this._pen;
+    get Black():Brush {
+        return this._black;
     }
 }

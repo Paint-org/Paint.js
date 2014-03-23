@@ -39,8 +39,8 @@ $(document).ready(function() {
         mousedown = true;
         started = false;
         
-        context.lineWidth = paint.currentBrush.width;
-        context.strokeStyle = paint.currentBrush.color;
+        context.lineWidth = paint.currentPen.width;
+        context.strokeStyle = paint.currentPen.brush.color;
     });
     
     $(paper).mousemove(function(ev) {
@@ -72,10 +72,10 @@ $(document).ready(function() {
     
     // Initialize buttons
     $("#btnPen").click(function() {
-        paint.currentBrush = paint.brushes.Pen;
+        paint.currentPen = paint.pens.NormalPen;
     });
     
     $("#btnEraser").click(function() {
-        paint.currentBrush = paint.brushes.Rubber;
+        paint.currentPen = paint.pens.Rubber;
     });
 });
