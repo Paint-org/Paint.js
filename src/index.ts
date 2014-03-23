@@ -34,24 +34,38 @@ $(document).ready(function() {
     context.lineWidth = currentBrush.width;
     context.strokeStyle = currentBrush.color;
     
-    var started = false;    
+    
+    var mousedown = false;
+    var started = false;
+    $(paper).mousedown(function() {
+        mousedown = true;
+        started = false;
+    });
+    
     $(paper).mousemove(function(ev) {
-        var x, y;
+        if(mousedown) {
+            var x, y;
+            
+            var parentOffset = $(this).parent().offset();
+            
+            x = ev.pageX - parentOffset.left;
+            y = ev.pageY - parentOffset.top;
         
-        var parentOffset = $(this).parent().offset();
-        
-        x = ev.pageX - parentOffset.left;
-        y = ev.pageY - parentOffset.top;
-        
-        if (!started) {
-          context.beginPath();
-          context.moveTo(x, y);
-          started = true;
-        } else {
-          context.lineTo(x, y);
-          context.stroke();
+            if (!started) {
+              context.moveTo(x, y);
+              context.beginPath();
+              started = true;
+            } else {
+              context.lineTo(x, y);
+              context.stroke();
+            }
         }
     
+    });
+    
+    $("body").mouseup(function() {
+        mousedown = false;
+        context.closePath();
     });
     
 });

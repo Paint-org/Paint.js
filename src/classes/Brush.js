@@ -3,7 +3,7 @@ var Brush = (function () {
     }
     Object.defineProperty(Brush.prototype, "width", {
         get: function () {
-            return 5;
+            return 3;
         },
         enumerable: true,
         configurable: true

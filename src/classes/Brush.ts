@@ -1,7 +1,7 @@
 export class Brush {
     
     get width():number {
-        return 5;
+        return 3;
     }
     
     get color():string {
