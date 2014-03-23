@@ -2,7 +2,9 @@
 /// <reference path="libs/jquery/jquery.d.ts" />
 /// <reference path="libs/jqueryui/jqueryui.d.ts" />
 
-$(document).ready(function() {
+import brush = require('./classes/Brush');
+
+$(document).ready(function() { 
     
     
     // Initialize resize handles
@@ -25,6 +27,12 @@ $(document).ready(function() {
     
     var paper = <HTMLCanvasElement> $("#paper")[0];
     var context = paper.getContext('2d');
+    
+    
+    // Load the default brush
+    var currentBrush = new brush.Brush();
+    context.lineWidth = currentBrush.width;
+    context.strokeStyle = currentBrush.color;
     
     var started = false;    
     $(paper).mousemove(function(ev) {
