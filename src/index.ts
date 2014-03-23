@@ -30,10 +30,7 @@ $(document).ready(function() {
     
     // Load context
     var paper = paint.currentPaper.canvas,
-        context = paint.currentPaper.getContext();
-    // Load the default brush
-    var currentBrush = paint.currentBrush;
-    
+        context = paint.currentPaper.getContext();    
     
     var mousedown = false;
     var started = false;
@@ -42,8 +39,8 @@ $(document).ready(function() {
         mousedown = true;
         started = false;
         
-        context.lineWidth = currentBrush.width;
-        context.strokeStyle = currentBrush.color;
+        context.lineWidth = paint.currentBrush.width;
+        context.strokeStyle = paint.currentBrush.color;
     });
     
     $(paper).mousemove(function(ev) {
@@ -70,5 +67,17 @@ $(document).ready(function() {
     $("body").mouseup(function() {
         mousedown = false;
         context.closePath();
+    });
+    
+    
+    // Initialize buttons
+    $("#btnPen").click(function() {
+        paint.currentBrush.color = "#000000";
+        paint.currentBrush.width = 1;
+    });
+    
+    $("#btnEraser").click(function() {
+        paint.currentBrush.color = "#ffffff";
+        paint.currentBrush.width = 10;
     });
 });
