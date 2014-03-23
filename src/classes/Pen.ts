@@ -1,6 +1,10 @@
 import brush = require('./Brush');
 import global = require('./Global');
 
+/**
+ * Represents the settings used to draw on the canvas, for example
+ * the width (and the brush) of the stroke.
+ */
 export class Pen {
  
     private _brush : brush.Brush;
@@ -26,6 +30,9 @@ export class Pen {
     }
 }
 
+/**
+ * A set of standard Pens.
+ */
 export class Pens {
 
     private _normalPen : Pen;

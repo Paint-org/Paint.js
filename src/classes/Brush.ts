@@ -16,6 +16,9 @@ export class Brush {
     }
 }
 
+/**
+ * A set of Brushes.
+ */
 export class Brushes {
 
     private _black : Brush;

@@ -12,7 +12,7 @@ export class Paint {
     public pens : pen.Pens;
     
     public currentPaper : paper.Paper;
-    public currentPen : pen.Pen; 
+    public currentPen : pen.Pen;
     
     constructor($ : JQueryStatic) {
         this.$ = $;
