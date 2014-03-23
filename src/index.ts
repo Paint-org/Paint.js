@@ -31,8 +31,6 @@ $(document).ready(function() {
     
     // Load the default brush
     var currentBrush = new brush.Brush();
-    context.lineWidth = currentBrush.width;
-    context.strokeStyle = currentBrush.color;
     
     
     var mousedown = false;
@@ -40,6 +38,9 @@ $(document).ready(function() {
     $(paper).mousedown(function() {
         mousedown = true;
         started = false;
+        
+        context.lineWidth = currentBrush.width;
+        context.strokeStyle = currentBrush.color;
     });
     
     $(paper).mousemove(function(ev) {
