@@ -5,7 +5,7 @@
 import pen = require('./classes/Pen');
 import brush = require('./classes/Brush');
 import global = require('./classes/Global');
-    
+
 declare var paint:global.Paint;
 
 $(document).ready(function() {
@@ -31,44 +31,18 @@ $(document).ready(function() {
     
     
     // Load context
-    var paper = paint.currentPaper.canvas,
-        context = paint.currentPaper.getContext();    
-    
-    var mousedown = false;
-    var started = false;
+    var paper = paint.currentPaper.canvas;
 
     $(paper).mousedown(function() {
-        mousedown = true;
-        started = false;
-        
-        context.lineWidth = paint.currentPen.width;
-        context.strokeStyle = paint.currentPen.brush.color;
+        paint.currentPaper.startDrawing();
     });
     
-    $(paper).mousemove(function(ev) {
-        if(mousedown) {
-            var x, y;
-            
-            var parentOffset = $(this).parent().offset();
-            
-            x = ev.pageX - parentOffset.left;
-            y = ev.pageY - parentOffset.top;
-        
-            if (!started) {
-              context.moveTo(x, y);
-              context.beginPath();
-              started = true;
-            } else {
-              context.lineTo(x, y);
-              context.stroke();
-            }
-        }
-    
+    $("body").mousemove(function(ev) {
+        paint.currentPaper.draw(ev);    
     });
     
     $("body").mouseup(function() {
-        mousedown = false;
-        context.closePath();
+        paint.currentPaper.stopDrawing();
     });
     
     

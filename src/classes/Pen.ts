@@ -35,10 +35,13 @@ export class Pen {
  */
 export class Pens {
 
+    private _paint : global.Paint;
     private _normalPen : Pen;
     private _rubber : Pen;
     
     constructor(paint : global.Paint) {
+        this._paint = paint;
+        
         this._normalPen = new Pen(paint.brushes.Black, 3);
         this._rubber = new Pen(paint.brushes.White, 10);
     }
