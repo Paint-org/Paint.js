@@ -7,21 +7,22 @@
         <script type="text/javascript" src="libs/jqueryui/ui/minified/jquery-ui.min.js"></script>
         <script type="text/javascript" src="index.js"></script>
     </head>
-    <body>
-        <div id="topBar">
-            <div>
-            	Primary color: <input type="text" id="penColor1" value="#000000" />
-            	Secondary color: <input type="text" id="penColor2" value="#ffffff" />
-            	Size: <input type="text" id="penSize" value="3" />
-            	<br><i>(bug: please press a button to apply color or size)</i>
-            </div>
-            <button id="btnPen">Pen</button>
-            <button id="btnEraser">Eraser</button>
-        </div>                      
+    <body>                   
         <table id="mainTable">
             <thead>
                 <tr>
-                    <td style="height:100px;"></td>
+                    <td style="height:100px;">
+				        <div id="topBar">
+				            <div>
+				                Primary color: <input type="text" id="penColor1" value="#000000" />
+				                Secondary color: <input type="text" id="penColor2" value="#ffffff" />
+				                Size: <input type="text" id="penSize" value="3" />
+				                <br><i>(bug: please press a button to apply color or size)</i>
+				            </div>
+				            <button id="btnPen">Pen</button>
+				            <button id="btnEraser">Eraser</button>
+				        </div>   
+                    </td>
                 </tr>
             </thead>
             <tbody>
@@ -40,12 +41,14 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td style="height: 25px;"></td>
+                    <td style="height: 25px;">
+				        <div id="bottomBar">
+				            <span>Bottom Bar</span>
+				        </div>                       
+                    </td>
                 </tr>
             </tfoot>
         </table>
-        <div id="bottomBar">
-            <span>Bottom Bar</span>
-        </div>        
+     
     </body>
 </html>

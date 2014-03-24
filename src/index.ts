@@ -5,7 +5,7 @@
 import pen = require('./classes/Pen');
 import brush = require('./classes/Brush');
 import global = require('./classes/Global');
-    
+
 declare var paint:global.Paint;
 
 $(document).ready(function() {

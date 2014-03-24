@@ -6,7 +6,7 @@ import paper = require('./Paper');
 
 export class Paint {
     
-    private $ : JQueryStatic;
+    private _$ : JQueryStatic;
     
     public brushes : brush.Brushes;
     public pens : pen.Pens;
@@ -15,7 +15,7 @@ export class Paint {
     public currentPen : pen.Pen;
     
     constructor($ : JQueryStatic) {
-        this.$ = $;
+        this._$ = $;
         
         // Classe contenente brush principali
         this.brushes = new brush.Brushes();
@@ -23,7 +23,10 @@ export class Paint {
         
         // Penna settata come brush di default
         this.currentPen = this.pens.NormalPen;
-        this.currentPaper = new paper.Paper($);
+        this.currentPaper = new paper.Paper(this);
     }
-     
+    
+    get $():JQueryStatic {
+        return this._$;
+    }
 }
