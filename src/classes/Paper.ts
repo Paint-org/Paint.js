@@ -40,8 +40,10 @@ export class Paper {
     draw(x:number, y:number):void {
         if (this._isDrawing) {
             if (!this._started) {
+
               this._context.moveTo(x, y);
               this._context.beginPath();
+              this._context.lineTo(x, y);
               this._started = true;
                 
             } else {
@@ -49,6 +51,26 @@ export class Paper {
               this._context.stroke();
             }
         }
+    }
+    
+    drawFromCorner(x:number, y:number):void {
+        if (this._isDrawing) {
+                    
+            // ricerca del bordo più vicino
+            var dx = x < this._paint.$(this.canvas).width()/2 ? x : this._paint.$(this.canvas).width() - x,
+                dy = y < this._paint.$(this.canvas).height()/2 ? y : this._paint.$(this.canvas).height() - y,
+                newX = x,
+                newY = y;
+            
+            if (dx < dy)
+                newX = x < this._paint.$(this.canvas).width()/2 ? 0 : this._paint.$(this.canvas).width() - 1;
+            else
+                newY = y < this._paint.$(this.canvas).height()/2 ? 0 : this._paint.$(this.canvas).height() - 1;
+            
+            // inizio a disegnare dal bordo
+            this.draw(newX, newY);
+        }
+        
     }
     
     stopDrawing():void {
