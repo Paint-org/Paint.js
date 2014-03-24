@@ -1,10 +1,10 @@
 /// <reference path="../libs/jquery/jquery.d.ts" />
 
-import global = require('./Global');
+import glob = require('./Global');
 
 export class Paper {
     
-    private _paint : global.Paint;
+    private _paint : glob.Paint;
     private _context : CanvasRenderingContext2D;
     
     private _isDrawing = false;
@@ -13,7 +13,7 @@ export class Paper {
     public canvas : HTMLCanvasElement;
     
     
-    constructor(paint : global.Paint) {
+    constructor(paint : glob.Paint) {
 
         this._paint = paint;
         

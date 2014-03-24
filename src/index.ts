@@ -4,14 +4,14 @@
 
 import pen = require('./classes/Pen');
 import brush = require('./classes/Brush');
-import global = require('./classes/Global');
+import glob = require('./classes/Global');
 
-declare var paint:global.Paint;
+declare var paint:glob.Paint;
 
 $(document).ready(function() {
    
     // Initialize global object containing Paper and Brush up to now
-    paint = new global.Paint($);
+    paint = new glob.Paint($);
        
     // Initialize resize handles
     $("#paperWrapper").resizable({

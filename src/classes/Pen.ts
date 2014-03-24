@@ -1,5 +1,5 @@
 import brush = require('./Brush');
-import global = require('./Global');
+import glob = require('./Global');
 
 /**
  * Represents the settings used to draw on the canvas, for example
@@ -35,11 +35,11 @@ export class Pen {
  */
 export class Pens {
 
-    private _paint : global.Paint;
+    private _paint : glob.Paint;
     private _normalPen : Pen;
     private _rubber : Pen;
     
-    constructor(paint : global.Paint) {
+    constructor(paint : glob.Paint) {
         this._paint = paint;
         
         this._normalPen = new Pen(paint.brushes.Black, 3);
