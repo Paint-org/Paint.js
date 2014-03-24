@@ -20,7 +20,7 @@ export class Paper {
         this.canvas = <HTMLCanvasElement> this._paint.$('#paper')[0];
         this._context = this.canvas.getContext('2d');
     }
-    
+      
     getContext():CanvasRenderingContext2D {
         return this._context;
     }
@@ -37,6 +37,9 @@ export class Paper {
         this._context.strokeStyle = this._paint.currentPen.brush.color;
     }
     
+    /**
+     * Draw on Paper
+     */
     draw(x:number, y:number):void {
         if (this._isDrawing) {
             if (!this._started) {
@@ -53,7 +56,11 @@ export class Paper {
         }
     }
     
-    drawFromCorner(x:number, y:number):void {
+    /**
+     * Start drawing on Paper from the corner 
+     * it finds the closest edge and start drawing from it
+     */
+    drawFromEdge(x:number, y:number):void {
         if (this._isDrawing) {
                     
             // ricerca del bordo più vicino

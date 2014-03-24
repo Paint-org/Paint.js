@@ -63,8 +63,7 @@ function attachPaperEvents() {
         if(paint.currentPaper.isDrawing()) {
             paint.currentPaper.stopDrawing();
             paint.currentPaper.startDrawing();
-            // FIXME trovare il bordo del canvas più vicino
-            paint.currentPaper.drawFromCorner(ev.offsetX, ev.offsetY);
+            paint.currentPaper.drawFromEdge(ev.offsetX, ev.offsetY);
             paint.currentPaper.draw(ev.offsetX, ev.offsetY);
         }
     });
