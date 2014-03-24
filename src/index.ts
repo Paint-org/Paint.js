@@ -29,25 +29,15 @@ $(document).ready(function() {
         $("#paper").attr("height", $(this).height());
     });
     
+    // Set event listener on Paper
     attachPaperEvents();
-    
-    // Initialize buttons
-    $("#btnPen").click(function() {
-        paint.currentPen = new pen.Pen(
-            new brush.Brush($("#penColor1").val()),
-            parseInt($("#penSize").val())
-        );
-    });
-    
-    $("#btnEraser").click(function() {
-        paint.currentPen = new pen.Pen(
-            new brush.Brush($("#penColor2").val()),
-            parseInt($("#penSize").val())
-        );
-    });
+    // Set event listener on buttons
+    attachButtonEvents();
 });
 
-
+/**
+ * Set event handler on canvas
+ */
 function attachPaperEvents() {
     // Load context
     var canvas = paint.currentPaper.canvas;
@@ -81,5 +71,26 @@ function attachPaperEvents() {
     
     $("body").mouseup(function() {
         paint.currentPaper.stopDrawing();
+    });
+}
+
+/**
+ * Set event handler on buttons
+ */
+function attachButtonEvents() {
+    
+    // Initialize buttons
+    $("#btnPen").click(function() {
+        paint.currentPen = new pen.Pen(
+            new brush.Brush($("#penColor1").val()),
+            parseInt($("#penSize").val())
+        );
+    });
+    
+    $("#btnEraser").click(function() {
+        paint.currentPen = new pen.Pen(
+            new brush.Brush($("#penColor2").val()),
+            parseInt($("#penSize").val())
+        );
     });
 }
