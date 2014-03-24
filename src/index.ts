@@ -60,11 +60,17 @@ function attachPaperEvents() {
         if(paint.currentPaper.isDrawing()) {
             paint.currentPaper.stopDrawing();
             paint.currentPaper.startDrawing();
+            // FIXME trovare il bordo del canvas più vicino
+            paint.currentPaper.draw(ev.pageX, ev.pageY);
         }
     });
     
     $(canvas).mousemove(function(ev) {
-        paint.currentPaper.draw(ev);    
+        paint.currentPaper.draw(ev.pageX, ev.pageY);    
+    });
+    
+    $(canvas).mouseleave(function(ev) {
+        paint.currentPaper.draw(ev.pageX, ev.pageY);
     });
     
     $("body").mouseup(function() {

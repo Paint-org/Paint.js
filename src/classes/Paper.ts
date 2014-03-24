@@ -37,14 +37,12 @@ export class Paper {
         this._context.strokeStyle = this._paint.currentPen.brush.color;
     }
     
-    draw(ev : JQueryMouseEventObject):void {
+    draw(x:number, y:number):void {
         if (this._isDrawing) {
-            var x, y;
-            
             var parentOffset = this._paint.$(this.canvas).parent().offset();
             
-            x = ev.pageX - parentOffset.left;
-            y = ev.pageY - parentOffset.top;
+            x = x - parentOffset.left;
+            y = y - parentOffset.top;
         
             if (!this._started) {
               this._context.moveTo(x, y);
