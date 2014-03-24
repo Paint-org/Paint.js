@@ -39,11 +39,6 @@ export class Paper {
     
     draw(x:number, y:number):void {
         if (this._isDrawing) {
-            var parentOffset = this._paint.$(this.canvas).parent().offset();
-            
-            x = x - parentOffset.left;
-            y = y - parentOffset.top;
-        
             if (!this._started) {
               this._context.moveTo(x, y);
               this._context.beginPath();

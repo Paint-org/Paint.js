@@ -51,26 +51,32 @@ $(document).ready(function() {
 function attachPaperEvents() {
     // Load context
     var canvas = paint.currentPaper.canvas;
+    
+    $("#cursorPosition").hide();
 
     $(canvas).mousedown(function() {
         paint.currentPaper.startDrawing();
     });
     
     $(canvas).mouseenter(function(ev) {
+        $("#cursorPosition").show();
         if(paint.currentPaper.isDrawing()) {
             paint.currentPaper.stopDrawing();
             paint.currentPaper.startDrawing();
             // FIXME trovare il bordo del canvas più vicino
-            paint.currentPaper.draw(ev.pageX, ev.pageY);
+            paint.currentPaper.draw(ev.offsetX, ev.offsetY);
         }
     });
     
     $(canvas).mousemove(function(ev) {
-        paint.currentPaper.draw(ev.pageX, ev.pageY);    
+        paint.currentPaper.draw(ev.offsetX, ev.offsetY);
+        $("#cursorPositionX").text(ev.offsetX);
+        $("#cursorPositionY").text(ev.offsetY);
     });
     
     $(canvas).mouseleave(function(ev) {
-        paint.currentPaper.draw(ev.pageX, ev.pageY);
+        $("#cursorPosition").hide();
+        paint.currentPaper.draw(ev.offsetX, ev.offsetY);
     });
     
     $("body").mouseup(function() {
