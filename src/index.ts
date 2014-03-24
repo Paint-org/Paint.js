@@ -29,22 +29,7 @@ $(document).ready(function() {
         $("#paper").attr("height", $(this).height());
     });
     
-    
-    // Load context
-    var paper = paint.currentPaper.canvas;
-
-    $(paper).mousedown(function() {
-        paint.currentPaper.startDrawing();
-    });
-    
-    $("body").mousemove(function(ev) {
-        paint.currentPaper.draw(ev);    
-    });
-    
-    $("body").mouseup(function() {
-        paint.currentPaper.stopDrawing();
-    });
-    
+    attachPaperEvents();
     
     // Initialize buttons
     $("#btnPen").click(function() {
@@ -61,3 +46,28 @@ $(document).ready(function() {
         );
     });
 });
+
+
+function attachPaperEvents() {
+    // Load context
+    var canvas = paint.currentPaper.canvas;
+
+    $(canvas).mousedown(function() {
+        paint.currentPaper.startDrawing();
+    });
+    
+    $(canvas).mouseenter(function(ev) {
+        if(paint.currentPaper.isDrawing()) {
+            paint.currentPaper.stopDrawing();
+            paint.currentPaper.startDrawing();
+        }
+    });
+    
+    $(canvas).mousemove(function(ev) {
+        paint.currentPaper.draw(ev);    
+    });
+    
+    $("body").mouseup(function() {
+        paint.currentPaper.stopDrawing();
+    });
+}

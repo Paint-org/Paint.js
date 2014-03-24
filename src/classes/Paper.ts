@@ -7,7 +7,7 @@ export class Paper {
     private _paint : global.Paint;
     private _context : CanvasRenderingContext2D;
     
-    private _mousedown = false;
+    private _isDrawing = false;
     private _started = false;
     
     public canvas : HTMLCanvasElement;
@@ -25,8 +25,12 @@ export class Paper {
         return this._context;
     }
     
+    isDrawing():boolean {
+        return this._isDrawing;
+    }
+    
     startDrawing():void {
-        this._mousedown = true;
+        this._isDrawing = true;
         this._started = false;
         
         this._context.lineWidth = this._paint.currentPen.width;
@@ -34,7 +38,7 @@ export class Paper {
     }
     
     draw(ev : JQueryMouseEventObject):void {
-        if (this._mousedown) {
+        if (this._isDrawing) {
             var x, y;
             
             var parentOffset = this._paint.$(this.canvas).parent().offset();
@@ -55,7 +59,7 @@ export class Paper {
     }
     
     stopDrawing():void {
-        this._mousedown = false;
+        this._isDrawing = false;
         this._context.closePath();
     }
 }
