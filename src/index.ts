@@ -51,23 +51,35 @@ function attachPaperEvents() {
     
     $(canvas).mouseenter(function(ev) {
         $("#cursorPosition").show();
+    });
+    
+    $(document).mouseenter(function(ev) {
         if(paint.currentPaper.isDrawing()) {
+            console.log("document-mouseenter");
             paint.currentPaper.stopDrawing();
             paint.currentPaper.startDrawing();
-            paint.currentPaper.drawFromEdge(ev.offsetX, ev.offsetY);
-            paint.currentPaper.draw(ev.offsetX, ev.offsetY);
+            var coord = paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+            //paint.currentPaper.drawFromEdge(ev.pageX, ev.pageY);
+            paint.currentPaper.draw(coord.x, coord.y);
         }
     });
     
-    $(canvas).mousemove(function(ev) {
-        paint.currentPaper.draw(ev.offsetX, ev.offsetY);
-        $("#cursorPositionX").text(ev.offsetX);
-        $("#cursorPositionY").text(ev.offsetY);
+    $(document).mousemove(function(ev) {
+        //console.log("document-mousemove");
+        var coord = paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+        paint.currentPaper.draw(coord.x, coord.y);
+        $("#cursorPositionX").text(coord.x);
+        $("#cursorPositionY").text(coord.y);
+    });
+    
+    $(document).mouseleave(function(ev) {
+        console.log("document-mouseleave");
+        var coord = paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+        paint.currentPaper.draw(coord.x, coord.y);
     });
     
     $(canvas).mouseleave(function(ev) {
         $("#cursorPosition").hide();
-        paint.currentPaper.draw(ev.offsetX, ev.offsetY);
     });
     
     $(document).mouseup(function() {

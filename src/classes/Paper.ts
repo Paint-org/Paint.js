@@ -25,6 +25,13 @@ export class Paper {
         return this._context;
     }
     
+    pageXYtoCanvasXY(x:number, y:number) {
+        return {
+            x: x - this._paint.$(this.canvas).parent().offset().left,
+            y: y - this._paint.$(this.canvas).parent().offset().top
+        };
+    }
+    
     isDrawing():boolean {
         return this._isDrawing;
     }
