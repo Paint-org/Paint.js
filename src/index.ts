@@ -33,6 +33,7 @@ $(document).ready(function() {
     attachPaperEvents();
     // Set event listener on buttons
     attachButtonEvents();
+    
 });
 
 /**
@@ -69,7 +70,7 @@ function attachPaperEvents() {
         paint.currentPaper.draw(ev.offsetX, ev.offsetY);
     });
     
-    $("body").mouseup(function() {
+    $(document).mouseup(function() {
         paint.currentPaper.stopDrawing();
     });
 }
