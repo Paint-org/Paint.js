@@ -90,9 +90,12 @@ export class Paper {
      * When exit from Paper close the path
      */
     exitFromPaper(point : pt.Point):void {
-        this._context.lineTo(point.X, point.Y);
-        this._context.stroke();
-        this._context.closePath();
+
+        if (this.isDrawing()) {
+            this._context.lineTo(point.X, point.Y);
+            this._context.stroke();
+            this._context.closePath();
+        }
     }
     
     /**
