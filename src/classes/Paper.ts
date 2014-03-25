@@ -1,6 +1,7 @@
 /// <reference path="../libs/jquery/jquery.d.ts" />
 
 import glob = require('./Global');
+import pt = require('./Point');
 
 export class Paper {
     
@@ -9,6 +10,8 @@ export class Paper {
     
     private _isDrawing = false;
     private _started = false;
+    
+    private _lastPoint : pt.Point;
     
     public canvas : HTMLCanvasElement;
     
@@ -25,11 +28,9 @@ export class Paper {
         return this._context;
     }
     
-    pageXYtoCanvasXY(x:number, y:number) {
-        return {
-            x: x - this._paint.$(this.canvas).parent().offset().left,
-            y: y - this._paint.$(this.canvas).parent().offset().top
-        };
+    pageXYtoCanvasXY(x:number, y:number) : pt.Point {
+        return new pt.Point(x - this._paint.$(this.canvas).parent().offset().left,
+                            y - this._paint.$(this.canvas).parent().offset().top);
     }
     
     isDrawing():boolean {
@@ -37,11 +38,24 @@ export class Paper {
     }
     
     startDrawing():void {
-        this._isDrawing = true;
-        this._started = false;
         
-        this._context.lineWidth = this._paint.currentPen.width;
-        this._context.strokeStyle = this._paint.currentPen.brush.color;
+        // if already drawing, then draw from _lastPoint to make
+        // line continuos between mousemove point in canvas
+        // and the border 
+        if (this._isDrawing) {
+            this._context.moveTo(this._lastPoint.X, this._lastPoint.Y);
+            this._context.beginPath();
+            this._context.lineTo(this._lastPoint.X, this._lastPoint.Y);
+            this._started = true;
+            this._context.lineWidth = this._paint.currentPen.width;
+            this._context.strokeStyle = this._paint.currentPen.brush.color;        
+        } else {
+            this._isDrawing = true;
+            this._started = false;
+            
+            this._context.lineWidth = this._paint.currentPen.width;
+            this._context.strokeStyle = this._paint.currentPen.brush.color;
+        }
     }
     
     /**
@@ -64,31 +78,28 @@ export class Paper {
     }
     
     /**
-     * Start drawing on Paper from the corner 
-     * it finds the closest edge and start drawing from it
+     * Stop drawing
      */
-    drawFromEdge(x:number, y:number):void {
-        if (this._isDrawing) {
-                    
-            // ricerca del bordo più vicino
-            var dx = x < this._paint.$(this.canvas).width()/2 ? x : this._paint.$(this.canvas).width() - x,
-                dy = y < this._paint.$(this.canvas).height()/2 ? y : this._paint.$(this.canvas).height() - y,
-                newX = x,
-                newY = y;
-            
-            if (dx < dy)
-                newX = x < this._paint.$(this.canvas).width()/2 ? 0 : this._paint.$(this.canvas).width();
-            else
-                newY = y < this._paint.$(this.canvas).height()/2 ? 0 : this._paint.$(this.canvas).height();
-            
-            // inizio a disegnare dal bordo
-            this.draw(newX, newY);
-        }
-        
-    }
-    
     stopDrawing():void {
         this._isDrawing = false;
         this._context.closePath();
+    }
+    
+    
+    /**
+     * When exit from Paper close the path
+     */
+    exitFromPaper(point : pt.Point):void {
+        this._context.lineTo(point.X, point.Y);
+        this._context.stroke();
+        this._context.closePath();
+    }
+    
+    /**
+     * When going to enter in Paper remember last outer point to make line continuos
+     * from outer and inner canvas
+     */
+    recordOuterPoint(point : pt.Point) {
+        this._lastPoint = point;
     }
 }

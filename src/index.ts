@@ -5,6 +5,7 @@
 import pen = require('./classes/Pen');
 import brush = require('./classes/Brush');
 import glob = require('./classes/Global');
+import pt = require('./classes/Point');
 
 declare var paint:glob.Paint;
 
@@ -51,35 +52,26 @@ function attachPaperEvents() {
     
     $(canvas).mouseenter(function(ev) {
         $("#cursorPosition").show();
-    });
-    
-    $(document).mouseenter(function(ev) {
-        if(paint.currentPaper.isDrawing()) {
-            console.log("document-mouseenter");
-            paint.currentPaper.stopDrawing();
+        if (paint.currentPaper.isDrawing())
             paint.currentPaper.startDrawing();
-            var coord = paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-            //paint.currentPaper.drawFromEdge(ev.pageX, ev.pageY);
-            paint.currentPaper.draw(coord.x, coord.y);
-        }
     });
     
     $(document).mousemove(function(ev) {
-        //console.log("document-mousemove");
-        var coord = paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-        paint.currentPaper.draw(coord.x, coord.y);
-        $("#cursorPositionX").text(coord.x);
-        $("#cursorPositionY").text(coord.y);
-    });
-    
-    $(document).mouseleave(function(ev) {
-        console.log("document-mouseleave");
-        var coord = paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-        paint.currentPaper.draw(coord.x, coord.y);
+        
+        var cord = paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+        paint.currentPaper.recordOuterPoint(cord);
+        
+        if (ev.target === canvas) {
+            paint.currentPaper.draw(ev.offsetX, ev.offsetY);
+            $("#cursorPositionX").text(ev.offsetX);
+            $("#cursorPositionY").text(ev.offsetY);
+        }
     });
     
     $(canvas).mouseleave(function(ev) {
         $("#cursorPosition").hide();
+        var point = paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+        paint.currentPaper.exitFromPaper(point);
     });
     
     $(document).mouseup(function() {
