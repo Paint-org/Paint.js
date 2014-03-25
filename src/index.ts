@@ -36,8 +36,6 @@ $(document).ready(function() {
     
     // Set event listener on Paper
     attachPaperEvents();
-    // Set event listener on buttons
-    attachButtonEvents();
     
     // Registra il tool Pen
     paint.tools[toolPen.Pen.TOOL_NAME] = new toolPen.Pen(paint);
@@ -75,11 +73,4 @@ function attachPaperEvents() {
     $(canvas).mouseleave(function(ev) {
         $("#cursorPosition").hide();
     });
-}
-
-/**
- * Set event handler on buttons
- */
-function attachButtonEvents() {
-    
 }
