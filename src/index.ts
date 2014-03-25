@@ -47,6 +47,7 @@ $(document).ready(function() {
     paint.tools[toolEraser.Eraser.TOOL_NAME] = new toolEraser.Eraser(paint);
     paint.tools[toolEraser.Eraser.TOOL_NAME].init();
     
+    paint.currentTool = paint.tools[toolPen.Pen.TOOL_NAME];
 });
 
 /**
