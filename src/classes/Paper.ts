@@ -70,9 +70,9 @@ export class Paper {
                 newY = y;
             
             if (dx < dy)
-                newX = x < this._paint.$(this.canvas).width()/2 ? 0 : this._paint.$(this.canvas).width() - 1;
+                newX = x < this._paint.$(this.canvas).width()/2 ? 0 : this._paint.$(this.canvas).width();
             else
-                newY = y < this._paint.$(this.canvas).height()/2 ? 0 : this._paint.$(this.canvas).height() - 1;
+                newY = y < this._paint.$(this.canvas).height()/2 ? 0 : this._paint.$(this.canvas).height();
             
             // inizio a disegnare dal bordo
             this.draw(newX, newY);
