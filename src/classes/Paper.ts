@@ -85,7 +85,6 @@ export class Paper {
         this._context.closePath();
     }
     
-    
     /**
      * When exit from Paper close the path
      */
@@ -105,4 +104,55 @@ export class Paper {
     recordOuterPoint(point : pt.Point) {
         this._lastPoint = point;
     }
+
+    /*fillPosition(x:number, y:number, color:string):void {
+        var imgd = this._context.getImageData(0, 0, this.canvas.width-1, this.canvas.height-1);
+        var pix = imgd.data;
+        
+        var pixelSingleIndex = this.xyToIndex(x, y, this.canvas.width);
+        var pixelIndex = pixelSingleIndex * 4; // Indice del pixel tenendo conto delle 4 componenti.
+        
+        var red = pix[pixelIndex],
+            green = pix[pixelIndex + 1],
+            blue = pix[pixelIndex + 2];
+            // i+3 is the alpha
+        
+        var n = 4 * pix.length;
+        var lastY = pixelSingleIndex % this.canvas.height;
+        var fillPixels = [];
+        
+        for (var i = pixelIndex; i < n; i += 4) {
+            var px = (i/4) % this.canvas.width;
+            var py = (i/4) % this.canvas.height;
+            
+            //if(py > lastY) {
+            //break;
+            //
+            
+            if(pix[i  ] == red &&
+               pix[i+1] == green &&
+               pix[i+2] == blue) {
+                
+                fillPixels.push(i);
+            }
+        }
+        
+        for(var i = 0; i < fillPixels.length; i++) {
+            pix[i  ] = 255;
+            pix[i+1] = 0;
+            pix[i+2] = 0;
+        }
+        
+        // Draw the ImageData at the given (x,y) coordinates.
+        this._context.putImageData(imgd, x, y);
+    }*/
+    
+    /**
+     * Converts from a XY representation to a single-index matrix
+     * representation (going left->right, top->down).
+     */
+    private xyToIndex(x:number, y:number, width:number):number {
+        return y*width + x;
+    }
+    
 }

@@ -6,6 +6,9 @@ import pen = require('./classes/Pen');
 import brush = require('./classes/Brush');
 import glob = require('./classes/Global');
 import pt = require('./classes/Point');
+import tool = require('./classes/Tools/Tool');
+import toolPen = require('./classes/Tools/Pen');
+import toolEraser = require('./classes/Tools/Eraser');
 
 declare var paint:glob.Paint;
 
@@ -13,7 +16,8 @@ $(document).ready(function() {
    
     // Initialize global object containing Paper and Brush up to now
     paint = new glob.Paint($);
-       
+    paint.document = document;
+    
     // Initialize resize handles
     $("#paperWrapper").resizable({
         handles: {
@@ -35,34 +39,33 @@ $(document).ready(function() {
     // Set event listener on buttons
     attachButtonEvents();
     
+    // Registra il tool Pen
+    paint.tools[toolPen.Pen.TOOL_NAME] = new toolPen.Pen(paint);
+    paint.tools[toolPen.Pen.TOOL_NAME].init();
+    
+    // Registra il tool Eraser
+    paint.tools[toolEraser.Eraser.TOOL_NAME] = new toolEraser.Eraser(paint);
+    paint.tools[toolEraser.Eraser.TOOL_NAME].init();
+    
 });
 
 /**
  * Set event handler on canvas
  */
 function attachPaperEvents() {
-    // Load context
     var canvas = paint.currentPaper.canvas;
     
     $("#cursorPosition").hide();
-
-    $(canvas).mousedown(function() {
-        paint.currentPaper.startDrawing();
-    });
     
     $(canvas).mouseenter(function(ev) {
         $("#cursorPosition").show();
-        if (paint.currentPaper.isDrawing())
-            paint.currentPaper.startDrawing();
     });
     
     $(document).mousemove(function(ev) {
         
         var cord = paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-        paint.currentPaper.recordOuterPoint(cord);
         
         if (ev.target === canvas) {
-            paint.currentPaper.draw(ev.offsetX, ev.offsetY);
             $("#cursorPositionX").text(ev.offsetX);
             $("#cursorPositionY").text(ev.offsetY);
         }
@@ -70,12 +73,6 @@ function attachPaperEvents() {
     
     $(canvas).mouseleave(function(ev) {
         $("#cursorPosition").hide();
-        var point = paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-        paint.currentPaper.exitFromPaper(point);
-    });
-    
-    $(document).mouseup(function() {
-        paint.currentPaper.stopDrawing();
     });
 }
 
@@ -84,18 +81,4 @@ function attachPaperEvents() {
  */
 function attachButtonEvents() {
     
-    // Initialize buttons
-    $("#btnPen").click(function() {
-        paint.currentPen = new pen.Pen(
-            new brush.Brush($("#penColor1").val()),
-            parseInt($("#penSize").val())
-        );
-    });
-    
-    $("#btnEraser").click(function() {
-        paint.currentPen = new pen.Pen(
-            new brush.Brush($("#penColor2").val()),
-            parseInt($("#penSize").val())
-        );
-    });
 }
