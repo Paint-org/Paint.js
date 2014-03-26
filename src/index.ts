@@ -38,15 +38,15 @@ $(document).ready(function() {
     
     $("#toolColor1").change(function(){
         paint.primaryColor = new color.Color($(this).val());
-    });
+    }).change();
     
     $("#toolColor2").change(function(){
         paint.secondaryColor = new color.Color($(this).val());
-    });
+    }).change();
     
     $("#toolSize").change(function(){
         paint.toolSize = parseInt($(this).val());
-    });
+    }).change();
     
     // Registra il tool Pen
     paint.tools[toolPen.Pen.TOOL_NAME] = new toolPen.Pen(paint);
