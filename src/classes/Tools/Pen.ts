@@ -19,7 +19,6 @@ export class Pen extends tool.Tool
         
         var curInstance = this;
         $("#btnPen").click(function() {
-            // FIXME Aggiornare i color e la width in event handlers appositi
             paint.currentTool = curInstance;
         });
     }

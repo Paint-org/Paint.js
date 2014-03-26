@@ -45,7 +45,6 @@ $(document).ready(function() {
     });
     
     $("#toolSize").change(function(){
-        // FIXME L'evento change si verifica troppo tardi, quando ormai la startDrawing è stata chiamata.
         paint.toolSize = parseInt($(this).val());
     });
     
