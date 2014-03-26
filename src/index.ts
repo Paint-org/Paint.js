@@ -31,6 +31,8 @@ $(document).ready(function() {
     $("#paperWrapper").resize(function() {
         $("#paper").attr("width", $(this).width());
         $("#paper").attr("height", $(this).height());
+        $("#pageDimensionX").text($("#paper").width());
+        $("#pageDimensionY").text($("#paper").height());        
     });
     
     // Set event listener on Paper
@@ -86,6 +88,9 @@ function attachPaperEvents() {
     $(canvas).mouseleave(function(ev) {
         $("#cursorPosition").hide();
     });
+    
+    $("#pageDimensionX").text($(canvas).width());
+    $("#pageDimensionY").text($(canvas).height());
 }
 
 /**
