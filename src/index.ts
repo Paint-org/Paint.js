@@ -48,6 +48,8 @@ $(document).ready(function() {
         paint.toolSize = parseInt($(this).val());
     }).change();
     
+    preventWorkspaceScrollOnDrag();
+    
     // Registra il tool Pen
     paint.tools[toolPen.Pen.TOOL_NAME] = new toolPen.Pen(paint);
     paint.tools[toolPen.Pen.TOOL_NAME].init();
@@ -83,5 +85,26 @@ function attachPaperEvents() {
     
     $(canvas).mouseleave(function(ev) {
         $("#cursorPosition").hide();
+    });
+}
+
+/**
+ * Evita scroll derivante dal dragging del mouse
+ */
+function preventWorkspaceScrollOnDrag() {
+    var scrollX = 0, scrollY = 0, preventScroll = false;
+    $("#workspace").mousedown(function(){
+        scrollX = $(this).scrollLeft();
+        scrollY = $(this).scrollTop();
+        preventScroll = true;
+    });
+    $("#workspace").scroll(function(){
+        if(preventScroll) {
+            $(this).scrollLeft(scrollX);
+            $(this).scrollTop(scrollY);
+        }
+    });
+    $(document).mouseup(function(){
+        preventScroll = false;
     });
 }
