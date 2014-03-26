@@ -3,7 +3,7 @@
 /// <reference path="libs/jqueryui/jqueryui.d.ts" />
 
 import pen = require('./classes/Pen');
-import brush = require('./classes/Brush');
+import color = require('./classes/Color');
 import glob = require('./classes/Global');
 import pt = require('./classes/Point');
 import tool = require('./classes/Tools/Tool');

@@ -1,6 +1,6 @@
 import glob = require('../Global');
 import pen = require('../Pen');
-import brush = require('../Brush');
+import color = require('../Color');
 import tool = require('./Tool');
    
 export class Pen extends tool.Tool
@@ -21,7 +21,7 @@ export class Pen extends tool.Tool
         var curInstance = this;
         $("#btnPen").click(function() {
             paint.currentPen = new pen.Pen(
-                new brush.Brush($("#penColor1").val()),
+                new color.Color($("#penColor1").val()),
                 parseInt($("#penSize").val())
             );
             paint.currentTool = curInstance;

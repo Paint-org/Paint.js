@@ -1,4 +1,4 @@
-import brush = require('./Brush');
+import color = require('./Color');
 import glob = require('./Global');
 
 /**
@@ -7,11 +7,11 @@ import glob = require('./Global');
  */
 export class Pen {
  
-    private _brush : brush.Brush;
+    private _color : color.Color;
     private _width : number;
 
-    constructor(brush : brush.Brush, width : number) {
-        this._brush = brush;
+    constructor(color : color.Color, width : number) {
+        this._color = color;
         this._width = width;
     }
     
@@ -22,11 +22,11 @@ export class Pen {
         this._width = value;
     }
     
-    get brush():brush.Brush {
-        return this._brush;
+    get color():color.Color {
+        return this._color;
     }
-    set brush(value:brush.Brush) {
-        this._brush = value;
+    set color(value:color.Color) {
+        this._color = value;
     }
 }
 
@@ -42,8 +42,8 @@ export class Pens {
     constructor(paint : glob.Paint) {
         this._paint = paint;
         
-        this._normalPen = new Pen(paint.brushes.Black, 3);
-        this._rubber = new Pen(paint.brushes.White, 10);
+        this._normalPen = new Pen(paint.colors.Black, 3);
+        this._rubber = new Pen(paint.colors.White, 10);
     }
     
     get NormalPen():Pen {

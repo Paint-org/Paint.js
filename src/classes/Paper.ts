@@ -48,13 +48,13 @@ export class Paper {
             this._context.lineTo(this._lastPoint.X, this._lastPoint.Y);
             this._started = true;
             this._context.lineWidth = this._paint.currentPen.width;
-            this._context.strokeStyle = this._paint.currentPen.brush.color;        
+            this._context.strokeStyle = this._paint.currentPen.color.toHex();        
         } else {
             this._isDrawing = true;
             this._started = false;
             
             this._context.lineWidth = this._paint.currentPen.width;
-            this._context.strokeStyle = this._paint.currentPen.brush.color;
+            this._context.strokeStyle = this._paint.currentPen.color.toHex();
         }
     }
     
