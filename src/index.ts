@@ -98,9 +98,9 @@ function attachPaperEvents() {
  */
 function preventWorkspaceScrollOnDrag() {
     var scrollX = 0, scrollY = 0, preventScroll = false;
-    $("#workspace").mousedown(function(){
-        scrollX = $(this).scrollLeft();
-        scrollY = $(this).scrollTop();
+    $("#paperWrapper").mousedown(function(){
+        scrollX = $("#workspace").scrollLeft();
+        scrollY = $("#workspace").scrollTop();
         preventScroll = true;
     });
     $("#workspace").scroll(function(){
