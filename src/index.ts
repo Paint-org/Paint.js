@@ -17,24 +17,6 @@ $(document).ready(function() {
     paint = new glob.Paint($);
     paint.document = document;
     
-    // Initialize resize handles
-    $("#paperWrapper").resizable({
-        handles: {
-            'e': '#egrip',
-            'se': '#segrip',
-            's': '#sgrip'
-        }
-    });
-    
-    $("#paperWrapper").width($("#paper").attr("width"));
-    $("#paperWrapper").height($("#paper").attr("height"));
-    $("#paperWrapper").resize(function() {
-        $("#paper").attr("width", $(this).width());
-        $("#paper").attr("height", $(this).height());
-        $("#pageDimensionX").text($("#paper").width());
-        $("#pageDimensionY").text($("#paper").height());        
-    });
-    
     // Set event listener on Paper
     attachPaperEvents();
     
@@ -69,6 +51,38 @@ $(document).ready(function() {
 function attachPaperEvents() {
     var canvas = paint.currentPaper.canvas;
     
+    // Initialize resize handles
+    var savedCanvas : HTMLCanvasElement;
+    $("#paperWrapper").resizable({
+        handles: {
+            'e': '#egrip',
+            'se': '#segrip',
+            's': '#sgrip'
+        },
+    
+        // Save canvas content before resizing
+        start: function(event, ui) {
+            savedCanvas = document.createElement('canvas');
+            savedCanvas.width = canvas.width;
+            savedCanvas.height = canvas.height;
+            savedCanvas.getContext('2d').drawImage(canvas, 0, 0);
+        }
+    })
+    
+    $("#paperWrapper").width($("#paper").attr("width"));
+    $("#paperWrapper").height($("#paper").attr("height"));
+    $("#paperWrapper").resize(function() {
+        $("#paper").attr("width", $(this).width());
+        $("#paper").attr("height", $(this).height());
+        $("#pageDimensionX").text($("#paper").width());
+        $("#pageDimensionY").text($("#paper").height()); 
+        
+        // Reload canvas content
+        paint.currentPaper.getContext().drawImage(savedCanvas, 0, 0);
+    });
+    
+    
+    
     $("#cursorPosition").hide();
     
     $(canvas).mouseenter(function(ev) {
@@ -76,7 +90,6 @@ function attachPaperEvents() {
     });
     
     $(document).mousemove(function(ev) {
-        
         var cord = paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
         
         if (ev.target === canvas) {
