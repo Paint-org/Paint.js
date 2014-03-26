@@ -9,47 +9,28 @@
         
         <title>ippeint</title>
     </head>
-    <body>                   
-        <table id="mainTable">
-            <thead>
-                <tr>
-                    <td style="height:100px;">
-				        <div id="topBar">
-				            <div>
-				                Primary color: <input type="color" id="toolColor1" value="#000000" />
-				                Secondary color: <input type="color" id="toolColor2" value="#ffffff" />
-				                Size: 1 <input type="range" id="toolSize" value="3" min="1" max="20" /> 20
-				            </div>
-				        </div>   
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <div id="workspace">
-                            <div id="paperWrapper">
-                                <canvas id="paper" width="400" height="200"></canvas>
-                                <div class="ui-resizable-handle ui-resizable-se" id="segrip"></div>
-                                <div class="ui-resizable-handle ui-resizable-s" id="sgrip"></div>
-                                <div class="ui-resizable-handle ui-resizable-e" id="egrip"></div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td style="height: 25px;">
-				        <div id="bottomBar">
-				            <span id="cursorPosition">
-				            	<span id="cursorPositionX"></span> &times; <span id="cursorPositionY"></span>
-				            </span>
-				        </div>                       
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-     
+    <body>
+       <div id="topBar">
+           <div>
+                Primary color: <input type="color" id="toolColor1" value="#000000" />
+                Secondary color: <input type="color" id="toolColor2" value="#ffffff" />
+                Size: 1 <input type="range" id="toolSize" value="3" min="1" max="20" /> 20
+           </div>
+       </div> 
+       <div id="mainSpace">
+           <div id="workspace" >
+               <div id="paperWrapper">
+                   <canvas id="paper" width="400" height="200"></canvas>
+                   <div class="ui-resizable-handle ui-resizable-se" id="segrip"></div>
+                   <div class="ui-resizable-handle ui-resizable-s" id="sgrip"></div>
+                   <div class="ui-resizable-handle ui-resizable-e" id="egrip"></div>
+               </div>
+           </div>
+          <div id="bottomBar">
+                <span id="cursorPosition">
+                    <span id="cursorPositionX"></span> &times; <span id="cursorPositionY"></span>
+                </span>
+            </div>     
+       </div>
     </body>
 </html>

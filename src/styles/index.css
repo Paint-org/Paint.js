@@ -1,6 +1,7 @@
 html, body {
     margin: 0;
     height: 100%;
+    overflow: hidden;
     font: 13px/1.4 Helvetica,arial,freesans,clean,sans-serif;
     -webkit-user-select: none;
     cursor: default;
@@ -10,24 +11,30 @@ tr, td {
     padding: 0;
 }
 
-#mainTable {
-    height: 100%;
-    width: 100%;
-    border-spacing: 0;  
+#mainSpace {
+    position: absolute; 
+    top: 100px; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
 }
 
 #workspace {
-    height: 100%;
+    position: absolute; 
+    top: 0; 
+    bottom: 25px; 
+    left: 0; 
+    right: 0;
     width: 100%;
+    overflow: auto;
     background: linear-gradient(to bottom, #C5CFDF, #DCE5F2);
     z-index: 1;
 }
 
 #topBar {
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
+    left: 0;
+    right: 0;
+    top: 0;
     height: 100px;
     background-color: #f5f6f7;
     border-bottom: 1px solid #dadbdc;
@@ -35,10 +42,10 @@ tr, td {
 }
 
 #bottomBar {
-	position: fixed;
-	left: 0;
-	right: 0;
-	bottom: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
     height: 25px;
     background-color: #f0f0f0;
     border-top: 1px solid #d7d7d7;
