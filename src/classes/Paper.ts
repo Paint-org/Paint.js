@@ -2,6 +2,7 @@
 
 import glob = require('./Global');
 import pt = require('./Point');
+import color = require('./Color');
 
 export class Paper {
     
@@ -37,7 +38,7 @@ export class Paper {
         return this._isDrawing;
     }
     
-    startDrawing():void {
+    startDrawing(color:color.Color, size:number):void {
         
         // if already drawing, then draw from _lastPoint to make
         // line continuos between mousemove point in canvas
@@ -47,15 +48,13 @@ export class Paper {
             this._context.beginPath();
             this._context.lineTo(this._lastPoint.X, this._lastPoint.Y);
             this._started = true;
-            this._context.lineWidth = this._paint.currentPen.width;
-            this._context.strokeStyle = this._paint.currentPen.color.toHex();        
         } else {
             this._isDrawing = true;
             this._started = false;
-            
-            this._context.lineWidth = this._paint.currentPen.width;
-            this._context.strokeStyle = this._paint.currentPen.color.toHex();
         }
+        
+        this._context.lineWidth = size;
+        this._context.strokeStyle = color.toHex();
     }
     
     /**

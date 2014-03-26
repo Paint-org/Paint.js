@@ -2,7 +2,6 @@
 /// <reference path="libs/jquery/jquery.d.ts" />
 /// <reference path="libs/jqueryui/jqueryui.d.ts" />
 
-import pen = require('./classes/Pen');
 import color = require('./classes/Color');
 import glob = require('./classes/Global');
 import pt = require('./classes/Point');
@@ -36,6 +35,19 @@ $(document).ready(function() {
     
     // Set event listener on Paper
     attachPaperEvents();
+    
+    $("#toolColor1").change(function(){
+        paint.primaryColor = new color.Color($(this).val());
+    });
+    
+    $("#toolColor2").change(function(){
+        paint.secondaryColor = new color.Color($(this).val());
+    });
+    
+    $("#toolSize").change(function(){
+        // FIXME L'evento change si verifica troppo tardi, quando ormai la startDrawing è stata chiamata.
+        paint.toolSize = parseInt($(this).val());
+    });
     
     // Registra il tool Pen
     paint.tools[toolPen.Pen.TOOL_NAME] = new toolPen.Pen(paint);

@@ -1,5 +1,4 @@
 import glob = require('../Global');
-import pen = require('../Pen');
 import color = require('../Color');
 import tool = require('./Tool');
    
@@ -20,10 +19,7 @@ export class Pen extends tool.Tool
         
         var curInstance = this;
         $("#btnPen").click(function() {
-            paint.currentPen = new pen.Pen(
-                new color.Color($("#penColor1").val()),
-                parseInt($("#penSize").val())
-            );
+            // FIXME Aggiornare i color e la width in event handlers appositi
             paint.currentTool = curInstance;
         });
     }
@@ -49,6 +45,10 @@ export class Pen extends tool.Tool
         
     }
     
+    inkColor() : color.Color {
+        return this.paint.primaryColor;
+    }
+    
     deactivated() {
         var $ = this.paint.$;
         var document = this.paint.document;
@@ -62,12 +62,12 @@ export class Pen extends tool.Tool
     }
     
     private canvas_mousedown(ev) {
-        this.paint.currentPaper.startDrawing();
+        this.paint.currentPaper.startDrawing(this.inkColor(), this.paint.toolSize);
     }
     
     private canvas_mouseenter(ev) {
         if (this.paint.currentPaper.isDrawing())
-            this.paint.currentPaper.startDrawing();
+            this.paint.currentPaper.startDrawing(this.inkColor(), this.paint.toolSize);
     }
     
     private document_mousemove(ev) {

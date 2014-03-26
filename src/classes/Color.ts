@@ -97,19 +97,7 @@ export class Color {
  */
 export class Colors {
 
-    private _black : Color;
-    private _white : Color;
+    public static White = new Color("#FFFFFF");
+    public static Black = new Color("#000000");
 
-    constructor() {
-        this._black = new Color("#000000");
-        this._white = new Color("#ffffff"); 
-    }
-    
-    get White():Color {
-        return this._white;
-    }
-    
-    get Black():Color {
-        return this._black;
-    }
 }

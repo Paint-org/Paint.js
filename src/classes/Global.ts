@@ -1,6 +1,5 @@
 /// <reference path="../libs/jquery/jquery.d.ts" />
 
-import pen = require('./Pen');
 import color = require('./Color');
 import paper = require('./Paper');
 import tool = require('./Tools/Tool');
@@ -16,24 +15,19 @@ export class Paint {
     public document : Document;
     public tools : { [index: string]: tool.Tool; } = {};
     
-    public colors : color.Colors;
-    public pens : pen.Pens;
-    
     public currentPaper : paper.Paper;
-    public currentPen : pen.Pen;
+    public primaryColor : color.Color;
+    public secondaryColor : color.Color;
+    public toolSize : number;
     
     private _currentTool : tool.Tool = null;
     
     constructor($ : JQueryStatic) {
         this._$ = $;
         
-        // Classe contenente colori principali
-        this.colors = new color.Colors();
-        this.pens = new pen.Pens(this);
-        
-        // Penna settata come brush di default
-        this.currentPen = this.pens.NormalPen;
         this.currentPaper = new paper.Paper(this);
+        this.primaryColor = color.Colors.Black;
+        this.secondaryColor = color.Colors.White;
     }
     
     get $():JQueryStatic {
