@@ -18,10 +18,9 @@ export class Pen extends tool.Tool
         var $ = paint.$;
         $("#topBar").append('<button id="btnPen">Pen</button>');
         
-        var curInstance = this;
-        $("#btnPen").click(function() {
-            paint.currentTool = curInstance;
-        });
+        $("#btnPen").click($.proxy(function() {
+            paint.currentTool = this;
+        }, this));
     }
     
     activated() {

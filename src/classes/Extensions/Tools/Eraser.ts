@@ -18,10 +18,9 @@ export class Eraser extends toolPen.Pen
         var $ = paint.$;
         $("#topBar").append('<button id="btnEraser">Eraser</button>');
         
-        var curInstance = this;
-        $("#btnEraser").click(function() {
-            paint.currentTool = curInstance;
-        });
+        $("#btnEraser").click($.proxy(function() {
+            paint.currentTool = this;
+        }, this));
     }
     
     inkColor() : color.Color {

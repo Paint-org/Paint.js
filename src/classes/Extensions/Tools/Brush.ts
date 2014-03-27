@@ -25,10 +25,9 @@ export class Brush extends tool.Tool
         var $ = paint.$;
         $("#topBar").append('<button id="btnBrush">Brush</button>');
         
-        var curInstance = this;
-        $("#btnBrush").click(function() {
-            paint.currentTool = curInstance;
-        });
+        $("#btnBrush").click($.proxy(function() {
+            paint.currentTool = this;
+        }, this));
     }
 
     activated() {
