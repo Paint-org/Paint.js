@@ -9,6 +9,7 @@ import tool = require('./classes/Extensions/Tools/Tool');
 import extension = require('./classes/Extensions/Extension');
 import toolPen = require('./classes/Extensions/Tools/Pen');
 import toolEraser = require('./classes/Extensions/Tools/Eraser');
+import toolBrush = require('./classes/Extensions/Tools/Brush');
 import extColorChooser = require('./classes/Extensions/ColorChooser');
 import extSizeChooser = require('./classes/Extensions/SizeChooser');
 
@@ -127,6 +128,10 @@ function loadExtensions() {
     paint.tools[toolEraser.Eraser.EXTENSION_NAME] = new toolEraser.Eraser(paint);
     paint.extensions[toolEraser.Eraser.EXTENSION_NAME] = paint.tools[toolEraser.Eraser.EXTENSION_NAME];
     paint.tools[toolEraser.Eraser.EXTENSION_NAME].init();
+    
+    // Setta il tool Brash
+    paint.extensions[toolBrush.Brush.EXTENSION_NAME] = new toolBrush.Brush(paint);
+    paint.extensions[toolBrush.Brush.EXTENSION_NAME].init();    
     
     // Setta il tool corrente
     paint.currentTool = paint.tools[toolPen.Pen.EXTENSION_NAME];

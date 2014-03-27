@@ -1,95 +1,95 @@
-html, body {
-    margin: 0;
-    height: 100%;
-    overflow: hidden;
-    font: 13px/1.4 Helvetica,arial,freesans,clean,sans-serif;
-    -webkit-user-select: none;
-    cursor: default;
+html,body {
+	margin: 0;
+	height: 100%;
+	overflow: hidden;
+	font: 13px/1.4 Helvetica, arial, freesans, clean, sans-serif;
+	-webkit-user-select: none;
+	cursor: default;
 }
 
-tr, td {
-    padding: 0;
+tr,td {
+	padding: 0;
 }
 
 #mainSpace {
-    position: absolute; 
-    top: 100px; 
-    bottom: 0; 
-    left: 0; 
-    right: 0;
+	position: absolute;
+	top: 100px;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
 #workspace {
-    position: absolute; 
-    top: 0; 
-    bottom: 25px; 
-    left: 0; 
-    right: 0;
-    width: 100%;
-    overflow: auto;
-    background: linear-gradient(to bottom, #C5CFDF, #DCE5F2);
-    z-index: 1;
+	position: absolute;
+	top: 0;
+	bottom: 25px;
+	left: 0;
+	right: 0;
+	width: 100%;
+	overflow: auto;
+	background: linear-gradient(to bottom, #C5CFDF, #DCE5F2);
+	z-index: 1;
 }
 
 #topBar {
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 100px;
-    background-color: #f5f6f7;
-    border-bottom: 1px solid #dadbdc;
-    z-index: 2;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 100px;
+	background-color: #f5f6f7;
+	border-bottom: 1px solid #dadbdc;
+	z-index: 2;
 }
 
 #bottomBar {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 25px;
-    display: -webkit-inline-box;
-    background-color: #f0f0f0;
-    border-top: 1px solid #d7d7d7;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 25px;
+	display: -webkit-inline-box;
+	background-color: #f0f0f0;
+	border-top: 1px solid #d7d7d7;
 }
 
-#bottomBar > span {
-    vertical-align: middle;
+#bottomBar>span {
+	vertical-align: middle;
 }
 
 #paper {
-    background: white;
-    box-shadow: 6px 6px 3px 0px rgba(50, 50, 50, 0.2);
+	background: white;
+	box-shadow: 6px 6px 3px 0px rgba(50, 50, 50, 0.2);
 }
 
 #paperWrapper {
-    display: inline-block;
-    margin: 5px 7px 7px 5px;
+	display: inline-block;
+	margin: 5px 7px 7px 5px;
 }
 
 .bottomIndicator {
 	width: 198px;
 	height: 26px;
-	border-right: solid 1px #D7D7D7;	
+	border-right: solid 1px #D7D7D7;
 }
 
-#segrip, #egrip, #sgrip {
-    width: 3px;
-    height: 3px;
-    background-color: #ffffff;
-    border: 1px solid #000000;
+#segrip,#egrip,#sgrip {
+	width: 3px;
+	height: 3px;
+	background-color: #ffffff;
+	border: 1px solid #000000;
 }
 
 #segrip {
-    bottom: -5px;
-    right: -5px;
+	bottom: -5px;
+	right: -5px;
 }
 
 #sgrip {
-    bottom: -5px;
-    left: 50%;
+	bottom: -5px;
+	left: 50%;
 }
 
 #egrip {
-    right: -5px;
-    top: 50%;
+	right: -5px;
+	top: 50%;
 }

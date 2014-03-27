@@ -15,4 +15,12 @@ export class Point {
     get Y():number {
         return this._y
     }
+    
+    distanceFrom(pt : Point) : number {
+        return Math.sqrt(Math.pow(this._x - pt.X, 2) + Math.pow(this._y - pt.Y, 2));
+    }
+    
+    angleFrom(pt : Point) : number {
+        return Math.atan2(this._x - pt.X, this._y - pt.Y);
+    }
 }

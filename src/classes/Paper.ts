@@ -24,7 +24,7 @@ export class Paper {
         this.canvas = <HTMLCanvasElement> this._paint.$('#paper')[0];
         this._context = this.canvas.getContext('2d');
     }
-      
+    
     getContext():CanvasRenderingContext2D {
         return this._context;
     }
@@ -38,7 +38,7 @@ export class Paper {
         return this._isDrawing;
     }
     
-    startDrawing(color:color.Color, size:number):void {
+    startDrawing(startPoint : pt.Point, color : color.Color, size : number) {
         
         // if already drawing, then draw from _lastPoint to make
         // line continuos between mousemove point in canvas
@@ -49,31 +49,23 @@ export class Paper {
             this._context.lineTo(this._lastPoint.X, this._lastPoint.Y);
             this._started = true;
         } else {
+            this._context.moveTo(startPoint.X, startPoint.Y);
+            this._context.beginPath();
             this._isDrawing = true;
             this._started = false;
         }
-        
+
         this._context.lineWidth = size;
-        this._context.strokeStyle = color.toHex();
+        this._context.strokeStyle = (color === null) ? "" : color.toHex();
     }
     
     /**
      * Draw on Paper
      */
-    draw(x:number, y:number):void {
-        if (this._isDrawing) {
-            if (!this._started) {
-
-              this._context.moveTo(x, y);
-              this._context.beginPath();
-              this._context.lineTo(x, y);
-              this._started = true;
-                
-            } else {
-              this._context.lineTo(x, y);
-              this._context.stroke();
-            }
-        }
+    draw(drawingFunction : (CanvasRenderingContext2D) => void):void {
+        
+        if (this._isDrawing)
+            drawingFunction(this._context);
     }
     
     /**
