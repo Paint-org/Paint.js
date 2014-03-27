@@ -8,6 +8,8 @@ import pt = require('./classes/Point');
 import tool = require('./classes/Extensions/Tools/Tool');
 import toolPen = require('./classes/Extensions/Tools/Pen');
 import toolEraser = require('./classes/Extensions/Tools/Eraser');
+import toolColorChooser = require('./classes/Extensions/Tools/ColorChooser');
+import toolSizeChooser = require('./classes/Extensions/Tools/SizeChooser');
 
 declare var paint:glob.Paint;
 
@@ -20,18 +22,7 @@ $(document).ready(function() {
     // Set event listener on Paper
     attachPaperEvents();
     
-    $("#toolColor1").change(function(){
-        paint.primaryColor = new color.Color($(this).val());
-    }).change();
-    
-    $("#toolColor2").change(function(){
-        paint.secondaryColor = new color.Color($(this).val());
-    }).change();
-    
-    $("#toolSize").change(function(){
-        paint.toolSize = parseInt($(this).val());
-    }).change();
-    
+    // Set event listener to prevent auto scroll while drawing
     preventWorkspaceScrollOnDrag();
     
     // Registra il tool Pen
@@ -42,6 +33,15 @@ $(document).ready(function() {
     paint.tools[toolEraser.Eraser.TOOL_NAME] = new toolEraser.Eraser(paint);
     paint.tools[toolEraser.Eraser.TOOL_NAME].init();
     
+    // Registra il tool ColorChooser per la scelta dei colori
+    paint.tools[toolColorChooser.ColorChooser.TOOL_NAME] = new toolColorChooser.ColorChooser(paint);
+    paint.tools[toolColorChooser.ColorChooser.TOOL_NAME].init();
+    
+    // Registra il tool SizeChooser per la scelta della dimensione
+    paint.tools[toolSizeChooser.SizeChooser.TOOL_NAME] = new toolSizeChooser.SizeChooser(paint);
+    paint.tools[toolSizeChooser.SizeChooser.TOOL_NAME].init();
+        
+    // Setta il tool corrente
     paint.currentTool = paint.tools[toolPen.Pen.TOOL_NAME];
 });
 
