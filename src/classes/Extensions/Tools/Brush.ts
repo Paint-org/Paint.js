@@ -86,15 +86,16 @@ export class Brush extends tool.Tool
     }
     
     private canvas_mousedown(ev : JQueryMouseEventObject) {
-        
-        this.lastPointDrawed = new point.Point(ev.offsetX, ev.offsetY)
+        var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+        this.lastPointDrawed = cord;
         this.paint.currentPaper.startDrawing(this.lastPointDrawed, null, null);
     }
     
     private canvas_mouseenter(ev : JQueryMouseEventObject) {
         
         if (this.paint.currentPaper.isDrawing()){
-            this.lastPointDrawed = new point.Point(ev.offsetX, ev.offsetY)
+            var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+            this.lastPointDrawed = cord;
             this.paint.currentPaper.startDrawing(this.lastPointDrawed, null, null);
         }
     }
@@ -102,7 +103,7 @@ export class Brush extends tool.Tool
     private document_mousemove(ev : JQueryMouseEventObject) {
         
         var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-        var newPoint = new point.Point(ev.offsetX, ev.offsetY);
+        var newPoint = cord;
         
         this.paint.currentPaper.recordOuterPoint(cord);
         

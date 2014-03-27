@@ -62,6 +62,7 @@ export class Pen extends tool.Tool
     
     /**
      * Gets function that draw on context
+     * \param pt point in canvas coordinates  
      */
     private getDrawingFunction(pt : point.Point) : (context : CanvasRenderingContext2D) => void {
 
@@ -72,12 +73,15 @@ export class Pen extends tool.Tool
     }
     
     private canvas_mousedown(ev : JQueryMouseEventObject) {
-        this.paint.currentPaper.startDrawing(new point.Point(ev.offsetX, ev.offsetY), this.inkColor(), this.paint.toolSize);
+        var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+        this.paint.currentPaper.startDrawing(new point.Point(cord.X, cord.Y), this.inkColor(), this.paint.toolSize);
     }
     
     private canvas_mouseenter(ev : JQueryMouseEventObject) {
-        if (this.paint.currentPaper.isDrawing())
-            this.paint.currentPaper.startDrawing(new point.Point(ev.offsetX, ev.offsetY), this.inkColor(), this.paint.toolSize);
+        if (this.paint.currentPaper.isDrawing()) {
+            var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+            this.paint.currentPaper.startDrawing(new point.Point(cord.X, cord.Y), this.inkColor(), this.paint.toolSize);
+        }
     }
     
     private document_mousemove(ev : JQueryMouseEventObject) {
@@ -88,7 +92,7 @@ export class Pen extends tool.Tool
             
             // Call draw passing local drawing function
             this.paint.currentPaper.draw(
-                this.getDrawingFunction(new point.Point(ev.offsetX, ev.offsetY))
+                this.getDrawingFunction(new point.Point(cord.X, cord.Y))
             );
     }
   

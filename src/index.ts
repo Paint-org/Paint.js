@@ -12,6 +12,7 @@ import toolEraser = require('./classes/Extensions/Tools/Eraser');
 import toolBrush = require('./classes/Extensions/Tools/Brush');
 import extColorChooser = require('./classes/Extensions/ColorChooser');
 import extSizeChooser = require('./classes/Extensions/SizeChooser');
+import extZoom = require('./classes/Extensions/Zoom');
 
 declare var paint:glob.Paint;
 
@@ -60,13 +61,12 @@ function attachPaperEvents() {
         }
     })
     
-    $("#paperWrapper").width($("#paper").attr("width"));
-    $("#paperWrapper").height($("#paper").attr("height"));
+    paint.currentPaper.Zoom = 1.0;
     $("#paperWrapper").resize(function() {
-        $("#paper").attr("width", $(this).width());
-        $("#paper").attr("height", $(this).height());
-        $("#pageDimensionX").text($("#paper").width());
-        $("#pageDimensionY").text($("#paper").height()); 
+        $("#paper").attr("width", $(this).width() / paint.currentPaper.Zoom);
+        $("#paper").attr("height", $(this).height() / paint.currentPaper.Zoom);
+        $("#pageDimensionX").text($(canvas).width());
+        $("#pageDimensionY").text($(canvas).height()); 
         
         // Reload canvas content
         paint.currentPaper.getContext().drawImage(savedCanvas, 0, 0);
@@ -84,8 +84,8 @@ function attachPaperEvents() {
         var cord = paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
         
         if (ev.target === canvas) {
-            $("#cursorPositionX").text(ev.offsetX);
-            $("#cursorPositionY").text(ev.offsetY);
+            $("#cursorPositionX").text(cord.X);
+            $("#cursorPositionY").text(cord.Y);
         }
     });
     
@@ -144,4 +144,8 @@ function loadExtensions() {
     // Registra l'estensione SizeChooser per la scelta della dimensione
     paint.extensions[extSizeChooser.SizeChooser.EXTENSION_NAME] = new extSizeChooser.SizeChooser(paint);
     paint.extensions[extSizeChooser.SizeChooser.EXTENSION_NAME].init();
+    
+    // Registra l'estensione Zoom
+    paint.extensions[extZoom.Zoom.EXTENSION_NAME] = new extZoom.Zoom(paint);
+    paint.extensions[extZoom.Zoom.EXTENSION_NAME].init();
 }
