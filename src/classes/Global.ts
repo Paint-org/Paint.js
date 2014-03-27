@@ -3,6 +3,7 @@
 import color = require('./Color');
 import paper = require('./Paper');
 import tool = require('./Extensions/Tools/Tool');
+import extension = require('./Extensions/Extension');
 
 /**
  * This class contains a reference to most of the global
@@ -13,6 +14,10 @@ export class Paint {
     private _$ : JQueryStatic;
     
     public document : Document;
+    
+    /** Insieme di tutte le estensioni caricate */
+    public extensions : { [index: string]: extension.Extension; } = {};
+    /** Sottoinsieme di 'extensions' che contiene solo le estensioni di tipo Tool */
     public tools : { [index: string]: tool.Tool; } = {};
     
     public currentPaper : paper.Paper;

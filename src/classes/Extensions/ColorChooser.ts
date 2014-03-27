@@ -1,10 +1,10 @@
-import glob = require('../../Global');
-import tool = require('./Tool');
-import color = require('../../Color');
+import glob = require('../Global');
+import extension = require('./Extension');
+import color = require('../Color');
 
-export class ColorChooser extends tool.Tool 
+export class ColorChooser extends extension.Extension 
 {
-    static TOOL_NAME : string = "ColorChooser";
+    static EXTENSION_NAME : string = "ColorChooser";
     paint : glob.Paint;
     
     inputPrimaryColor : HTMLInputElement;

@@ -4,7 +4,7 @@ import tool = require('./Tool');
    
 export class Pen extends tool.Tool
 {
-    static TOOL_NAME : string = "Pen";
+    static EXTENSION_NAME : string = "Pen";
     paint : glob.Paint;
     
     public constructor(paint:glob.Paint) {

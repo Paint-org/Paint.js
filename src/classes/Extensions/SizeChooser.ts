@@ -1,9 +1,9 @@
-import glob = require('../../Global');
-import tool = require('./Tool');
+import glob = require('../Global');
+import extension = require('./Extension');
 
-export class SizeChooser extends tool.Tool 
+export class SizeChooser extends extension.Extension
 {
-    static TOOL_NAME : string = "SizeChooser";
+    static EXTENSION_NAME : string = "SizeChooser";
     paint : glob.Paint;
     
     inputNode : HTMLInputElement;

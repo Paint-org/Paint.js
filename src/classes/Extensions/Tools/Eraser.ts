@@ -5,7 +5,7 @@ import toolPen = require('./Pen');
    
 export class Eraser extends toolPen.Pen
 {
-    static TOOL_NAME : string = "Eraser";
+    static EXTENSION_NAME : string = "Eraser";
     paint : glob.Paint;
     
     public constructor(paint:glob.Paint) {

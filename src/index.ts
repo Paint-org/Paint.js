@@ -6,10 +6,11 @@ import color = require('./classes/Color');
 import glob = require('./classes/Global');
 import pt = require('./classes/Point');
 import tool = require('./classes/Extensions/Tools/Tool');
+import extension = require('./classes/Extensions/Extension');
 import toolPen = require('./classes/Extensions/Tools/Pen');
 import toolEraser = require('./classes/Extensions/Tools/Eraser');
-import toolColorChooser = require('./classes/Extensions/Tools/ColorChooser');
-import toolSizeChooser = require('./classes/Extensions/Tools/SizeChooser');
+import extColorChooser = require('./classes/Extensions/ColorChooser');
+import extSizeChooser = require('./classes/Extensions/SizeChooser');
 
 declare var paint:glob.Paint;
 
@@ -25,24 +26,8 @@ $(document).ready(function() {
     // Set event listener to prevent auto scroll while drawing
     preventWorkspaceScrollOnDrag();
     
-    // Registra il tool Pen
-    paint.tools[toolPen.Pen.TOOL_NAME] = new toolPen.Pen(paint);
-    paint.tools[toolPen.Pen.TOOL_NAME].init();
-    
-    // Registra il tool Eraser
-    paint.tools[toolEraser.Eraser.TOOL_NAME] = new toolEraser.Eraser(paint);
-    paint.tools[toolEraser.Eraser.TOOL_NAME].init();
-    
-    // Registra il tool ColorChooser per la scelta dei colori
-    paint.tools[toolColorChooser.ColorChooser.TOOL_NAME] = new toolColorChooser.ColorChooser(paint);
-    paint.tools[toolColorChooser.ColorChooser.TOOL_NAME].init();
-    
-    // Registra il tool SizeChooser per la scelta della dimensione
-    paint.tools[toolSizeChooser.SizeChooser.TOOL_NAME] = new toolSizeChooser.SizeChooser(paint);
-    paint.tools[toolSizeChooser.SizeChooser.TOOL_NAME].init();
+    loadExtensions();
         
-    // Setta il tool corrente
-    paint.currentTool = paint.tools[toolPen.Pen.TOOL_NAME];
 });
 
 /**
@@ -125,4 +110,28 @@ function preventWorkspaceScrollOnDrag() {
     $(document).mouseup(function(){
         preventScroll = false;
     });
+}
+
+function loadExtensions() {
+    // Registra il tool Pen
+    paint.tools[toolPen.Pen.EXTENSION_NAME] = new toolPen.Pen(paint);
+    paint.extensions[toolPen.Pen.EXTENSION_NAME] = paint.tools[toolPen.Pen.EXTENSION_NAME];
+    paint.tools[toolPen.Pen.EXTENSION_NAME].init();
+    
+    // Registra il tool Eraser
+    paint.tools[toolEraser.Eraser.EXTENSION_NAME] = new toolEraser.Eraser(paint);
+    paint.extensions[toolEraser.Eraser.EXTENSION_NAME] = paint.tools[toolEraser.Eraser.EXTENSION_NAME];
+    paint.tools[toolEraser.Eraser.EXTENSION_NAME].init();
+    
+    // Setta il tool corrente
+    paint.currentTool = paint.tools[toolPen.Pen.EXTENSION_NAME];
+    
+    
+    // Registra l'estensione ColorChooser per la scelta dei colori
+    paint.extensions[extColorChooser.ColorChooser.EXTENSION_NAME] = new extColorChooser.ColorChooser(paint);
+    paint.extensions[extColorChooser.ColorChooser.EXTENSION_NAME].init();
+    
+    // Registra l'estensione SizeChooser per la scelta della dimensione
+    paint.extensions[extSizeChooser.SizeChooser.EXTENSION_NAME] = new extSizeChooser.SizeChooser(paint);
+    paint.extensions[extSizeChooser.SizeChooser.EXTENSION_NAME].init();
 }

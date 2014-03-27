@@ -8,7 +8,7 @@ import extension = require('../Extension');
  */
 export class Tool extends extension.Extension
 {
-    static TOOL_NAME : string = "";
+    static EXTENSION_NAME : string = "";
 
     constructor(paint:glob.Paint) {
         super(paint);
