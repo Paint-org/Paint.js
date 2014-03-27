@@ -51,6 +51,11 @@ function attachPaperEvents() {
             savedCanvas.width = canvas.width;
             savedCanvas.height = canvas.height;
             savedCanvas.getContext('2d').drawImage(canvas, 0, 0);
+        },
+        
+        stop: function(event, ui) {
+            // Restore default cursor
+            $("body").css('cursor', '');
         }
     })
     
