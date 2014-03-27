@@ -21,7 +21,7 @@ $(document).ready(function() {
     // Initialize global object containing Paper and Brush up to now
     paint = new glob.Paint($);
     paint.document = document;
-    
+
     // Set event listener on Paper
     attachPaperEvents();
     

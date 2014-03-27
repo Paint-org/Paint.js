@@ -1,7 +1,5 @@
 import glob = require('../../../Global');
-import color = require('../../../Color');
 import drawTool = require('./DrawingTool');
-import toolPen = require('./Pen');
 import point = require('../../../Point');
 
 export class Brush extends drawTool.DrawingTool
@@ -18,6 +16,8 @@ export class Brush extends drawTool.DrawingTool
         
         this.brush = paint.document.createElement('img');
         this.brush.src = "classes/Extensions/Tools/DrawingTools/brush21.png";
+        this.brush.width = 1;
+        this.brush.height = 1;
     }
     
     init() {
@@ -44,20 +44,20 @@ export class Brush extends drawTool.DrawingTool
             angle = this.lastPointDrawed.angleFrom(newPoint),
             brush = this.brush,
             lastPoint = this.lastPointDrawed,
-            halfBrushW = this.brush.width / 2,
-            halfBrushH = this.brush.height / 2;
+            halfBrushW = this.brush.width * this.paint.toolSize / 2,
+            halfBrushH = this.brush.height * this.paint.toolSize / 2;
         
-        return function(context : CanvasRenderingContext2D) {
+        return this.paint.$.proxy(function(context : CanvasRenderingContext2D) {
             var x,y;
  
             for ( var z = 0; (z <= distance || z == 0); z++ ) {
                 x = lastPoint.X + (Math.sin(angle) * z) - halfBrushW;
                 y = lastPoint.Y + (Math.cos(angle) * z) - halfBrushH;
-                context.drawImage(brush, x, y);
+                context.drawImage(brush, x, y, this.paint.toolSize * this.brush.width, this.paint.toolSize * this.brush.height);
             }
-        }
+        }, this);
     }
-    
+       
     canvas_mousedown(ev : JQueryMouseEventObject) {
         super.canvas_mousedown(ev);
         
@@ -67,9 +67,9 @@ export class Brush extends drawTool.DrawingTool
     
     canvas_mouseenter(ev : JQueryMouseEventObject) {
        if (this.paint.currentPaper.isDrawing()){
-            var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-            this.lastPointDrawed = cord;
-            this.paint.currentPaper.startDrawing(this.lastPointDrawed, null, null);
+           var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+           this.lastPointDrawed = cord;
+           this.paint.currentPaper.startDrawing(this.lastPointDrawed, null, null);
         }
     }
 

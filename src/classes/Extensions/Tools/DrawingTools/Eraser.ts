@@ -1,7 +1,6 @@
 import glob = require('../../../Global');
 import color = require('../../../Color');
 import point = require('../../../Point');
-import tool = require('./../Tool');
 import drawTool = require('./DrawingTool');
    
 export class Eraser extends drawTool.DrawingTool

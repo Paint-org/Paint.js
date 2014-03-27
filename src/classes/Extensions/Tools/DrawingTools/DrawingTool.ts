@@ -18,7 +18,6 @@ export class DrawingTool extends tool.Tool
         var $ = paint.$;
         var document = paint.document;
         
-        
         // Load context
         var canvas = paint.currentPaper.canvas;
     
@@ -89,6 +88,5 @@ export class DrawingTool extends tool.Tool
         
     document_mouseup(ev) {
         this.paint.currentPaper.stopDrawing();
-    }
-    
+    }  
 }
