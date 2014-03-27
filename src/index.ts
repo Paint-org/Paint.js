@@ -5,9 +5,9 @@
 import color = require('./classes/Color');
 import glob = require('./classes/Global');
 import pt = require('./classes/Point');
-import tool = require('./classes/Tools/Tool');
-import toolPen = require('./classes/Tools/Pen');
-import toolEraser = require('./classes/Tools/Eraser');
+import tool = require('./classes/Extensions/Tools/Tool');
+import toolPen = require('./classes/Extensions/Tools/Pen');
+import toolEraser = require('./classes/Extensions/Tools/Eraser');
 
 declare var paint:glob.Paint;
 

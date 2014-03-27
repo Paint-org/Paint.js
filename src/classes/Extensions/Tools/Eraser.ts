@@ -1,5 +1,5 @@
-import glob = require('../Global');
-import color = require('../Color');
+import glob = require('../../Global');
+import color = require('../../Color');
 import tool = require('./Tool');
 import toolPen = require('./Pen');
    

@@ -1,5 +1,5 @@
-import glob = require('../Global');
-import color = require('../Color');
+import glob = require('../../Global');
+import color = require('../../Color');
 import tool = require('./Tool');
    
 export class Pen extends tool.Tool
