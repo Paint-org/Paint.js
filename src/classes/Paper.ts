@@ -13,7 +13,6 @@ export class Paper {
     private _started = false;
     
     private _lastPoint : pt.Point;
-    
     private _zoom : number = 1;
     
     public canvas : HTMLCanvasElement;
@@ -33,8 +32,8 @@ export class Paper {
     
     pageXYtoCanvasXY(x:number, y:number) : pt.Point {
         return new pt.Point(
-            Math.round((x - this._paint.$(this.canvas).parent().offset().left) / this._zoom),
-            Math.round((y - this._paint.$(this.canvas).parent().offset().top) / this._zoom)
+          Math.round((x - this._paint.$(this.canvas).parent().offset().left) / this._zoom),
+          Math.round((y - this._paint.$(this.canvas).parent().offset().top) / this._zoom)
         );
     }
     
@@ -154,15 +153,16 @@ export class Paper {
      * Imposta lo zoom del canvas (default = 1)
      */
     set Zoom(value:number) {
+
         var $ = this._paint.$;
         this._zoom = value;
+
         $(this.canvas).css('zoom', (value * 100) + '%');
         $("#paperWrapper").width(parseInt($(this.canvas).attr("width")) * value);
         $("#paperWrapper").height(parseInt($(this.canvas).attr("height")) * value);
     }
-    
+
     get Zoom() : number {
         return this._zoom;    
-    }
-    
+    }    
 }

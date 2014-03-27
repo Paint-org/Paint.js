@@ -7,9 +7,9 @@ import glob = require('./classes/Global');
 import pt = require('./classes/Point');
 import tool = require('./classes/Extensions/Tools/Tool');
 import extension = require('./classes/Extensions/Extension');
-import toolPen = require('./classes/Extensions/Tools/Pen');
-import toolEraser = require('./classes/Extensions/Tools/Eraser');
-import toolBrush = require('./classes/Extensions/Tools/Brush');
+import toolPen = require('./classes/Extensions/Tools/DrawingTools/Pen');
+import toolEraser = require('./classes/Extensions/Tools/DrawingTools/Eraser');
+import toolBrush = require('./classes/Extensions/Tools/DrawingTools/Brush');
 import extColorChooser = require('./classes/Extensions/ColorChooser');
 import extSizeChooser = require('./classes/Extensions/SizeChooser');
 import extZoom = require('./classes/Extensions/Zoom');
@@ -62,6 +62,7 @@ function attachPaperEvents() {
     })
     
     paint.currentPaper.Zoom = 1.0;
+  
     $("#paperWrapper").resize(function() {
         $("#paper").attr("width", $(this).width() / paint.currentPaper.Zoom);
         $("#paper").attr("height", $(this).height() / paint.currentPaper.Zoom);
@@ -84,8 +85,8 @@ function attachPaperEvents() {
         var cord = paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
         
         if (ev.target === canvas) {
-            $("#cursorPositionX").text(cord.X);
-            $("#cursorPositionY").text(cord.Y);
+           $("#cursorPositionX").text(cord.X);
+           $("#cursorPositionY").text(cord.Y);
         }
     });
     
@@ -136,7 +137,6 @@ function loadExtensions() {
     // Setta il tool corrente
     paint.currentTool = paint.tools[toolPen.Pen.EXTENSION_NAME];
     
-    
     // Registra l'estensione ColorChooser per la scelta dei colori
     paint.extensions[extColorChooser.ColorChooser.EXTENSION_NAME] = new extColorChooser.ColorChooser(paint);
     paint.extensions[extColorChooser.ColorChooser.EXTENSION_NAME].init();
@@ -146,6 +146,7 @@ function loadExtensions() {
     paint.extensions[extSizeChooser.SizeChooser.EXTENSION_NAME].init();
     
     // Registra l'estensione Zoom
+
     paint.extensions[extZoom.Zoom.EXTENSION_NAME] = new extZoom.Zoom(paint);
-    paint.extensions[extZoom.Zoom.EXTENSION_NAME].init();
+    paint.extensions[extZoom.Zoom.EXTENSION_NAME].init();    
 }
