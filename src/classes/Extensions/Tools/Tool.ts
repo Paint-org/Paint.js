@@ -9,9 +9,11 @@ import extension = require('../Extension');
 export class Tool extends extension.Extension
 {
     static EXTENSION_NAME : string = "";
+    paint : glob.Paint;
 
     constructor(paint:glob.Paint) {
         super(paint);
+        this.paint = paint;
     }
     
     init() {
@@ -30,5 +32,24 @@ export class Tool extends extension.Extension
      */
     deactivated() {
         
+    }
+    
+    /**
+     * Adds an icon inside the toolbar, in the tools category.
+     * \returns The id of the new HTML element.
+     */
+    addToolbarToolItem(icon, text:string) : string {
+        var $ = this.paint.$;
+        
+        var escapedStr = $('<div />').text(text).html();
+        var id = extension.Extension.getNewHtmlId();
+        
+        $("#tools").append('<button id="' + id + '">' + escapedStr + '</button>');
+        
+        $("#" + id).click($.proxy(function() {
+            this.paint.currentTool = this;
+        }, this));
+        
+        return id;
     }
 }

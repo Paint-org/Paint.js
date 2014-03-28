@@ -14,13 +14,7 @@ export class Pen extends drawTool.DrawingTool
     }
     
     init() {
-        var paint = this.paint;
-        var $ = paint.$;
-        $("#topBar").append('<button id="btnPen">Pen</button>');
-        
-        $("#btnPen").click($.proxy(function() {
-            paint.currentTool = this;
-        }, this));
+        this.addToolbarToolItem(null, "Pen");
     }
 
     activated() {

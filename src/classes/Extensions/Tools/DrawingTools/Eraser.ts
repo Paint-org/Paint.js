@@ -14,13 +14,7 @@ export class Eraser extends drawTool.DrawingTool
     }
     
     init() {
-        var paint = this.paint;
-        var $ = paint.$;
-        $("#topBar").append('<button id="btnEraser">Eraser</button>');
-        
-        $("#btnEraser").click($.proxy(function() {
-            paint.currentTool = this;
-        }, this));
+        this.addToolbarToolItem(null, "Eraser");
     }
     
     activated() {

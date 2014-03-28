@@ -21,13 +21,7 @@ export class Brush extends drawTool.DrawingTool
     }
     
     init() {
-        var paint = this.paint;
-        var $ = paint.$;
-        $("#topBar").append('<button id="btnBrush">Brush</button>');
-        
-        $("#btnBrush").click($.proxy(function() {
-            paint.currentTool = this;
-        }, this));
+        this.addToolbarToolItem(null, "Brush");
     }
     
     activated() {
