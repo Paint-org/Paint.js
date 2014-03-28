@@ -42,7 +42,7 @@ export class Tool extends extension.Extension
         var $ = this.paint.$;
         
         var escapedStr = $('<div />').text(text).html();
-        var id = extension.Extension.getNewHtmlId();
+        var id = extension.Extension.getUniqueHtmlId();
         
         $("#tools").append('<button id="' + id + '">' + escapedStr + '</button>');
         
