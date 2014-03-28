@@ -83,7 +83,7 @@ export class DrawingTool extends tool.Tool
   
     canvas_mouseleave(ev) {
         var point = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-        this.paint.currentPaper.exitFromPaper(point);
+        this.paint.currentPaper.exitFromPaper(this.paint.$.proxy(this.getDrawingFunction(point),this));
     }
         
     document_mouseup(ev) {

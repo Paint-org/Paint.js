@@ -34,6 +34,9 @@ export class Brush extends drawTool.DrawingTool
      */
     getDrawingFunction(newPoint : point.Point) : (context : CanvasRenderingContext2D) => void {
 
+        if (!this.lastPointDrawed) 
+            return function() {};
+        
         var distance = this.lastPointDrawed.distanceFrom(newPoint),
             angle = this.lastPointDrawed.angleFrom(newPoint),
             brush = this.brush,
@@ -54,25 +57,20 @@ export class Brush extends drawTool.DrawingTool
        
     canvas_mousedown(ev : JQueryMouseEventObject) {
         super.canvas_mousedown(ev);
-        
-        var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-        this.lastPointDrawed = cord;
+        this.lastPointDrawed = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
     }
     
     canvas_mouseenter(ev : JQueryMouseEventObject) {
        if (this.paint.currentPaper.isDrawing()){
-           var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-           this.lastPointDrawed = cord;
+           this.lastPointDrawed = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
            this.paint.currentPaper.startDrawing(this.lastPointDrawed, null, null);
         }
     }
 
     document_mousemove(ev : JQueryMouseEventObject) {
         
-        var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-        var newPoint = cord;
-        
-        this.paint.currentPaper.recordOuterPoint(cord);
+        var newPoint = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+        this.paint.currentPaper.recordOuterPoint(newPoint);
         
         if (ev.target === this.paint.currentPaper.canvas && this.paint.currentPaper.isDrawing()) {
             
