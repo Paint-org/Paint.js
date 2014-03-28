@@ -17,9 +17,11 @@ export class Zoom extends extension.Extension
         var paint = this.paint;
         var $ = this.paint.$;
         
-        $("#topBar").append('Zoom: <input type="range" id="zoom" value="100" min="1" max="400" />');
+        var indicator = $('<div />').append('<input type="range" id="ext-zoom" value="100" min="1" max="400" />');
         
-        this.inputNode = <HTMLInputElement> $('#zoom')[0];
+        this.addCustomIndicatorItem(indicator[0], 0);
+        
+        this.inputNode = <HTMLInputElement> $('#ext-zoom')[0];
         
         $(this.inputNode).on("change", $.proxy(this.zoomChanged, this)).change();
     }
