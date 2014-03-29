@@ -1,5 +1,5 @@
-ippeint
-=======
+Paint.JS
+========
 
 Compile
 -------
