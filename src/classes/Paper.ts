@@ -82,11 +82,10 @@ export class Paper {
     /**
      * When exit from Paper close the path
      */
-    exitFromPaper(point : pt.Point):void {
+    exitFromPaper(drawingFunction : (CanvasRenderingContext2D) => void):void {
 
         if (this.isDrawing()) {
-            this._context.lineTo(point.X, point.Y);
-            this._context.stroke();
+            drawingFunction(this._context);
             this._context.closePath();
         }
     }
