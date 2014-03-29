@@ -98,6 +98,33 @@ export class Paper {
     recordOuterPoint(point : pt.Point) {
         this._lastPoint = point;
     }
+    
+    getPixelMatrix() : number[][][] {
+        console.time("getPixelMatrix");
+        var imgd = this._context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+        var pix = imgd.data;
+        var width = imgd.width;
+        var height = imgd.height;
+        
+        var matrix : number[][][] = new Array(height);
+        for(var i = 0; i < height; i++) {
+            matrix[i] = new Array(width);
+
+            var rowpix = i * width;
+            for(var j = 0; j < width; j++) {
+                var component = rowpix + j*4;
+                
+                matrix[i][j] = [
+                    pix[component],
+                    pix[component+1],
+                    pix[component+2]
+                ];
+            }
+        }
+        
+        console.timeEnd("getPixelMatrix");
+        return matrix;
+    }
 
     /*fillPosition(x:number, y:number, color:string):void {
         var imgd = this._context.getImageData(0, 0, this.canvas.width-1, this.canvas.height-1);

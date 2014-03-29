@@ -25,7 +25,6 @@ export class Brush extends drawTool.DrawingTool
     }
     
     activated() {
-        console.log("Registrazione del tool Brush");
         super.activated();
     }
         

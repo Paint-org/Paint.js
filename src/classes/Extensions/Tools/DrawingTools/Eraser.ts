@@ -18,7 +18,6 @@ export class Eraser extends drawTool.DrawingTool
     }
     
     activated() {
-        console.log("Registrazione del tool Eraser");
         super.activated();
     }
     

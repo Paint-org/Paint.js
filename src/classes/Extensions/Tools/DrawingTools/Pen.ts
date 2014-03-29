@@ -18,7 +18,6 @@ export class Pen extends drawTool.DrawingTool
     }
 
     activated() {
-        console.log("Registrazione del tool Pen");
         super.activated();
     }    
     
