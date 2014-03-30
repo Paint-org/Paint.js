@@ -130,9 +130,10 @@ function loadExtensions() {
     paint.extensions[toolEraser.Eraser.EXTENSION_NAME] = paint.tools[toolEraser.Eraser.EXTENSION_NAME];
     paint.tools[toolEraser.Eraser.EXTENSION_NAME].init();
     
-    // Setta il tool Brash
-    paint.extensions[toolBrush.Brush.EXTENSION_NAME] = new toolBrush.Brush(paint);
-    paint.extensions[toolBrush.Brush.EXTENSION_NAME].init();    
+    // Setta il tool Brush
+    paint.tools[toolBrush.Brush.EXTENSION_NAME] = new toolBrush.Brush(paint);
+    paint.extensions[toolBrush.Brush.EXTENSION_NAME] = paint.tools[toolBrush.Brush.EXTENSION_NAME];
+    paint.tools[toolBrush.Brush.EXTENSION_NAME].init();    
     
     // Setta il tool corrente
     paint.currentTool = paint.tools[toolPen.Pen.EXTENSION_NAME];
@@ -146,7 +147,6 @@ function loadExtensions() {
     paint.extensions[extSizeChooser.SizeChooser.EXTENSION_NAME].init();
     
     // Registra l'estensione Zoom
-
     paint.extensions[extZoom.Zoom.EXTENSION_NAME] = new extZoom.Zoom(paint);
     paint.extensions[extZoom.Zoom.EXTENSION_NAME].init();    
 }
