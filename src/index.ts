@@ -14,9 +14,12 @@ import extColorChooser = require('./classes/Extensions/ColorChooser');
 import extSizeChooser = require('./classes/Extensions/SizeChooser');
 import extZoom = require('./classes/Extensions/Zoom');
 
-declare var paint:glob.Paint;
+declare var File;
+declare var FileList;
 
-var saveFileDialog = $('<input id="saveAs" type="file" nwsaveas accept=".png" />')[0];
+var paint:glob.Paint;
+
+var saveFileDialog = <HTMLInputElement> $('<input id="saveAs" type="file" nwsaveas accept=".png" />')[0];
 
 $(document).ready(function() {
    
@@ -123,9 +126,15 @@ function preventWorkspaceScrollOnDrag() {
     });
 }
 
-function chooseFile(dialog, callback) {
+function chooseFile(dialog:HTMLInputElement, callback) {
+    // Reset the FileDialog so that we can receive *change* events
+    // even when the file stays the same.
+    var fl = new FileList();
+    fl.append(new File('', ''));
+    fl.append(new File('', 'no_file_selected_...\|/*?'));
+    dialog.files = fl;
+    
     var chooser = $(dialog);
-    //chooser.val("\|/?*");
     
     var change = function(evt) {
         console.log("called " + $(this).val());
@@ -134,12 +143,11 @@ function chooseFile(dialog, callback) {
     }
     
     chooser.on("change", change);
-
     chooser.trigger('click');
 }
 
 function createMenu()
-{
+{    
     $("#btnSave").click(function(){
         chooseFile(saveFileDialog, function(file) {
             if(file != "") {
