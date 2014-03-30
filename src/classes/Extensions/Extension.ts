@@ -24,11 +24,17 @@ export class Extension {
     
     /**
      * Adds a custom indicator in the status bar.
+     * \param item HTMLElement to add to the status bar
+     * \param priority specifies the relative position in the statusbar. Currently not implemented. FIXME.
+     * \param autoWidth specifies if the indicator space width will be auto sized to the content.
      */
-    addCustomIndicatorItem(item:HTMLElement, priority:number) : void {
+    addCustomIndicatorItem(item:HTMLElement, priority:number, autoWidth:boolean) : void {
         var $ = this.paint.$;
         
-        var indicator = $('<div class="bottomIndicator" />').append(item);
+        var indicator = $('<div class="bottomIndicator" />').append($("<span />").append(item));
+        if(autoWidth) {
+            indicator.css("width", "auto");
+        }
         $("#bottomBar").append(indicator);
     }
     
