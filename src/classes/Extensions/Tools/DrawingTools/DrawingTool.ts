@@ -6,6 +6,7 @@ import color = require('../../../Color');
 export class DrawingTool extends tool.Tool
 {
     paint : glob.Paint;
+    private _lastPoint : point.Point = null;
     
     constructor(paint : glob.Paint){
         super(paint);
@@ -47,31 +48,60 @@ export class DrawingTool extends tool.Tool
     }
     
     /**
-     * Gets function that draw on context
+     * Called when user starts drawing
+     */
+    onStartDrawing(point : point.Point) {
+    
+    }
+    
+    /**
+     * Called when user stops drawing
+     */
+    onStopDrawing() {
+    
+    }
+    
+    /**
+     * Called when the user is drawing and the mouse,
+     * gone outside the canvas, gets back in.
+     */
+    onDrawFromOutside() {
+        
+    }
+    
+    get lastPoint() : point.Point {
+        return this._lastPoint;
+    }
+    
+    set lastPoint(value:point.Point) {
+        this._lastPoint = value;
+    }
+    
+    /** Gets function that draw on context
+     *  \param pt point in canvas coordinates  
      */
     getDrawingFunction(pt : point.Point) : (context : CanvasRenderingContext2D) => void {
-
-        return function(context : CanvasRenderingContext2D) {
-            context.lineTo(pt.X, pt.Y);
-            context.stroke(); 
-        }
+        throw "Cannot call this method directly. Please extend DrawingTool and implement this method in your class.";
     }
 
     canvas_mousedown(ev : JQueryMouseEventObject) {
         var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-        this.paint.currentPaper.startDrawing(new point.Point(cord.X, cord.Y), this.inkColor(), this.paint.toolSize);   
+        this.paint.currentPaper.startDrawing(new point.Point(cord.X, cord.Y), this.inkColor(), this.paint.toolSize);
+        this.onStartDrawing(new point.Point(cord.X, cord.Y));
     }
 
     canvas_mouseenter(ev : JQueryMouseEventObject) {
         if (this.paint.currentPaper.isDrawing()) {
             var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
             this.paint.currentPaper.startDrawing(new point.Point(cord.X, cord.Y), this.inkColor(), this.paint.toolSize);
+            this.onDrawFromOutside();
         }
     }
     
     document_mousemove(ev : JQueryMouseEventObject) {
         var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
         this.paint.currentPaper.recordOuterPoint(cord);
+        this._lastPoint = cord;
         
         if (ev.target === this.paint.currentPaper.canvas)
             
@@ -88,5 +118,6 @@ export class DrawingTool extends tool.Tool
         
     document_mouseup(ev) {
         this.paint.currentPaper.stopDrawing();
+        this.onStopDrawing();
     }  
 }
