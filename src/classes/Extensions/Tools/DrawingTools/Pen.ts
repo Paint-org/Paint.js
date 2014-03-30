@@ -29,6 +29,9 @@ export class Pen extends drawTool.DrawingTool
     onStartDrawing(point : point.Point) {
         super.onStartDrawing(point);
         this._lastPt = null;
+        this.paint.currentPaper.draw(
+            this.getDrawingFunction(point)
+        );
     }
     
     onDrawFromOutside() {

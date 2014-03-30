@@ -7,7 +7,7 @@ export class Brush extends drawTool.DrawingTool
     static EXTENSION_NAME : string = "Brush";
     paint : glob.Paint;
     
-    lastPointDrawed : point.Point;
+    _lastPt : point.Point = null;
     brush : HTMLImageElement;
     
     public constructor(paint:glob.Paint) {
@@ -27,21 +27,39 @@ export class Brush extends drawTool.DrawingTool
     activated() {
         super.activated();
     }
+    
+    onStartDrawing(point : point.Point) {
+        super.onStartDrawing(point);
+        this._lastPt = point;
+        this.paint.currentPaper.draw(
+            this.getDrawingFunction(this._lastPt)
+        );
+    }
+    
+    onStopDrawing() {
+        this._lastPt = null;
+    }
+    
+    onDrawFromOutside() {
+        //this._lastPt = null;
+    }
         
     /**
      * Gets function that draw on context
      */
     getDrawingFunction(newPoint : point.Point) : (context : CanvasRenderingContext2D) => void {
 
-        if (!this.lastPointDrawed) 
+        if (this._lastPt === null) 
             return function() {};
         
-        var distance = this.lastPointDrawed.distanceFrom(newPoint),
-            angle = this.lastPointDrawed.angleFrom(newPoint),
+        var distance = this._lastPt.distanceFrom(newPoint),
+            angle = this._lastPt.angleFrom(newPoint),
             brush = this.brush,
-            lastPoint = this.lastPointDrawed,
+            lastPoint = this._lastPt,
             halfBrushW = this.brush.width * this.paint.toolSize / 2,
             halfBrushH = this.brush.height * this.paint.toolSize / 2;
+        
+        this._lastPt = newPoint;
         
         return this.paint.$.proxy(function(context : CanvasRenderingContext2D) {
             var x,y;
@@ -52,38 +70,5 @@ export class Brush extends drawTool.DrawingTool
                 context.drawImage(brush, x, y, this.paint.toolSize * this.brush.width, this.paint.toolSize * this.brush.height);
             }
         }, this);
-    }
-       
-    canvas_mousedown(ev : JQueryMouseEventObject) {
-        super.canvas_mousedown(ev);
-        this.lastPointDrawed = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-    }
-    
-    canvas_mouseenter(ev : JQueryMouseEventObject) {
-       if (this.paint.currentPaper.isDrawing()){
-           this.lastPointDrawed = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-           this.paint.currentPaper.startDrawing(this.lastPointDrawed, null, null);
-        }
-    }
-
-    document_mousemove(ev : JQueryMouseEventObject) {
-        
-        var newPoint = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-        this.paint.currentPaper.recordOuterPoint(newPoint);
-        
-        if (ev.target === this.paint.currentPaper.canvas && this.paint.currentPaper.isDrawing()) {
-            
-            // Call draw passing local drawing function
-            this.paint.currentPaper.draw(
-                this.getDrawingFunction(newPoint)
-            );
-            
-            this.lastPointDrawed = newPoint;
-        }
-    }
-    
-    document_mouseup(ev) {
-        super.document_mouseup(ev);
-        this.lastPointDrawed = null;
     }
 }
