@@ -7,28 +7,30 @@ import glob = require('./classes/Global');
 import pt = require('./classes/Point');
 import tool = require('./classes/Extensions/Tools/Tool');
 import extension = require('./classes/Extensions/Extension');
+
 import toolPen = require('./classes/Extensions/Tools/DrawingTools/Pen');
 import toolEraser = require('./classes/Extensions/Tools/DrawingTools/Eraser');
 import toolBrush = require('./classes/Extensions/Tools/DrawingTools/Brush');
+
 import extColorChooser = require('./classes/Extensions/ColorChooser');
 import extSizeChooser = require('./classes/Extensions/SizeChooser');
 import extZoom = require('./classes/Extensions/Zoom');
+import extImageSaver = require('./classes/Extensions/ImageSaver');
 
 // node-webkit requires
 var gui = require('nw.gui');
+var paint:glob.Paint;
 
 declare var File;
 declare var FileList;
-
-var paint:glob.Paint;
-
-var saveFileDialog = <HTMLInputElement> $('<input id="saveAs" type="file" nwsaveas accept=".png" />')[0];
 
 $(document).ready(function() {
    
     // Initialize global object containing Paper and Brush up to now
     paint = new glob.Paint($);
     paint.document = document;
+    paint.File = File;
+    paint.FileList = FileList;
 
     // Set event listener on Paper
     attachPaperEvents();
@@ -36,8 +38,10 @@ $(document).ready(function() {
     // Set event listener to prevent auto scroll while drawing
     preventWorkspaceScrollOnDrag();
     
+    // Create Application Menu
     createMenu();
     
+    // Load Extensions and Tools
     loadExtensions();
         
 });
@@ -83,8 +87,6 @@ function attachPaperEvents() {
         paint.currentPaper.getContext().drawImage(savedCanvas, 0, 0);
     });
     
-    
-    
     $("#cursorPosition").hide();
     
     $(canvas).mouseenter(function(ev) {
@@ -129,48 +131,13 @@ function preventWorkspaceScrollOnDrag() {
     });
 }
 
-function chooseFile(dialog:HTMLInputElement, callback) {
-    // Reset the FileDialog so that we can receive *change* events
-    // even when the file stays the same.
-    var fl = new FileList();
-    fl.append(new File('', ''));
-    fl.append(new File('', 'no_file_selected_...\|/*?'));
-    dialog.files = fl;
-    
-    
-    var chooser = $(dialog);
-    
-    var change = function(evt) {
-        console.log("called " + $(this).val());
-        $(this).off("change", change);
-        callback($(this).val());
-    }
-    
-    chooser.on("change", change);
-    chooser.trigger('click');
-}
-
 function createMenu()
 {
     var menu = new gui.Menu({ type: 'menubar' });
     
     var mnuFile = new gui.MenuItem({ label: 'File', submenu: new gui.Menu() });
     menu.append(mnuFile);
-    
-    var mnuSave = new gui.MenuItem({ label: 'Save' })
-    mnuSave.click = function() {
-        chooseFile(saveFileDialog, function(file) {
-            if(file != "") {
-                paint.currentPaper.save(file, function(err) {
-                    if(err) {
-                        console.log(err);
-                    }
-                });
-            }
-        });
-    }
-    mnuFile.submenu.append(mnuSave);
-    
+
     gui.Window.get().menu = menu;
 }
 
@@ -203,5 +170,9 @@ function loadExtensions() {
     
     // Registra l'estensione Zoom
     paint.extensions[extZoom.Zoom.EXTENSION_NAME] = new extZoom.Zoom(paint);
-    paint.extensions[extZoom.Zoom.EXTENSION_NAME].init();    
+    paint.extensions[extZoom.Zoom.EXTENSION_NAME].init();
+    
+    // Registra l'estensione ImageSaver
+    paint.extensions[extImageSaver.ImageSaver.EXTENSION_NAME] = new extImageSaver.ImageSaver(paint);
+    paint.extensions[extImageSaver.ImageSaver.EXTENSION_NAME].init();
 }

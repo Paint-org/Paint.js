@@ -24,7 +24,9 @@ export class Paint {
     public primaryColor : color.Color;
     public secondaryColor : color.Color;
     public toolSize : number;
-    
+    public File;
+    public FileList;
+        
     private _currentTool : tool.Tool = null;
     
     constructor($ : JQueryStatic) {
