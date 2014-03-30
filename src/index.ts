@@ -14,6 +14,9 @@ import extColorChooser = require('./classes/Extensions/ColorChooser');
 import extSizeChooser = require('./classes/Extensions/SizeChooser');
 import extZoom = require('./classes/Extensions/Zoom');
 
+// node-webkit requires
+var gui = require('nw.gui');
+
 declare var File;
 declare var FileList;
 
@@ -134,6 +137,7 @@ function chooseFile(dialog:HTMLInputElement, callback) {
     fl.append(new File('', 'no_file_selected_...\|/*?'));
     dialog.files = fl;
     
+    
     var chooser = $(dialog);
     
     var change = function(evt) {
@@ -147,8 +151,14 @@ function chooseFile(dialog:HTMLInputElement, callback) {
 }
 
 function createMenu()
-{    
-    $("#btnSave").click(function(){
+{
+    var menu = new gui.Menu({ type: 'menubar' });
+    
+    var mnuFile = new gui.MenuItem({ label: 'File', submenu: new gui.Menu() });
+    menu.append(mnuFile);
+    
+    var mnuSave = new gui.MenuItem({ label: 'Save' })
+    mnuSave.click = function() {
         chooseFile(saveFileDialog, function(file) {
             if(file != "") {
                 paint.currentPaper.save(file, function(err) {
@@ -158,8 +168,10 @@ function createMenu()
                 });
             }
         });
-
-    });  
+    }
+    mnuFile.submenu.append(mnuSave);
+    
+    gui.Window.get().menu = menu;
 }
 
 function loadExtensions() {
