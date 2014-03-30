@@ -57,7 +57,7 @@ export class Pen extends drawTool.DrawingTool
             // Disegna un cerchio sul punto finale
             context.beginPath();
             context.arc(pt.X, pt.Y, _this.paint.toolSize / 2, 0, 2 * Math.PI, false);
-            context.fillStyle = 'black';
+            context.fillStyle = _this.inkColor();
             context.fill();
             
             context.moveTo(pt.X, pt.Y);
