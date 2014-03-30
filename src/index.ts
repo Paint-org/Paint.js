@@ -84,7 +84,7 @@ function attachPaperEvents() {
         $("#pageDimensionY").text($(canvas).height()); 
         
         // Reload canvas content
-        paint.currentPaper.getContext().drawImage(savedCanvas, 0, 0);
+        paint.currentPaper.restoreImage(savedCanvas);
     });
     
     $("#cursorPosition").hide();

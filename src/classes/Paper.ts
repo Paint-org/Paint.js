@@ -24,6 +24,8 @@ export class Paper {
         
         this.canvas = <HTMLCanvasElement> this._paint.$('#paper')[0];
         this._context = this.canvas.getContext('2d');
+        
+        this.fillBackground(color.Colors.White);
     }
     
     getContext():CanvasRenderingContext2D {
@@ -198,5 +200,15 @@ export class Paper {
         
         var fs = require('fs');
         fs.writeFile(filename, image, "base64", callback); 
+    }
+    
+    private fillBackground(color : color.Color) {
+        this._context.fillStyle = color.toHex();
+        this._context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+    
+    restoreImage(savedCanvas : HTMLCanvasElement) { 
+        this.fillBackground(color.Colors.White);
+        this.getContext().drawImage(savedCanvas, 0, 0);
     }
 }
