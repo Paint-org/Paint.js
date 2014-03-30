@@ -54,13 +54,14 @@ export class Pen extends drawTool.DrawingTool
             context.lineTo(pt.X, pt.Y);
             context.stroke();
             
-            // Disegna un cerchio sul punto finale
-            context.beginPath();
-            context.arc(pt.X, pt.Y, _this.paint.toolSize / 2, 0, 2 * Math.PI, false);
-            context.fillStyle = _this.inkColor().toHex();
-            context.fill();
-            
-            context.moveTo(pt.X, pt.Y);
+            if(_this.paint.toolSize > 2) {
+                // Disegna un cerchio sul punto finale
+                context.beginPath();
+                context.arc(pt.X, pt.Y, _this.paint.toolSize / 2, 0, 2 * Math.PI, false);
+                context.fillStyle = _this.inkColor().toHex();
+                context.fill();
+                context.moveTo(pt.X, pt.Y);
+            }
             
             _this._lastPt = pt;
         }
