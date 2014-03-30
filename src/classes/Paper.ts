@@ -190,5 +190,13 @@ export class Paper {
 
     get Zoom() : number {
         return this._zoom;    
-    }    
+    }
+    
+    save(filename, callback) {
+        var image = this.canvas.toDataURL();
+        image = image.replace(/^data:image\/png;base64,/,"");
+        
+        var fs = require('fs');
+        fs.writeFile(filename, image, "base64", callback); 
+    }
 }

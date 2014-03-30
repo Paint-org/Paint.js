@@ -16,6 +16,8 @@ import extZoom = require('./classes/Extensions/Zoom');
 
 declare var paint:glob.Paint;
 
+var saveFileDialog = $('<input id="saveAs" type="file" nwsaveas accept=".png" />')[0];
+
 $(document).ready(function() {
    
     // Initialize global object containing Paper and Brush up to now
@@ -27,6 +29,8 @@ $(document).ready(function() {
     
     // Set event listener to prevent auto scroll while drawing
     preventWorkspaceScrollOnDrag();
+    
+    createMenu();
     
     loadExtensions();
         
@@ -117,6 +121,37 @@ function preventWorkspaceScrollOnDrag() {
     $(document).mouseup(function(){
         preventScroll = false;
     });
+}
+
+function chooseFile(dialog, callback) {
+    var chooser = $(dialog);
+    //chooser.val("\|/?*");
+    
+    var change = function(evt) {
+        console.log("called " + $(this).val());
+        $(this).off("change", change);
+        callback($(this).val());
+    }
+    
+    chooser.on("change", change);
+
+    chooser.trigger('click');
+}
+
+function createMenu()
+{
+    $("#btnSave").click(function(){
+        chooseFile(saveFileDialog, function(file) {
+            if(file != "") {
+                paint.currentPaper.save(file, function(err) {
+                    if(err) {
+                        console.log(err);
+                    }
+                });
+            }
+        });
+
+    });  
 }
 
 function loadExtensions() {
