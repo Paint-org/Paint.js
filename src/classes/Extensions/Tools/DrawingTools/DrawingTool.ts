@@ -84,13 +84,13 @@ export class DrawingTool extends tool.Tool
         throw "Cannot call this method directly. Please extend DrawingTool and implement this method in your class.";
     }
 
-    canvas_mousedown(ev : JQueryMouseEventObject) {
+    private canvas_mousedown(ev : JQueryMouseEventObject) {
         var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
         this.paint.currentPaper.startDrawing(new point.Point(cord.X, cord.Y), this.inkColor(), this.paint.toolSize);
         this.onStartDrawing(new point.Point(cord.X, cord.Y));
     }
 
-    canvas_mouseenter(ev : JQueryMouseEventObject) {
+    private canvas_mouseenter(ev : JQueryMouseEventObject) {
         if (this.paint.currentPaper.isDrawing()) {
             var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
             this.paint.currentPaper.startDrawing(new point.Point(cord.X, cord.Y), this.inkColor(), this.paint.toolSize);
@@ -98,7 +98,7 @@ export class DrawingTool extends tool.Tool
         }
     }
     
-    document_mousemove(ev : JQueryMouseEventObject) {
+    private document_mousemove(ev : JQueryMouseEventObject) {
         var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
         this.paint.currentPaper.recordOuterPoint(cord);
         this._lastPoint = cord;
@@ -111,12 +111,12 @@ export class DrawingTool extends tool.Tool
             );
     }
   
-    canvas_mouseleave(ev) {
+    private canvas_mouseleave(ev) {
         var point = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
         this.paint.currentPaper.exitFromPaper(this.paint.$.proxy(this.getDrawingFunction(point),this));
     }
         
-    document_mouseup(ev) {
+    private document_mouseup(ev) {
         this.paint.currentPaper.stopDrawing();
         this.onStopDrawing();
     }  
