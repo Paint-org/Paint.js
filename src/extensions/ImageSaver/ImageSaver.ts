@@ -12,7 +12,7 @@ export class ImageSaver extends extension.Extension
     paint : glob.Paint;
     gui;
     
-    saveFileDialog : HTMLInputElement;
+    private saveFileDialog : HTMLInputElement;
     
     public constructor(paint:glob.Paint) {
         super(paint);

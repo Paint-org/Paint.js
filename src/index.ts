@@ -5,17 +5,17 @@
 import color = require('./classes/Color');
 import glob = require('./classes/Global');
 import pt = require('./classes/Point');
-import tool = require('./classes/Extensions/Tools/Tool');
-import extension = require('./classes/Extensions/Extension');
+import tool = require('./classes/Tool');
+import extension = require('./classes/Extension');
 
-import toolPen = require('./classes/Extensions/Tools/DrawingTools/Pen');
-import toolEraser = require('./classes/Extensions/Tools/DrawingTools/Eraser');
-import toolBrush = require('./classes/Extensions/Tools/DrawingTools/Brush');
+import toolPen = require('./extensions/Pen/Pen');
+import toolEraser = require('./extensions/Eraser/Eraser');
+import toolBrush = require('./extensions/Brush/Brush');
 
-import extColorChooser = require('./classes/Extensions/ColorChooser');
-import extSizeChooser = require('./classes/Extensions/SizeChooser');
-import extZoom = require('./classes/Extensions/Zoom');
-import extImageSaver = require('./classes/Extensions/ImageSaver');
+import extColorChooser = require('./extensions/ColorChooser/ColorChooser');
+import extSizeChooser = require('./extensions/SizeChooser/SizeChooser');
+import extZoom = require('./extensions/Zoom/Zoom');
+import extImageSaver = require('./extensions/ImageSaver/ImageSaver');
 
 // node-webkit requires
 var gui = require('nw.gui');
