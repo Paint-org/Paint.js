@@ -30,7 +30,7 @@ export class ColorChooser extends extension.Extension
         
         // set event handlers
         $(this.inputPrimaryColor).on("change", $.proxy(this.setPrimaryColor, this)).change();
-        $(this.inputPrimaryColor).on("change", $.proxy(this.setSecondaryColor, this)).change();
+        $(this.inputSecondaryColor).on("change", $.proxy(this.setSecondaryColor, this)).change();
     }
     
     /**

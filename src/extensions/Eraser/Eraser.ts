@@ -22,7 +22,7 @@ export class Eraser extends drawTool.DrawingTool
     }
     
     inkColor() : color.Color {
-        return color.Colors.White;
+        return this.paint.secondaryColor;
     }
     
     /**
