@@ -1,6 +1,6 @@
-import glob = require('../../../Global');
-import drawTool = require('./DrawingTool');
-import point = require('../../../Point');
+import glob = require('../../classes/Global');
+import drawTool = require('../../classes/DrawingTool');
+import point = require('../../classes/Point');
 
 export class Brush extends drawTool.DrawingTool
 {
@@ -15,7 +15,7 @@ export class Brush extends drawTool.DrawingTool
         this.paint = paint;
         
         this.brush = paint.document.createElement('img');
-        this.brush.src = "classes/Extensions/Tools/DrawingTools/brush21.png";
+        this.brush.src = "./brush21.png";
         this.brush.width = 1;
         this.brush.height = 1;
     }

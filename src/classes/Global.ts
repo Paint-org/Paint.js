@@ -2,8 +2,8 @@
 
 import color = require('./Color');
 import paper = require('./Paper');
-import tool = require('./Extensions/Tools/Tool');
-import extension = require('./Extensions/Extension');
+import tool = require('./Tool');
+import extension = require('./Extension');
 
 /**
  * This class contains a reference to most of the global

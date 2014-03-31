@@ -1,7 +1,7 @@
-import glob = require('../../../Global');
-import tool = require('../Tool');
-import point = require('../../../Point');
-import color = require('../../../Color');
+import glob = require('./Global');
+import tool = require('./Tool');
+import point = require('./Point');
+import color = require('./Color');
 
 export class DrawingTool extends tool.Tool
 {
