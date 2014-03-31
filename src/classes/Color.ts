@@ -13,8 +13,14 @@ export class Color {
         return this._hexColor;
     }
     
-    toRGB() : string {
-        return this._rgbColor;
+    toRGB() : {R:number; G:number; B:number} {
+        var col = this._hexColor.substring(1,7);
+        
+        return {
+            R: parseInt(col.substring(0,2), 16),
+            G: parseInt(col.substring(2,4), 16),
+            B: parseInt(col.substring(4,6), 16)
+        };
     }
     
     static fromRGB(red:number, green:number, blue:number) : Color {

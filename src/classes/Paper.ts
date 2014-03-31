@@ -3,6 +3,7 @@
 import glob = require('./Global');
 import pt = require('./Point');
 import color = require('./Color');
+import matrix = require('./Matrix');
 
 export class Paper {
     
@@ -100,13 +101,14 @@ export class Paper {
         this._lastPoint = point;
     }
     
-    getPixelMatrix() : number[][][] {
-        console.time("getPixelMatrix");
-        var imgd = this._context.getImageData(0, 0, this.canvas.width, this.canvas.height);
-        var pix = imgd.data;
-        var width = imgd.width;
-        var height = imgd.height;
+    getPixelMatrix() : matrix.Matrix {
         
+        var imgd = this._context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+        var matr = new matrix.Matrix(imgd.data, imgd.width, imgd.height);
+        
+        return matr;
+        
+        /*
         var matrix : number[][][] = new Array(height);
         for(var i = 0; i < height; i++) {
             matrix[i] = new Array(width);
@@ -122,9 +124,10 @@ export class Paper {
                 ];
             }
         }
-        
-        console.timeEnd("getPixelMatrix");
+
+        return new matrix.Matrix(pix, width, height);
         return matrix;
+         */
     }
 
     /*fillPosition(x:number, y:number, color:string):void {
@@ -173,9 +176,10 @@ export class Paper {
      * Converts from a XY representation to a single-index matrix
      * representation (going left->right, top->down).
      */
-    private xyToIndex(x:number, y:number, width:number):number {
+    /*private xyToIndex(x:number, y:number, width:number):number {
         return y*width + x;
     }
+    */
     
     /**
      * Imposta lo zoom del canvas (default = 1)
