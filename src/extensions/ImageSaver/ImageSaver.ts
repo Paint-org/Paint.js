@@ -1,8 +1,8 @@
 /// <reference path="../../libs/node/node.d.ts" />
 /// <reference path="../../libs/jquery/jquery.d.ts" />
 
-import glob = require('../Global');
-import extension = require('./Extension');
+import glob = require('../../classes/Global');
+import extension = require('../../classes/Extension');
 
 var gui = global.window.nwDispatcher.requireNwGui();
 

@@ -1,8 +1,8 @@
-import glob = require('../../../Global');
-import color = require('../../../Color');
-import point = require('../../../Point');
-import drawTool = require('./DrawingTool');
-   
+import glob = require('../../classes/Global');
+import color = require('../../classes/Color');
+import point = require('../../classes/Point');
+import drawTool = require('../../classes/DrawingTool');
+
 export class Eraser extends drawTool.DrawingTool
 {
     static EXTENSION_NAME : string = "Eraser";

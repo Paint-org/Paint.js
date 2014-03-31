@@ -1,3 +1,4 @@
 /src/*.js
 /src/classes/**/*.js
+/src/extensions/**/*.js
 .project

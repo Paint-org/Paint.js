@@ -1,6 +1,6 @@
-import glob = require('../Global');
-import extension = require('./Extension');
-import color = require('../Color');
+import glob = require('../../classes/Global');
+import extension = require('../../classes/Extension');
+import color = require('../../classes/Color');
 
 export class ColorChooser extends extension.Extension 
 {

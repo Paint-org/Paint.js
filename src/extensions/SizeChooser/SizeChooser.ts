@@ -1,5 +1,5 @@
-import glob = require('../Global');
-import extension = require('./Extension');
+import glob = require('../../classes/Global');
+import extension = require('../../classes/Extension');
 
 export class SizeChooser extends extension.Extension
 {

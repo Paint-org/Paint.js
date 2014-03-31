@@ -1,5 +1,5 @@
-import glob = require('../../Global');
-import extension = require('../Extension');
+import glob = require('./Global');
+import extension = require('./Extension');
 
 /**
  * A Tool is an instrument that the user uses to do an action on the canvas.

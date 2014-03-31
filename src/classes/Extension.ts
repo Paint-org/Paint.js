@@ -1,4 +1,4 @@
-import glob = require('../Global');
+import glob = require('./Global');
 
 export class Extension {
     static EXTENSION_NAME : string = "";
