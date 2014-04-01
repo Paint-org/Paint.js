@@ -47,27 +47,27 @@ export class DrawingTool extends tool.Tool
     /**
      * Called when user starts drawing
      */
-    onStartDrawing(point : point.Point) {
+    onStartDrawing(paper:paper.Paper, point:point.Point) {
     
     }
     
-    onDraw(paper : paper.Paper, point : point.Point) {
+    onDraw(paper:paper.Paper, point:point.Point) {
     
     }
     
     /**
      * Called when user stops drawing
      */
-    onStopDrawing() {
+    onStopDrawing(paper:paper.Paper, point:point.Point) {
     
     }
     
     private drawing = false;
 
     private canvas_mousedown(ev : JQueryMouseEventObject) {
-        var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
         this.drawing = true;
-        this.onStartDrawing(new point.Point(cord.X, cord.Y));
+        var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+        this.onStartDrawing(this.paint.currentPaper, cord);
     }
     
     private document_mousemove(ev : JQueryMouseEventObject) {
@@ -79,6 +79,7 @@ export class DrawingTool extends tool.Tool
         
     private document_mouseup(ev) {
         this.drawing = false;
-        this.onStopDrawing();
+        var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+        this.onStopDrawing(this.paint.currentPaper, cord);
     }  
 }

@@ -23,15 +23,11 @@ export class Pen extends drawTool.DrawingTool
         super.activated();
     }
     
-    inkColor() : color.Color {
-        return this.paint.primaryColor;
-    }
-    
-    onStartDrawing(point : point.Point) {
-        super.onStartDrawing(point);
+    onStartDrawing(paper:paper.Paper, point:point.Point) {
+        super.onStartDrawing(paper, point);
         this._lastPt = null;
         
-        var context = this.paint.currentPaper.getContext(); // FIXME Farsi passare il paper dai parametri
+        var context = paper.getContext();
         context.lineWidth = this.paint.toolSize;
         context.strokeStyle = this.paint.primaryColor.HexString;
         context.beginPath();
@@ -39,7 +35,9 @@ export class Pen extends drawTool.DrawingTool
         this.onDraw(this.paint.currentPaper, point);
     }
     
-    onDraw(paper : paper.Paper, point : point.Point) {
+    onDraw(paper:paper.Paper, point:point.Point) {
+        super.onDraw(paper, point);
+        
         var context = paper.getContext();
         
         if (this._lastPt !== null) {
@@ -59,8 +57,8 @@ export class Pen extends drawTool.DrawingTool
         this._lastPt = point;
     }
     
-    onStopDrawing() {
-        var context = this.paint.currentPaper.getContext(); // FIXME Farsi passare il paper dai parametri
-        context.closePath();
+    onStopDrawing(paper:paper.Paper, point:point.Point) {
+        super.onStopDrawing(paper, point);
+        paper.getContext().closePath();
     }
 }

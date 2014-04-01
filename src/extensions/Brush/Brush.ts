@@ -1,6 +1,7 @@
 import glob = require('../../classes/Global');
 import drawTool = require('../../classes/DrawingTool');
 import point = require('../../classes/Point');
+import paper = require('../../classes/Paper');
 
 export class Brush extends drawTool.DrawingTool
 {
@@ -28,47 +29,43 @@ export class Brush extends drawTool.DrawingTool
         super.activated();
     }
     
-    onStartDrawing(point : point.Point) {
-        super.onStartDrawing(point);
+    onStartDrawing(paper:paper.Paper, point:point.Point) {
+        super.onStartDrawing(paper, point);
         this._lastPt = point;
         
-        var context = this.paint.currentPaper.getContext(); // FIXME farsi passare oggetto paper
-        this.getDrawingFunction(this._lastPt)(context);
+        var context = paper.getContext();
+        this.onDraw(paper, point);
     }
     
-    onStopDrawing() {
+    onStopDrawing(paper:paper.Paper, point:point.Point) {
+        super.onStopDrawing(paper, point);
         this._lastPt = null;
-    }
-    
-    onDrawFromOutside() {
-        //this._lastPt = null;
     }
         
     /**
      * Gets function that draw on context
      */
-    getDrawingFunction(newPoint : point.Point) : (context : CanvasRenderingContext2D) => void {
-
+    onDraw(paper:paper.Paper, point:point.Point) {
+        var context = paper.getContext();
+        
         if (this._lastPt === null) 
             return function() {};
         
-        var distance = this._lastPt.distanceFrom(newPoint),
-            angle = this._lastPt.angleFrom(newPoint),
+        var distance = this._lastPt.distanceFrom(point),
+            angle = this._lastPt.angleFrom(point),
             brush = this.brush,
             lastPoint = this._lastPt,
             halfBrushW = this.brush.width * this.paint.toolSize / 2,
             halfBrushH = this.brush.height * this.paint.toolSize / 2;
         
-        this._lastPt = newPoint;
-        
-        return this.paint.$.proxy(function(context : CanvasRenderingContext2D) {
-            var x,y;
+        this._lastPt = point;
+
+        var x,y;
  
-            for ( var z = 0; (z <= distance || z == 0); z++ ) {
-                x = lastPoint.X + (Math.sin(angle) * z) - halfBrushW;
-                y = lastPoint.Y + (Math.cos(angle) * z) - halfBrushH;
-                context.drawImage(brush, x, y, this.paint.toolSize * this.brush.width, this.paint.toolSize * this.brush.height);
-            }
-        }, this);
+        for ( var z = 0; (z <= distance || z == 0); z++ ) {
+            x = lastPoint.X + (Math.sin(angle) * z) - halfBrushW;
+            y = lastPoint.Y + (Math.cos(angle) * z) - halfBrushH;
+            context.drawImage(brush, x, y, this.paint.toolSize * this.brush.width, this.paint.toolSize * this.brush.height);
+        }
     }
 }
