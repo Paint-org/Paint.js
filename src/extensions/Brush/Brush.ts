@@ -31,9 +31,9 @@ export class Brush extends drawTool.DrawingTool
     onStartDrawing(point : point.Point) {
         super.onStartDrawing(point);
         this._lastPt = point;
-        this.paint.currentPaper.draw(
-            this.getDrawingFunction(this._lastPt)
-        );
+        
+        var context = this.paint.currentPaper.getContext(); // FIXME farsi passare oggetto paper
+        this.getDrawingFunction(this._lastPt)(context);
     }
     
     onStopDrawing() {
