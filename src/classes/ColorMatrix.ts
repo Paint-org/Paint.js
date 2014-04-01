@@ -22,12 +22,11 @@ export class ColorMatrix
     }
     
     setValue(x : number, y : number, value : color.Color) {
-        var coord = this.translateCoordinates(x, y),
-            rgb = value.toRGB();
+        var coord = this.translateCoordinates(x, y);
                 
-        this.data[coord] = rgb.R,
-        this.data[coord + 1] = rgb.G,
-        this.data[coord + 2] = rgb.B;
+        this.data[coord] = value.R,
+        this.data[coord + 1] = value.G,
+        this.data[coord + 2] = value.B;
     }
     
     /**

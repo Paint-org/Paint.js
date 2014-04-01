@@ -26,7 +26,7 @@ export class Paper {
         this.canvas = <HTMLCanvasElement> this._paint.$('#paper')[0];
         this._context = this.canvas.getContext('2d');
         
-        this.fillBackground(color.Colors.White);
+        this.fillBackground(color.Color.White);
     }
     
     getContext():CanvasRenderingContext2D {
@@ -63,7 +63,7 @@ export class Paper {
         }
 
         this._context.lineWidth = size;
-        this._context.strokeStyle = (color === null) ? "" : color.toHex();
+        this._context.strokeStyle = (color === null) ? "" : color.HexString;
     }
     
     /**
@@ -136,12 +136,12 @@ export class Paper {
     }
     
     private fillBackground(color : color.Color) {
-        this._context.fillStyle = color.toHex();
+        this._context.fillStyle = color.HexString;
         this._context.fillRect(0, 0, this.canvas.width, this.canvas.height);
     }
     
     restoreImage(savedCanvas : HTMLCanvasElement) { 
-        this.fillBackground(color.Colors.White);
+        this.fillBackground(color.Color.White);
         this.getContext().drawImage(savedCanvas, 0, 0);
     }
 }

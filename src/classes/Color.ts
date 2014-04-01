@@ -1,28 +1,61 @@
 /// <reference path="../libs/jquery/jquery.d.ts" />
 
+/**
+ * A read-only type representing a Color.
+ */
 export class Color {
     
+    // Color in string representations 
     private _hexColor : string;
     private _rgbColor : string;
+    
+    // Color components
+    private _R : number;
+    private _G : number;
+    private _B : number;
     
     constructor(color : string) {
         this.parseColor(color);
     }
     
-    toHex() : string {
+    /**
+     * The color in the format #rrggbb
+     */
+    get HexString() : string {
         return this._hexColor;
     }
     
-    toRGB() : {R:number; G:number; B:number} {
-        var col = this._hexColor.substring(1,7);
-        
-        return {
-            R: parseInt(col.substring(0,2), 16),
-            G: parseInt(col.substring(2,4), 16),
-            B: parseInt(col.substring(4,6), 16)
-        };
+    /**
+     * The color in the format rgb(r,g,b)
+     */
+    get RGBString() : string {
+        return this._rgbColor;
     }
     
+    /**
+     * Red component
+     */
+    get R() : number {
+        return this._R;
+    }
+    
+    /**
+     * Green component
+     */
+    get G() : number {
+        return this._G;
+    }
+    
+    /**
+     * Blue component
+     */
+    get B() : number {
+        return this._B;
+    }
+    
+    /**
+     * Returns a color built with the specified RGB components. 
+     */
     static fromRGB(red:number, green:number, blue:number) : Color {
         return new Color(Color.rgbComponentsToHex(red, green, blue));
     }
@@ -40,6 +73,11 @@ export class Color {
         
         else // TODO decidere cosa fare in questo caso
             throw new Error('Malformed color');
+        
+        var col = this._hexColor.substring(1,7);
+        this._R = parseInt(col.substring(0,2), 16);
+        this._G = parseInt(col.substring(2,4), 16);
+        this._B = parseInt(col.substring(4,6), 16);
     }
     
     /**
@@ -103,14 +141,18 @@ export class Color {
            (g.length == 1 ? "0"+ g : g) +
            (b.length == 1 ? "0"+ b : b));   
     }
-}
-
-/**
- * A set of Brushes.
- */
-export class Colors {
-
-    public static White = new Color("#FFFFFF");
-    public static Black = new Color("#000000");
-
+    
+    
+    
+    /* Static colors.
+     * Given that Color is a read-only type, we initialize once for all the
+     * static variables (_White, _Black, ...) and provide a reference to them
+     * through a read-only property.
+     */
+    
+    private static _White = new Color("#FFFFFF");
+    static get White() : Color { return Color._White; }
+    
+    private static _Black = new Color("#000000");
+    static get Black() : Color { return Color._Black; }
 }

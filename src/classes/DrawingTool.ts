@@ -44,7 +44,7 @@ export class DrawingTool extends tool.Tool
     }
 
     inkColor() : color.Color {
-        return color.Colors.Black;
+        return color.Color.Black;
     }
     
     /**

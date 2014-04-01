@@ -33,8 +33,8 @@ export class Paint {
         this._$ = $;
         
         this.currentPaper = new paper.Paper(this);
-        this.primaryColor = color.Colors.Black;
-        this.secondaryColor = color.Colors.White;
+        this.primaryColor = color.Color.Black;
+        this.secondaryColor = color.Color.White;
     }
     
     get $():JQueryStatic {
