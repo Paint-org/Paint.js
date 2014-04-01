@@ -23,4 +23,8 @@ export class Point {
     angleFrom(pt : Point) : number {
         return Math.atan2(this._x - pt.X, this._y - pt.Y);
     }
+    
+    equals(pt : Point) : boolean {
+        return (this.X === pt.X && this.Y === pt.Y);
+    }
 }
