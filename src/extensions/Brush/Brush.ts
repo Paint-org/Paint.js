@@ -51,17 +51,14 @@ export class Brush extends drawTool.DrawingTool
         if (this._lastPt === null || this._lastPt.equals(point)) 
             return;
         
-        
-        console.log('(' + this._lastPt.X + ', ' + this._lastPt.Y + ') -> (' + point.X + ', ' + point.Y + ')');
-        
         var distance = this._lastPt.distanceFrom(point),
             angle = this._lastPt.angleFrom(point);
         
         var sinAngle = (point.X - this._lastPt.X) / distance,
             cosAngle = (point.Y - this._lastPt.Y) / distance;
         
-        var x = this._lastPt.X //- this.brush.width * this.paint.toolSize / 2;
-        var y = this._lastPt.Y //- this.brush.height * this.paint.toolSize / 2;
+        var x = this._lastPt.X - this.brush.width * this.paint.toolSize / 2;
+        var y = this._lastPt.Y - this.brush.height * this.paint.toolSize / 2;
          
         // Update last point
         this._lastPt = point;
@@ -74,7 +71,6 @@ export class Brush extends drawTool.DrawingTool
                 this.paint.toolSize * this.brush.width, 
                 this.paint.toolSize * this.brush.height
             );
-            console.log('( ' + x + ', ' + y + ')');
         }
     }
 }
