@@ -2,6 +2,7 @@ import glob = require('./Global');
 import tool = require('./Tool');
 import point = require('./Point');
 import color = require('./Color');
+import paper = require('./Paper');
 
 export class DrawingTool extends tool.Tool
 {
@@ -23,9 +24,7 @@ export class DrawingTool extends tool.Tool
         var canvas = paint.currentPaper.canvas;
     
         $(canvas).on("mousedown", $.proxy(this.canvas_mousedown, this));
-        $(canvas).on("mouseenter", $.proxy(this.canvas_mouseenter, this));
         $(document).on("mousemove", $.proxy(this.document_mousemove, this));
-        $(canvas).on("mouseleave", $.proxy(this.canvas_mouseleave, this));
         $(document).on("mouseup", $.proxy(this.document_mouseup, this));
     }
     
@@ -37,9 +36,7 @@ export class DrawingTool extends tool.Tool
         var canvas = this.paint.currentPaper.canvas;
         
         $(canvas).off("mousedown", this.canvas_mousedown);
-        $(canvas).off("mouseenter", this.canvas_mouseenter);
         $(document).off("mousemove", this.document_mousemove);
-        $(canvas).off("mouseleave", this.canvas_mouseleave);
         $(document).off("mouseup", this.document_mouseup);       
     }
 
@@ -50,74 +47,39 @@ export class DrawingTool extends tool.Tool
     /**
      * Called when user starts drawing
      */
-    onStartDrawing(point : point.Point) {
+    onStartDrawing(paper:paper.Paper, point:point.Point) {
+    
+    }
+    
+    onDraw(paper:paper.Paper, point:point.Point) {
     
     }
     
     /**
      * Called when user stops drawing
      */
-    onStopDrawing() {
+    onStopDrawing(paper:paper.Paper, point:point.Point) {
     
     }
     
-    /**
-     * Called when the user is drawing and the mouse,
-     * gone outside the canvas, gets back in.
-     */
-    onDrawFromOutside() {
-        
-    }
-    
-    get lastPoint() : point.Point {
-        return this._lastPoint;
-    }
-    
-    set lastPoint(value:point.Point) {
-        this._lastPoint = value;
-    }
-    
-    /** Gets function that draw on context
-     *  \param pt point in canvas coordinates  
-     */
-    getDrawingFunction(pt : point.Point) : (context : CanvasRenderingContext2D) => void {
-        throw "Cannot call this method directly. Please extend DrawingTool and implement this method in your class.";
-    }
+    private drawing = false;
 
     private canvas_mousedown(ev : JQueryMouseEventObject) {
+        this.drawing = true;
         var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-        this.paint.currentPaper.startDrawing(new point.Point(cord.X, cord.Y), this.inkColor(), this.paint.toolSize);
-        this.onStartDrawing(new point.Point(cord.X, cord.Y));
-    }
-
-    private canvas_mouseenter(ev : JQueryMouseEventObject) {
-        if (this.paint.currentPaper.isDrawing()) {
-            var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-            this.paint.currentPaper.startDrawing(new point.Point(cord.X, cord.Y), this.inkColor(), this.paint.toolSize);
-            this.onDrawFromOutside();
-        }
+        this.onStartDrawing(this.paint.currentPaper, cord);
     }
     
     private document_mousemove(ev : JQueryMouseEventObject) {
-        var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-        this.paint.currentPaper.recordOuterPoint(cord);
-        this._lastPoint = cord;
-        
-        if (ev.target === this.paint.currentPaper.canvas)
-            
-            // Call draw passing local drawing function
-            this.paint.currentPaper.draw(
-                this.getDrawingFunction(new point.Point(cord.X, cord.Y))
-            );
-    }
-  
-    private canvas_mouseleave(ev) {
-        var point = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-        this.paint.currentPaper.exitFromPaper(this.paint.$.proxy(this.getDrawingFunction(point),this));
+        if(this.drawing) {
+            var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+            this.onDraw(this.paint.currentPaper, cord);
+        }
     }
         
     private document_mouseup(ev) {
-        this.paint.currentPaper.stopDrawing();
-        this.onStopDrawing();
+        this.drawing = false;
+        var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+        this.onStopDrawing(this.paint.currentPaper, cord);
     }  
 }

@@ -10,14 +10,9 @@ export class Paper {
     private _paint : glob.Paint;
     private _context : CanvasRenderingContext2D;
     
-    private _isDrawing = false;
-    private _started = false;
-    
-    private _lastPoint : pt.Point;
     private _zoom : number = 1;
     
     public canvas : HTMLCanvasElement;
-    
     
     constructor(paint : glob.Paint) {
 
@@ -39,67 +34,6 @@ export class Paper {
           Math.round((x - offset.left) / this._zoom),
           Math.round((y - offset.top) / this._zoom)
         );
-    }
-    
-    isDrawing():boolean {
-        return this._isDrawing;
-    }
-    
-    startDrawing(startPoint : pt.Point, color : color.Color, size : number) {
-        
-        // if already drawing, then draw from _lastPoint to make
-        // line continuos between mousemove point in canvas
-        // and the border 
-        if (this._isDrawing) {
-            this._context.moveTo(this._lastPoint.X, this._lastPoint.Y);
-            this._context.beginPath();
-            this._context.lineTo(this._lastPoint.X, this._lastPoint.Y);
-            this._started = true;
-        } else {
-            this._context.moveTo(startPoint.X, startPoint.Y);
-            this._context.beginPath();
-            this._isDrawing = true;
-            this._started = false;
-        }
-
-        this._context.lineWidth = size;
-        this._context.strokeStyle = (color === null) ? "" : color.HexString;
-    }
-    
-    /**
-     * Draw on Paper
-     */
-    draw(drawingFunction : (CanvasRenderingContext2D) => void):void {
-        
-        if (this._isDrawing)
-            drawingFunction(this._context);
-    }
-    
-    /**
-     * Stop drawing
-     */
-    stopDrawing():void {
-        this._isDrawing = false;
-        this._context.closePath();
-    }
-    
-    /**
-     * When exit from Paper close the path
-     */
-    exitFromPaper(drawingFunction : (CanvasRenderingContext2D) => void):void {
-
-        if (this.isDrawing()) {
-            drawingFunction(this._context);
-            this._context.closePath();
-        }
-    }
-    
-    /**
-     * When going to enter in Paper remember last outer point to make line continuos
-     * from outer and inner canvas
-     */
-    recordOuterPoint(point : pt.Point) {
-        this._lastPoint = point;
     }
     
     getPixelMatrix() : colorMatrix.ColorMatrix {
