@@ -30,6 +30,11 @@ export class ColorMatrix
         this.data[coord + 2] = rgb.B;
     }
     
+    /**
+     * Converts from a XY representation to a single-index matrix
+     * representation (going left->right, top->down), considering
+     * an offset of 4 cells for each position.
+     */
     private translateCoordinates(x : number, y : number) : number {
         return ((y * this.width) + x) * 4; 
     }
