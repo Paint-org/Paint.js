@@ -34,9 +34,10 @@ export class Paper {
     }
     
     pageXYtoCanvasXY(x:number, y:number) : pt.Point {
+        var offset = this._paint.$(this.canvas).parent().offset();
         return new pt.Point(
-          Math.round((x - this._paint.$(this.canvas).parent().offset().left) / this._zoom),
-          Math.round((y - this._paint.$(this.canvas).parent().offset().top) / this._zoom)
+          Math.round((x - offset.left) / this._zoom),
+          Math.round((y - offset.top) / this._zoom)
         );
     }
     
