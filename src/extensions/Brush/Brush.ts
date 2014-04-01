@@ -49,23 +49,32 @@ export class Brush extends drawTool.DrawingTool
         var context = paper.getContext();
         
         if (this._lastPt === null) 
-            return function() {};
+            return;
         
         var distance = this._lastPt.distanceFrom(point),
-            angle = this._lastPt.angleFrom(point),
-            brush = this.brush,
-            lastPoint = this._lastPt,
-            halfBrushW = this.brush.width * this.paint.toolSize / 2,
-            halfBrushH = this.brush.height * this.paint.toolSize / 2;
+            angle = this._lastPt.angleFrom(point);
         
-        this._lastPt = point;
+        var sinAngle = Math.sin(angle),
+            cosAngle = Math.cos(angle);
+        
 
-        var x,y;
+        var x = this._lastPt.X - this.brush.width * this.paint.toolSize / 2;
+        var y = this._lastPt.Y - this.brush.height * this.paint.toolSize / 2;
  
         for ( var z = 0; (z <= distance || z == 0); z++ ) {
-            x = lastPoint.X + (Math.sin(angle) * z) - halfBrushW;
-            y = lastPoint.Y + (Math.cos(angle) * z) - halfBrushH;
-            context.drawImage(brush, x, y, this.paint.toolSize * this.brush.width, this.paint.toolSize * this.brush.height);
+            context.drawImage(
+                this.brush, 
+                x, 
+                y, 
+                this.paint.toolSize * this.brush.width, 
+                this.paint.toolSize * this.brush.height
+            );
+
+            x += sinAngle;
+            y += cosAngle;
         }
+        
+        // Update last point
+        this._lastPt = point;
     }
 }
