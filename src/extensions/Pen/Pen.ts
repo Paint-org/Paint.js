@@ -20,7 +20,7 @@ export class Pen extends drawTool.DrawingTool
 
     activated() {
         super.activated();
-    }    
+    }
     
     inkColor() : color.Color {
         return this.paint.primaryColor;

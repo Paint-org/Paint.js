@@ -3,7 +3,7 @@
 import glob = require('./Global');
 import pt = require('./Point');
 import color = require('./Color');
-import matrix = require('./Matrix');
+import colorMatrix = require('./ColorMatrix');
 
 export class Paper {
     
@@ -101,10 +101,10 @@ export class Paper {
         this._lastPoint = point;
     }
     
-    getPixelMatrix() : matrix.Matrix {
+    getPixelMatrix() : colorMatrix.ColorMatrix {
         
         var imgd = this._context.getImageData(0, 0, this.canvas.width, this.canvas.height);
-        var matr = new matrix.Matrix(imgd.data, imgd.width, imgd.height);
+        var matr = new colorMatrix.ColorMatrix(imgd.data, imgd.width, imgd.height);
         
         return matr;
         

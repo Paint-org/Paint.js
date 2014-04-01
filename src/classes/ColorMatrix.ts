@@ -1,6 +1,6 @@
 import color = require('./Color');
 
-export class Matrix
+export class ColorMatrix
 {
     private data : Uint8Array;
     private width : number;
