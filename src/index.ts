@@ -77,10 +77,11 @@ function attachPaperEvents() {
     paint.currentPaper.Zoom = 1.0;
   
     $("#paperWrapper").resize(function() {
+        var cord = paint.currentPaper.pageXYtoPaperXY($(paper).width() - 1, $(paper).height() - 1);
         $(paper).css("width", $(this).width());
         $(paper).css("height", $(this).height());
-        $("#pageDimensionX").text($(paper).width());
-        $("#pageDimensionY").text($(paper).height());
+        $("#pageDimensionX").text(cord.X);
+        $("#pageDimensionY").text(cord.Y);
         
         paint.currentPaper.onResize();
     });
