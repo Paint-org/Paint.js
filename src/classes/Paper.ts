@@ -60,9 +60,12 @@ export class Paper {
     }
     
     /**
-     * Removes the current layer.
+     * Removes a layer.
      */
     removeLayer(layer : paperLayer.PaperLayer) {
+        if(layer == this.baseLayer)
+            throw "Cannot remove the base layer";
+        
         var $ = this._paint.$;
         $('#paperWrapper')[0].removeChild(layer.canvas);
         
