@@ -23,7 +23,7 @@ export class Extension {
     }
     
     /**
-     * Adds a custom indicator in the status bar.
+     * Adds a custom indicator to the status bar.
      * \param item HTMLElement to add to the status bar
      * \param priority specifies the relative position in the statusbar. Currently not implemented. FIXME.
      * \param autoWidth specifies if the indicator space width will be auto sized to the content.
@@ -36,6 +36,22 @@ export class Extension {
             indicator.css("width", "auto");
         }
         $("#bottomBar").append(indicator);
+    }
+    
+    /**
+     * Adds a text indicator to the status bar.
+     * \param icon The icon of this indicator. Currently not implemented. FIXME.
+     * \param priority specifies the relative position in the statusbar. Currently not implemented. FIXME.
+     * \param autoWidth specifies if the indicator space width will be auto sized to the content.
+     * \returns the element that contains the text
+     */
+    addTextIndicatorItem(icon, priority:number, autoWidth:boolean) : HTMLElement {
+        var $ = this.paint.$;
+        
+        var textSpan = $("<span />")[0];
+        this.addCustomIndicatorItem(textSpan, priority, autoWidth);
+        
+        return textSpan;
     }
     
     /*

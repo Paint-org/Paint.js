@@ -17,6 +17,7 @@ import extColorChooser = require('./extensions/ColorChooser/ColorChooser');
 import extSizeChooser = require('./extensions/SizeChooser/SizeChooser');
 import extZoom = require('./extensions/Zoom/Zoom');
 import extImageSaver = require('./extensions/ImageSaver/ImageSaver');
+import extPaperSize = require('./extensions/PaperSize/PaperSize');
 
 // node-webkit requires
 var gui = require('nw.gui');
@@ -77,11 +78,8 @@ function attachPaperEvents() {
     paint.currentPaper.Zoom = 1.0;
   
     $("#paperWrapper").resize(function() {
-        var cord = paint.currentPaper.pageXYtoPaperXY($(paper).width() - 1, $(paper).height() - 1);
         $(paper).css("width", $(this).width());
         $(paper).css("height", $(this).height());
-        $("#pageDimensionX").text($(paper).width() / paint.currentPaper.Zoom);
-        $("#pageDimensionY").text($(paper).height() / paint.currentPaper.Zoom);
         
         paint.currentPaper.onResize();
     });
@@ -104,9 +102,6 @@ function attachPaperEvents() {
     $(paper).mouseleave(function(ev) {
         $("#cursorPosition").hide();
     });
-    
-    $("#pageDimensionX").text($(paper).width());
-    $("#pageDimensionY").text($(paper).height());
 }
 
 /**
@@ -171,6 +166,10 @@ function loadExtensions() {
     // Registra l'estensione SizeChooser per la scelta della dimensione
     paint.extensions[extSizeChooser.SizeChooser.EXTENSION_NAME] = new extSizeChooser.SizeChooser(paint);
     paint.extensions[extSizeChooser.SizeChooser.EXTENSION_NAME].init();
+    
+    // Registra l'estensione PaperSize
+    paint.extensions[extPaperSize.PaperSize.EXTENSION_NAME] = new extPaperSize.PaperSize(paint);
+    paint.extensions[extPaperSize.PaperSize.EXTENSION_NAME].init();
     
     // Registra l'estensione Zoom
     paint.extensions[extZoom.Zoom.EXTENSION_NAME] = new extZoom.Zoom(paint);
