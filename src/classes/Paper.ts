@@ -48,6 +48,7 @@ export class Paper {
         var paper = $(this._paper);
         newCanvas.attr("width", paper.width() / this._zoom);
         newCanvas.attr("height", paper.height() / this._zoom);
+        newCanvas.css('zoom', (this._zoom * 100) + '%');
         
         $('#paperWrapper').append(newCanvas);
         
@@ -59,9 +60,12 @@ export class Paper {
     }
     
     /**
-     * Removes the current layer.
+     * Removes a layer.
      */
     removeLayer(layer : paperLayer.PaperLayer) {
+        if(layer == this.baseLayer)
+            throw "Cannot remove the base layer";
+        
         var $ = this._paint.$;
         $('#paperWrapper')[0].removeChild(layer.canvas);
         
