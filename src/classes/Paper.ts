@@ -48,6 +48,7 @@ export class Paper {
         var paper = $(this._paper);
         newCanvas.attr("width", paper.width() / this._zoom);
         newCanvas.attr("height", paper.height() / this._zoom);
+        newCanvas.css('zoom', (this._zoom * 100) + '%');
         
         $('#paperWrapper').append(newCanvas);
         
