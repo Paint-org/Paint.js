@@ -11,6 +11,7 @@ import extension = require('./classes/Extension');
 import toolPen = require('./extensions/Pen/Pen');
 import toolEraser = require('./extensions/Eraser/Eraser');
 import toolBrush = require('./extensions/Brush/Brush');
+import toolLine = require('./extensions/Line/Line');
 
 import extColorChooser = require('./extensions/ColorChooser/ColorChooser');
 import extSizeChooser = require('./extensions/SizeChooser/SizeChooser');
@@ -50,7 +51,7 @@ $(document).ready(function() {
  * Set event handler on canvas
  */
 function attachPaperEvents() {
-    var canvas = paint.currentPaper.canvas;
+    var paper = paint.currentPaper.paperElement;
     
     // Initialize resize handles
     var savedCanvas : HTMLCanvasElement;
@@ -63,51 +64,48 @@ function attachPaperEvents() {
     
         // Save canvas content before resizing
         start: function(event, ui) {
-            savedCanvas = document.createElement('canvas');
-            savedCanvas.width = canvas.width;
-            savedCanvas.height = canvas.height;
-            savedCanvas.getContext('2d').drawImage(canvas, 0, 0);
+            paint.currentPaper.onResizeStart();
         },
         
         stop: function(event, ui) {
             // Restore default cursor
             $("body").css('cursor', '');
+            paint.currentPaper.onResizeEnd();
         }
     })
     
     paint.currentPaper.Zoom = 1.0;
   
     $("#paperWrapper").resize(function() {
-        $("#paper").attr("width", $(this).width() / paint.currentPaper.Zoom);
-        $("#paper").attr("height", $(this).height() / paint.currentPaper.Zoom);
-        $("#pageDimensionX").text($(canvas).width());
-        $("#pageDimensionY").text($(canvas).height()); 
+        $(paper).css("width", $(this).width());
+        $(paper).css("height", $(this).height());
+        $("#pageDimensionX").text($(paper).width());
+        $("#pageDimensionY").text($(paper).height());
         
-        // Reload canvas content
-        paint.currentPaper.restoreImage(savedCanvas);
+        paint.currentPaper.onResize();
     });
     
     $("#cursorPosition").hide();
     
-    $(canvas).mouseenter(function(ev) {
+    $(paper).mouseenter(function(ev) {
         $("#cursorPosition").show();
     });
     
     $(document).mousemove(function(ev) {
-        var cord = paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+        var cord = paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
         
-        if (ev.target === canvas) {
+        if (ev.target === paper) {
            $("#cursorPositionX").text(cord.X);
            $("#cursorPositionY").text(cord.Y);
         }
     });
     
-    $(canvas).mouseleave(function(ev) {
+    $(paper).mouseleave(function(ev) {
         $("#cursorPosition").hide();
     });
     
-    $("#pageDimensionX").text($(canvas).width());
-    $("#pageDimensionY").text($(canvas).height());
+    $("#pageDimensionX").text($(paper).width());
+    $("#pageDimensionY").text($(paper).height());
 }
 
 /**
@@ -152,10 +150,15 @@ function loadExtensions() {
     paint.extensions[toolEraser.Eraser.EXTENSION_NAME] = paint.tools[toolEraser.Eraser.EXTENSION_NAME];
     paint.tools[toolEraser.Eraser.EXTENSION_NAME].init();
     
-    // Setta il tool Brush
+    // Registra il tool Brush
     paint.tools[toolBrush.Brush.EXTENSION_NAME] = new toolBrush.Brush(paint);
     paint.extensions[toolBrush.Brush.EXTENSION_NAME] = paint.tools[toolBrush.Brush.EXTENSION_NAME];
-    paint.tools[toolBrush.Brush.EXTENSION_NAME].init();    
+    paint.tools[toolBrush.Brush.EXTENSION_NAME].init();
+    
+    // Registra il tool Line
+    paint.tools[toolLine.Line.EXTENSION_NAME] = new toolLine.Line(paint);
+    paint.extensions[toolLine.Line.EXTENSION_NAME] = paint.tools[toolLine.Line.EXTENSION_NAME];
+    paint.tools[toolLine.Line.EXTENSION_NAME].init();
     
     // Setta il tool corrente
     paint.currentTool = paint.tools[toolPen.Pen.EXTENSION_NAME];

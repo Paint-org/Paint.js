@@ -69,7 +69,6 @@ export class ImageSaver extends extension.Extension
         var chooser = $(dialog);
         
         var change = function(evt) {
-            console.log("called " + $(this).val());
             $(this).off("change", change);
             callback($(this).val());
         }

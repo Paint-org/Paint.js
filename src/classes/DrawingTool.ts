@@ -21,9 +21,9 @@ export class DrawingTool extends tool.Tool
         var document = paint.document;
         
         // Load context
-        var canvas = paint.currentPaper.canvas;
+        var paper = paint.currentPaper.paperElement;
     
-        $(canvas).on("mousedown", $.proxy(this.canvas_mousedown, this));
+        $(paper).on("mousedown", $.proxy(this.paper_mousedown, this));
         $(document).on("mousemove", $.proxy(this.document_mousemove, this));
         $(document).on("mouseup", $.proxy(this.document_mouseup, this));
     }
@@ -33,9 +33,9 @@ export class DrawingTool extends tool.Tool
         
         var $ = this.paint.$;
         var document = this.paint.document;
-        var canvas = this.paint.currentPaper.canvas;
+        var paper = this.paint.currentPaper.paperElement;
         
-        $(canvas).off("mousedown", this.canvas_mousedown);
+        $(paper).off("mousedown", this.paper_mousedown);
         $(document).off("mousemove", this.document_mousemove);
         $(document).off("mouseup", this.document_mouseup);       
     }
@@ -64,22 +64,24 @@ export class DrawingTool extends tool.Tool
     
     private drawing = false;
 
-    private canvas_mousedown(ev : JQueryMouseEventObject) {
+    private paper_mousedown(ev : JQueryMouseEventObject) {
         this.drawing = true;
-        var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+        var cord = this.paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
         this.onStartDrawing(this.paint.currentPaper, cord);
     }
     
     private document_mousemove(ev : JQueryMouseEventObject) {
         if(this.drawing) {
-            var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
+            var cord = this.paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
             this.onDraw(this.paint.currentPaper, cord);
         }
     }
         
     private document_mouseup(ev) {
-        this.drawing = false;
-        var cord = this.paint.currentPaper.pageXYtoCanvasXY(ev.pageX, ev.pageY);
-        this.onStopDrawing(this.paint.currentPaper, cord);
+        if(this.drawing) {
+            this.drawing = false;
+            var cord = this.paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
+            this.onStopDrawing(this.paint.currentPaper, cord);
+        }
     }  
 }

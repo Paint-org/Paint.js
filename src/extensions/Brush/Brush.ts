@@ -33,7 +33,7 @@ export class Brush extends drawTool.DrawingTool
         super.onStartDrawing(paper, point);
         this._lastPt = point;
         
-        var context = paper.getContext();
+        var context = paper.baseLayer.getContext();
         this.onDraw(paper, point);
     }
     
@@ -46,7 +46,7 @@ export class Brush extends drawTool.DrawingTool
      * Gets function that draw on context
      */
     onDraw(paper:paper.Paper, point:point.Point) {
-        var context = paper.getContext();
+        var context = paper.baseLayer.getContext();
         
         if (this._lastPt === null) 
             return;

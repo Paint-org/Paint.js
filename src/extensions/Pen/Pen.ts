@@ -8,6 +8,7 @@ export class Pen extends drawTool.DrawingTool
 {
     static EXTENSION_NAME : string = "Pen";
     paint : glob.Paint;
+    
     private _lastPt : point.Point = null;
     
     public constructor(paint:glob.Paint) {
@@ -25,9 +26,10 @@ export class Pen extends drawTool.DrawingTool
     
     onStartDrawing(paper:paper.Paper, point:point.Point) {
         super.onStartDrawing(paper, point);
+        
         this._lastPt = null;
         
-        var context = paper.getContext();
+        var context = paper.baseLayer.getContext();
         context.lineWidth = this.paint.toolSize;
         context.strokeStyle = this.paint.primaryColor.HexString;
         context.beginPath();
@@ -38,7 +40,7 @@ export class Pen extends drawTool.DrawingTool
     onDraw(paper:paper.Paper, point:point.Point) {
         super.onDraw(paper, point);
         
-        var context = paper.getContext();
+        var context = paper.baseLayer.getContext();
         
         if (this._lastPt !== null) {
             // Iniziamo un nuovo path e ci posizioniamo sull'ultimo punto disegnato
@@ -59,6 +61,7 @@ export class Pen extends drawTool.DrawingTool
     
     onStopDrawing(paper:paper.Paper, point:point.Point) {
         super.onStopDrawing(paper, point);
-        paper.getContext().closePath();
+        
+        paper.baseLayer.getContext().closePath();
     }
 }

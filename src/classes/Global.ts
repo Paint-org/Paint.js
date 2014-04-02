@@ -20,6 +20,7 @@ export class Paint {
     /** Sottoinsieme di 'extensions' che contiene solo le estensioni di tipo Tool */
     public tools : { [index: string]: tool.Tool; } = {};
     
+    /** Current Paper object (the one at the base of the level hierarchy) */
     public currentPaper : paper.Paper;
     public primaryColor : color.Color;
     public secondaryColor : color.Color;
@@ -32,7 +33,7 @@ export class Paint {
     constructor($ : JQueryStatic) {
         this._$ = $;
         
-        this.currentPaper = new paper.Paper(this);
+        this.currentPaper = new paper.Paper(this, $('#paper')[0]);
         this.primaryColor = color.Color.Black;
         this.secondaryColor = color.Color.White;
     }
