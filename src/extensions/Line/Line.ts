@@ -32,7 +32,7 @@ export class Line extends drawTool.DrawingTool
         this._startPt = point;
         
         this._layer = paper.addLayer(null);
-        var context = paper.baseLayer.getContext();
+        var context = this._layer.getContext();
         context.lineWidth = this.paint.toolSize;
         context.strokeStyle = this.paint.primaryColor.HexString;
 
