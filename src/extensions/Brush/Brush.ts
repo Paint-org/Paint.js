@@ -48,20 +48,22 @@ export class Brush extends drawTool.DrawingTool
     onDraw(paper:paper.Paper, point:point.Point) {
         var context = paper.baseLayer.getContext();
         
-        if (this._lastPt === null) 
+        if (this._lastPt === null || this._lastPt.equals(point)) 
             return;
         
         var distance = this._lastPt.distanceFrom(point),
             angle = this._lastPt.angleFrom(point);
         
-        var sinAngle = Math.sin(angle),
-            cosAngle = Math.cos(angle);
+        var sinAngle = (point.X - this._lastPt.X) / distance,
+            cosAngle = (point.Y - this._lastPt.Y) / distance;
         
-
         var x = this._lastPt.X - this.brush.width * this.paint.toolSize / 2;
         var y = this._lastPt.Y - this.brush.height * this.paint.toolSize / 2;
- 
-        for ( var z = 0; (z <= distance || z == 0); z++ ) {
+         
+        // Update last point
+        this._lastPt = point;
+        
+        for ( var z = 0; (z <= distance || z == 0); z++, x += sinAngle, y += cosAngle ) {
             context.drawImage(
                 this.brush, 
                 x, 
@@ -69,12 +71,6 @@ export class Brush extends drawTool.DrawingTool
                 this.paint.toolSize * this.brush.width, 
                 this.paint.toolSize * this.brush.height
             );
-
-            x += sinAngle;
-            y += cosAngle;
         }
-        
-        // Update last point
-        this._lastPt = point;
     }
 }
