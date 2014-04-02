@@ -80,8 +80,8 @@ function attachPaperEvents() {
         var cord = paint.currentPaper.pageXYtoPaperXY($(paper).width() - 1, $(paper).height() - 1);
         $(paper).css("width", $(this).width());
         $(paper).css("height", $(this).height());
-        $("#pageDimensionX").text(cord.X);
-        $("#pageDimensionY").text(cord.Y);
+        $("#pageDimensionX").text($(paper).width() / paint.currentPaper.Zoom);
+        $("#pageDimensionY").text($(paper).height() / paint.currentPaper.Zoom);
         
         paint.currentPaper.onResize();
     });
