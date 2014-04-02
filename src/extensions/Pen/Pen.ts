@@ -88,5 +88,7 @@ export class Pen extends drawTool.DrawingTool
         
         this._layer.copyTo(paper.baseLayer);
         paper.removeLayer(this._layer);
+        
+        this._points = [];
     }
 }
