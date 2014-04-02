@@ -2,14 +2,17 @@ import glob = require('../../classes/Global');
 import drawTool = require('../../classes/DrawingTool');
 import point = require('../../classes/Point');
 import paper = require('../../classes/Paper');
+import color = require('../../classes/Color');
 
 export class Brush extends drawTool.DrawingTool
 {
     static EXTENSION_NAME : string = "Brush";
     paint : glob.Paint;
     
-    _lastPt : point.Point = null;
-    brush : HTMLImageElement;
+    private _lastPt : point.Point = null;
+    private image : HTMLImageElement;
+    private brush : HTMLImageElement;
+    private coloredBrush : HTMLImageElement;
     
     public constructor(paint:glob.Paint) {
         super(paint);
@@ -31,15 +34,65 @@ export class Brush extends drawTool.DrawingTool
     
     onStartDrawing(paper:paper.Paper, point:point.Point) {
         super.onStartDrawing(paper, point);
+        
         this._lastPt = point;
         
-        var context = paper.baseLayer.getContext();
+        this.coloredBrush = this.getColoredBrush(this.paint.primaryColor);
+
         this.onDraw(paper, point);
     }
     
     onStopDrawing(paper:paper.Paper, point:point.Point) {
         super.onStopDrawing(paper, point);
         this._lastPt = null;
+    }
+    
+    private getColoredBrush(color:color.Color) : HTMLImageElement {
+        var $ = this.paint.$;
+        
+        // Remove size so that we can get real width and height
+        this.brush.removeAttribute('width');
+        this.brush.removeAttribute('height');
+        
+        // Put the image on a temp canvas
+        var newCanvas = <HTMLCanvasElement>$('<canvas />')[0];
+        newCanvas.width = this.brush.width;
+        newCanvas.height = this.brush.height;
+        
+        var ctx = newCanvas.getContext('2d');
+        ctx.drawImage(
+            this.brush, 
+            0, 
+            0
+        );
+        
+        // Restore size
+        this.brush.width = 1;
+        this.brush.height = 1;
+        
+        // Change colors
+        
+        var img = ctx.getImageData(0, 0, newCanvas.width, newCanvas.height);
+        var len = img.data.length;
+        
+        for(var i = 0; i < len; i+=4) {
+            if(img.data[i + 3] > 0) // If it's not a transparent pixel
+            {
+                img.data[i] = (255-img.data[i]) / 255 * color.R;
+                img.data[i + 1] = (255-img.data[i + 1]) / 255 * color.G;
+                img.data[i + 2] = (255-img.data[i + 2]) / 255 * color.B;
+            }
+        }
+        
+        ctx.putImageData(img, 0, 0);
+        
+        // Assign the image to an img element
+        var image = this.paint.document.createElement('img');
+        image.src = newCanvas.toDataURL();
+        image.width = 1;
+        image.height = 1;
+        
+        return image;
     }
         
     /**
@@ -65,11 +118,11 @@ export class Brush extends drawTool.DrawingTool
         
         for ( var z = 0; (z <= distance || z == 0); z++, x += sinAngle, y += cosAngle ) {
             context.drawImage(
-                this.brush, 
+                this.coloredBrush, 
                 x, 
-                y, 
-                this.paint.toolSize * this.brush.width, 
-                this.paint.toolSize * this.brush.height
+                y,
+                this.brush.width * this.paint.toolSize,
+                this.brush.height * this.paint.toolSize
             );
         }
     }
