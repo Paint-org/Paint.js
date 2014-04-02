@@ -145,6 +145,21 @@ export class Paper {
         return this._zoom;    
     }
     
+    
+    setCursorFromURL(cursor:string) : void {
+        this.setCursor("url(" + encodeURI(cursor) + ")");
+    }
+    
+    setCursor(cursor:string) : void {
+        var $ = this._paint.$;
+        $(this.paperElement).css('cursor', cursor + ",default");
+    }
+    
+    restoreCursor() {
+        var $ = this._paint.$;
+        $(this.paperElement).css('cursor', '');
+    }
+    
     save(filename, callback) {
         var paper = this._paint.$(this._paper);
         var saveCanvas = this._paint.document.createElement('canvas');

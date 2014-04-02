@@ -12,6 +12,7 @@ export class Pen extends drawTool.DrawingTool
     
     private _layer : paperLayer.PaperLayer;
     private _points : point.Point[] = [];
+    private _oldCursor = "";
     
     public constructor(paint:glob.Paint) {
         super(paint);
@@ -24,6 +25,12 @@ export class Pen extends drawTool.DrawingTool
 
     activated() {
         super.activated();
+        this.paint.currentPaper.setCursorFromURL("cursors/pencil.cur");
+    }
+    
+    deactivated() {
+        super.deactivated();
+        this.paint.currentPaper.restoreCursor();
     }
     
     onStartDrawing(paper:paper.Paper, point:point.Point) {

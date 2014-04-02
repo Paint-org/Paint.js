@@ -12,6 +12,7 @@ export class Line extends drawTool.DrawingTool
     
     private _startPt : point.Point = null;
     private _layer : paperLayer.PaperLayer;
+    private _oldCursor = "";
     
     public constructor(paint:glob.Paint) {
         super(paint);
@@ -24,6 +25,12 @@ export class Line extends drawTool.DrawingTool
 
     activated() {
         super.activated();
+        this.paint.currentPaper.setCursorFromURL("cursors/cross.cur");
+    }
+    
+    deactivated() {
+        super.deactivated();
+        this.paint.currentPaper.restoreCursor();
     }
     
     onStartDrawing(paper:paper.Paper, point:point.Point) {
