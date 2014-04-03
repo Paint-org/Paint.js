@@ -2,7 +2,8 @@ import glob = require('./Global');
 import pt = require('./Point');
 import color = require('./Color');
 import paper = require('./Paper');
-import colorMatrix = require('./ColorMatrix');
+import colorMatrix = require('../../classes/ColorMatrix');
+import canvasMatrix = require('./CanvasMatrix');
 
 export class PaperLayer {
     
@@ -33,16 +34,35 @@ export class PaperLayer {
         return this._context;
     }
     
-    getPixelMatrix() : colorMatrix.ColorMatrix {
-        
+    getCanvasMatrix() : canvasMatrix.CanvasMatrix {
         var imgd = this._context.getImageData(0, 0, this.canvas.width, this.canvas.height);
-        var matr = new colorMatrix.ColorMatrix(imgd.data, imgd.width, imgd.height);
-        
-        return matr;
+        var cm = new canvasMatrix.CanvasMatrix(imgd);
+        return cm;
     }
     
     copyTo(layer:PaperLayer) {
         layer._context.drawImage(this.canvas, 0, 0);
+    }
+    
+    /**
+     * Draws an aliased line on the given colorMatrix.
+     * FIXME Implement size
+     */
+    static drawAliasedLine(x0, y0, x1, y1, size, color:color.Color, matrix:colorMatrix.ColorMatrix){
+       var dx = Math.abs(x1-x0);
+       var dy = Math.abs(y1-y0);
+       var sx = (x0 < x1) ? 1 : -1;
+       var sy = (y0 < y1) ? 1 : -1;
+       var err = dx-dy;
+    
+       while(true){
+         matrix.setValue(x0, y0, color);
+    
+         if ((x0==x1) && (y0==y1)) break;
+         var e2 = err<<1;
+         if (e2 >-dy){ err -= dy; x0  += sx; }
+         if (e2 < dx){ err += dx; y0  += sy; }
+       }
     }
     
     private fillBackground(color : color.Color) {
