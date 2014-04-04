@@ -13,7 +13,6 @@ export class Eraser extends drawTool.DrawingTool
     
     public constructor(paint:glob.Paint) {
         super(paint);
-        this.paint = paint;
     }
     
     init() {

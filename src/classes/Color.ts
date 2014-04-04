@@ -18,6 +18,10 @@ export class Color {
         this.parseColor(color);
     }
     
+    equals(color : Color) {
+        return this._hexColor === color.HexString;   
+    }
+    
     /**
      * The color in the format #rrggbb
      */

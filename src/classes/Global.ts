@@ -22,8 +22,8 @@ export class Paint {
     
     /** Current Paper object (the one at the base of the level hierarchy) */
     public currentPaper : paper.Paper;
-    public primaryColor : color.Color;
-    public secondaryColor : color.Color;
+    public _primaryColor : color.Color;
+    public _secondaryColor : color.Color;
     public toolSize : number;
     public File;
     public FileList;
@@ -34,12 +34,30 @@ export class Paint {
         this._$ = $;
         
         this.currentPaper = new paper.Paper(this, $('#paper')[0]);
-        this.primaryColor = color.Color.Black;
-        this.secondaryColor = color.Color.White;
+        this._primaryColor = color.Color.Black;
+        this._secondaryColor = color.Color.White;
     }
     
     get $():JQueryStatic {
         return this._$;
+    }
+    
+    set primaryColor(value : color.Color) {
+        this._primaryColor = value;
+        this._$("#toolColor1").val(value.HexString);
+    }
+    
+    get primaryColor() {
+        return this._primaryColor;   
+    }
+    
+    set secondaryColor(value : color.Color) {
+        this._secondaryColor = value;
+        this.$("#toolColor2").val(value.HexString);
+    }
+    
+    get secondaryColor() {
+        return this._secondaryColor;
     }
     
     /*

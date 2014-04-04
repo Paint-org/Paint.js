@@ -14,6 +14,8 @@ import toolEraser = require('./extensions/Eraser/Eraser');
 import toolBrush = require('./extensions/Brush/Brush');
 import toolShapeDrawer = require('./extensions/ShapeDrawer/ShapeDrawer');
 
+import toolColorPicker = require('./extensions/ColorPicker/ColorPicker');
+
 import extColorChooser = require('./extensions/ColorChooser/ColorChooser');
 import extSizeChooser = require('./extensions/SizeChooser/SizeChooser');
 import extZoom = require('./extensions/Zoom/Zoom');
@@ -163,6 +165,11 @@ function loadExtensions() {
     paint.extensions[toolShapeDrawer.ShapeDrawer.EXTENSION_NAME] = paint.tools[toolShapeDrawer.ShapeDrawer.EXTENSION_NAME];
     paint.tools[toolShapeDrawer.ShapeDrawer.EXTENSION_NAME].init();
     
+    
+    // Registra il tool ColorPicker
+    paint.tools[toolColorPicker.ColorPicker.EXTENSION_NAME] = new toolColorPicker.ColorPicker(paint);
+    paint.extensions[toolColorPicker.ColorPicker.EXTENSION_NAME] = paint.tools[toolColorPicker.ColorPicker.EXTENSION_NAME];
+    paint.tools[toolColorPicker.ColorPicker.EXTENSION_NAME].init();
     
     // Setta il tool corrente
     paint.setCurrentTool(paint.tools[toolPen.Pen.EXTENSION_NAME], null);

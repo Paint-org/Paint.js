@@ -1,5 +1,6 @@
 import glob = require('./Global');
 import extension = require('./Extension');
+import point = require('./Point');
 
 /**
  * A Tool is an instrument that the user uses to do an action on the canvas.
@@ -13,11 +14,9 @@ export class Tool extends extension.Extension
 
     constructor(paint:glob.Paint) {
         super(paint);
-        this.paint = paint;
     }
     
     init() {
-    
     }
     
     /**
@@ -25,14 +24,18 @@ export class Tool extends extension.Extension
      * \param id id of the HTMLElement associated with activation event if exists
      */
     activated(id:string) {
+        var $ = this.paint.$;
         
+        $(this.paint.currentPaper.paperElement).on("click", $.proxy(this.paper_click,this));
     }
     
     /**
      * Gets called when the user selects another tool.
      */
     deactivated() {
+        var $ = this.paint.$;
         
+        $(this.paint.currentPaper.paperElement).off("click", $.proxy(this.paper_click,this));
     }
     
     /**
@@ -53,4 +56,12 @@ export class Tool extends extension.Extension
         
         return id;
     }
+    
+    onPaperClick(pt : point.Point) {
+    }
+    
+    private paper_click(ev : JQueryMouseEventObject) {
+        var cord = this.paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
+        this.onPaperClick(cord);
+    }    
 }

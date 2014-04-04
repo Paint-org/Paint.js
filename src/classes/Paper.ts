@@ -31,6 +31,10 @@ export class Paper {
         return this._layers[0];
     }
     
+    get layers() : paperLayer.PaperLayer[] {
+        return this._layers;
+    }
+    
     /**
      * Adds a new Paper on top of the current one.
      * This is NOT a Photoshop-style layer, but it's

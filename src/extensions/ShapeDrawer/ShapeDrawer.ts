@@ -86,7 +86,6 @@ export class ShapeDrawer extends drawTool.DrawingTool
     
     public constructor(paint:glob.Paint) {
         super(paint);
-        this.paint = paint;
         this._shapes = new Shapes();
     }
     

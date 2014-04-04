@@ -12,7 +12,6 @@ export class ColorChooser extends extension.Extension
     
     public constructor(paint:glob.Paint) {
         super(paint);
-        this.paint = paint;
     }
     
     init() {
