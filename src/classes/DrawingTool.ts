@@ -13,8 +13,12 @@ export class DrawingTool extends tool.Tool
         super(paint);
     }
     
-    activated() {
-        super.activated();
+    /**
+     * Gets called when the user selects this tool.
+     * \param id id of the HTMLElement associated with activation event if exists
+     */    
+    activated(id : string) {
+        super.activated(id);
         
         var paint = this.paint;
         var $ = paint.$;

@@ -20,8 +20,8 @@ export class Eraser extends drawTool.DrawingTool
         this.addToolbarToolItem(null, "Eraser");
     }
 
-    activated() {
-        super.activated();
+    activated(id : string) {
+        super.activated(id);
     }
     
     onStartDrawing(paper:paper.Paper, point:point.Point) {

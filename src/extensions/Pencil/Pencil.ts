@@ -19,8 +19,8 @@ export class Pencil extends drawTool.DrawingTool
         this.addToolbarToolItem(null, "Pencil");
     }
 
-    activated() {
-        super.activated();
+    activated(id:string) {
+        super.activated(id);
         this.paint.currentPaper.setCursorFromURL("cursors/pencil.cur");
     }
     

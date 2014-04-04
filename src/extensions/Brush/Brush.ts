@@ -28,8 +28,8 @@ export class Brush extends drawTool.DrawingTool
         this.addToolbarToolItem(null, "Brush");
     }
     
-    activated() {
-        super.activated();
+    activated(id : string) {
+        super.activated(id);
     }
     
     onStartDrawing(paper:paper.Paper, point:point.Point) {

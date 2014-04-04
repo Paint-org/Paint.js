@@ -22,8 +22,9 @@ export class Tool extends extension.Extension
     
     /**
      * Gets called when the user selects this tool.
+     * \param id id of the HTMLElement associated with activation event if exists
      */
-    activated() {
+    activated(id:string) {
         
     }
     
@@ -47,7 +48,7 @@ export class Tool extends extension.Extension
         $("#tools").append('<button id="' + id + '">' + escapedStr + '</button>');
         
         $("#" + id).click($.proxy(function() {
-            this.paint.currentTool = this;
+            this.paint.setCurrentTool(this, id);
         }, this));
         
         return id;

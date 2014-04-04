@@ -23,8 +23,8 @@ export class Pen extends drawTool.DrawingTool
         this.addToolbarToolItem(null, "Pen");
     }
 
-    activated() {
-        super.activated();
+    activated(id:string) {
+        super.activated(id);
         this.paint.currentPaper.setCursorFromURL("cursors/brush.cur");
     }
     

@@ -12,7 +12,7 @@ import toolPencil = require('./extensions/Pencil/Pencil');
 import toolPen = require('./extensions/Pen/Pen');
 import toolEraser = require('./extensions/Eraser/Eraser');
 import toolBrush = require('./extensions/Brush/Brush');
-import toolLine = require('./extensions/Line/Line');
+import toolShapeDrawer = require('./extensions/ShapeDrawer/ShapeDrawer');
 
 import extColorChooser = require('./extensions/ColorChooser/ColorChooser');
 import extSizeChooser = require('./extensions/SizeChooser/SizeChooser');
@@ -159,12 +159,13 @@ function loadExtensions() {
     paint.tools[toolBrush.Brush.EXTENSION_NAME].init();
     
     // Registra il tool Line
-    paint.tools[toolLine.Line.EXTENSION_NAME] = new toolLine.Line(paint);
-    paint.extensions[toolLine.Line.EXTENSION_NAME] = paint.tools[toolLine.Line.EXTENSION_NAME];
-    paint.tools[toolLine.Line.EXTENSION_NAME].init();
+    paint.tools[toolShapeDrawer.ShapeDrawer.EXTENSION_NAME] = new toolShapeDrawer.ShapeDrawer(paint);
+    paint.extensions[toolShapeDrawer.ShapeDrawer.EXTENSION_NAME] = paint.tools[toolShapeDrawer.ShapeDrawer.EXTENSION_NAME];
+    paint.tools[toolShapeDrawer.ShapeDrawer.EXTENSION_NAME].init();
+    
     
     // Setta il tool corrente
-    paint.currentTool = paint.tools[toolPen.Pen.EXTENSION_NAME];
+    paint.setCurrentTool(paint.tools[toolPen.Pen.EXTENSION_NAME], null);
     
     // Registra l'estensione ColorChooser per la scelta dei colori
     paint.extensions[extColorChooser.ColorChooser.EXTENSION_NAME] = new extColorChooser.ColorChooser(paint);
