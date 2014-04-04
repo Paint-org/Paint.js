@@ -54,9 +54,12 @@ export class PaperLayer {
        var sx = (x0 < x1) ? 1 : -1;
        var sy = (y0 < y1) ? 1 : -1;
        var err = dx-dy;
+       var w = matrix.width;
+       var h = matrix.height;
     
        while(true){
-         matrix.setValue(x0, y0, color);
+         if(x0 >= 0 && y0 >= 0 && x0 < w && y0 < h)
+            matrix.setValue(x0, y0, color);
     
          if ((x0==x1) && (y0==y1)) break;
          var e2 = err<<1;

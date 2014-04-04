@@ -13,6 +13,9 @@ export class ColorMatrix
     }
     
     getValue(x : number, y : number) : color.Color {
+        if(x < 0 || y < 0 || x >= this._width || y >= this.height)
+            throw "Coordinates out of bounds";
+        
         var coord = this.translateCoordinates(x, y);
         return color.Color.fromRGB(
             this._data[coord],
@@ -22,6 +25,9 @@ export class ColorMatrix
     }
     
     setValue(x : number, y : number, value : color.Color) {
+        if(x < 0 || y < 0 || x >= this._width || y >= this.height)
+            throw "Coordinates out of bounds";
+        
         var coord = this.translateCoordinates(x, y);
                 
         this._data[coord] = value.R,
