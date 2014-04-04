@@ -8,6 +8,7 @@ import pt = require('./classes/Point');
 import tool = require('./classes/Tool');
 import extension = require('./classes/Extension');
 
+import toolPencil = require('./extensions/Pencil/Pencil');
 import toolPen = require('./extensions/Pen/Pen');
 import toolEraser = require('./extensions/Eraser/Eraser');
 import toolBrush = require('./extensions/Brush/Brush');
@@ -136,6 +137,12 @@ function createMenu()
 }
 
 function loadExtensions() {
+    
+    // Registra il tool Pencil
+    paint.tools[toolPencil.Pencil.EXTENSION_NAME] = new toolPencil.Pencil(paint);
+    paint.extensions[toolPencil.Pencil.EXTENSION_NAME] = paint.tools[toolPencil.Pencil.EXTENSION_NAME];
+    paint.tools[toolPencil.Pencil.EXTENSION_NAME].init();
+    
     // Registra il tool Pen
     paint.tools[toolPen.Pen.EXTENSION_NAME] = new toolPen.Pen(paint);
     paint.extensions[toolPen.Pen.EXTENSION_NAME] = paint.tools[toolPen.Pen.EXTENSION_NAME];

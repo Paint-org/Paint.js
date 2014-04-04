@@ -25,7 +25,7 @@ export class Pen extends drawTool.DrawingTool
 
     activated() {
         super.activated();
-        this.paint.currentPaper.setCursorFromURL("cursors/pencil.cur");
+        this.paint.currentPaper.setCursorFromURL("cursors/brush.cur");
     }
     
     deactivated() {
@@ -46,7 +46,7 @@ export class Pen extends drawTool.DrawingTool
         context.lineCap = 'round';
         context.lineJoin = 'round';
         
-        this.onDraw(this.paint.currentPaper, point);
+        this.onDraw(paper, point);
     }
     
     onDraw(paper:paper.Paper, point:point.Point) {

@@ -2,7 +2,7 @@ import glob = require('./Global');
 import pt = require('./Point');
 import color = require('./Color');
 import paper = require('./Paper');
-import colorMatrix = require('../../classes/ColorMatrix');
+import colorMatrix = require('./ColorMatrix');
 import canvasMatrix = require('./CanvasMatrix');
 
 export class PaperLayer {
