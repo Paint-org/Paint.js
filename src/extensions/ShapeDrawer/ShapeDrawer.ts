@@ -9,12 +9,19 @@ import paperLayer = require('../../classes/PaperLayer');
 
 class Shape
 {
+    static name = "";
     static Draw(ctx : CanvasRenderingContext2D, startPoint : point.Point, endPoint : point.Point) {}
 }
 
 class Line extends Shape
 {
+    static name = "Line";
+    
     static Draw(ctx : CanvasRenderingContext2D, startPoint : point.Point, endPoint : point.Point) {
+    
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        
         ctx.moveTo(startPoint.X, startPoint.Y);
         ctx.lineTo(endPoint.X, endPoint.Y);
     }
@@ -22,6 +29,8 @@ class Line extends Shape
 
 class Rectangle extends Shape
 {
+    static name = "Rectangle";
+    
     static Draw(ctx : CanvasRenderingContext2D, startPoint : point.Point, endPoint : point.Point) {
         ctx.moveTo(startPoint.X, startPoint.Y);
         
@@ -29,6 +38,23 @@ class Rectangle extends Shape
             h = endPoint.Y - startPoint.Y;
         
         ctx.rect(startPoint.X, startPoint.Y, w, h); 
+    }
+}
+
+class Ellipse extends Shape
+{
+    static name = "Ellise";
+    
+    static Draw(ctx : CanvasRenderingContext2D, startPoint : point.Point, endPoint : point.Point) {
+        
+        var w = endPoint.X - startPoint.X,
+            h = endPoint.Y - startPoint.Y;
+        
+        ctx.moveTo(startPoint.X, startPoint.Y + h/2 );
+
+        ctx.bezierCurveTo(startPoint.X, startPoint.Y, endPoint.X, startPoint.Y, endPoint.X, endPoint.Y - h/2);
+        ctx.moveTo(endPoint.X, endPoint.Y - h/2);
+        ctx.bezierCurveTo(endPoint.X, endPoint.Y, startPoint.X, endPoint.Y, startPoint.X, endPoint.Y - h/2);
     }
 }
 
@@ -68,15 +94,21 @@ export class ShapeDrawer extends drawTool.DrawingTool
         
         // Add Rectangle shape
         this._shapes.addShape(
-            this.addToolbarToolItem(null, "Rectangle"),
+            this.addToolbarToolItem(null, Rectangle.name),
             Rectangle
         );
         
         // Add Line shape
         this._shapes.addShape(
-            this.addToolbarToolItem(null, "Line"),
+            this.addToolbarToolItem(null, Line.name),
             Line
         );
+
+        this._shapes.addShape(
+            this.addToolbarToolItem(null, Ellipse.name),
+            Ellipse
+        );
+        
     }
     
     activated(id:string) {
@@ -100,9 +132,6 @@ export class ShapeDrawer extends drawTool.DrawingTool
         var context = this._layer.getContext();
         context.lineWidth = this.paint.toolSize;
         context.strokeStyle = this.paint.primaryColor.HexString;
-
-        context.lineCap = 'round';
-        context.lineJoin = 'round';
         
         this.onDraw(this.paint.currentPaper, point);
     }
