@@ -26,7 +26,7 @@ export class DrawingTool extends tool.Tool
         
         // Load context
         var paper = paint.currentPaper.paperElement;
-    
+        
         $(paper).on("mousedown", $.proxy(this.paper_mousedown, this));
         $(document).on("mousemove", $.proxy(this.document_mousemove, this));
         $(document).on("mouseup", $.proxy(this.document_mouseup, this));

@@ -4,4 +4,4 @@
 /src/classes/**/*.js.map
 /src/extensions/**/*.js
 /src/extensions/**/*.js.map
-.project
+.*
