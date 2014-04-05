@@ -43,7 +43,7 @@ class Rectangle extends Shape
 
 class Ellipse extends Shape
 {
-    static name = "Ellise";
+    static name = "Ellipse";
     
     static Draw(ctx : CanvasRenderingContext2D, startPoint : point.Point, endPoint : point.Point) {
         

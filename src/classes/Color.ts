@@ -19,7 +19,7 @@ export class Color {
     }
     
     equals(color : Color) {
-        return this._hexColor === color.HexString;   
+        return this._hexColor === color._hexColor;   
     }
     
     /**
