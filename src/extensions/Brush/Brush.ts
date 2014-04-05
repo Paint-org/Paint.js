@@ -1,10 +1,10 @@
 import glob = require('../../classes/Global');
-import drawTool = require('../../classes/DrawingTool');
+import tool = require('../../classes/Tool');
 import point = require('../../classes/Point');
 import paper = require('../../classes/Paper');
 import color = require('../../classes/Color');
 
-export class Brush extends drawTool.DrawingTool
+export class Brush extends tool.Tool
 {
     static EXTENSION_NAME : string = "Brush";
     paint : glob.Paint;

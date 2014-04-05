@@ -1,4 +1,5 @@
 import glob = require('./Global');
+import paper = require('./Paper');
 import extension = require('./Extension');
 import point = require('./Point');
 
@@ -9,9 +10,8 @@ import point = require('./Point');
  */
 export class Tool extends extension.Extension
 {
-    static EXTENSION_NAME : string = "";
-    paint : glob.Paint;
-
+    private drawing = false;
+    
     constructor(paint:glob.Paint) {
         super(paint);
     }
@@ -24,19 +24,56 @@ export class Tool extends extension.Extension
      * \param id id of the HTMLElement associated with activation event if exists
      */
     activated(id:string) {
-        var $ = this.paint.$;
         
-        $(this.paint.currentPaper.paperElement).on("click", $.proxy(this.paper_click,this));
+        var $ = this.paint.$,
+            document = this.paint.document,
+            paper = this.paint.currentPaper.paperElement;
+        
+        $(paper).on("click", $.proxy(this.paper_click,this));
+        $(paper).on("mousedown", $.proxy(this.paper_mousedown, this));
+        
+        $(document).on("mousemove", $.proxy(this.document_mousemove, this));
+        $(document).on("mouseup", $.proxy(this.document_mouseup, this));     
     }
     
     /**
      * Gets called when the user selects another tool.
      */
     deactivated() {
-        var $ = this.paint.$;
         
-        $(this.paint.currentPaper.paperElement).off("click", $.proxy(this.paper_click,this));
+        var $ = this.paint.$,
+            document = this.paint.document,
+            paper = this.paint.currentPaper.paperElement;
+        
+        $(paper).off("click", $.proxy(this.paper_click,this));        
+        $(paper).off("mousedown", this.paper_mousedown);
+        
+        $(document).off("mousemove", this.document_mousemove);
+        $(document).off("mouseup", this.document_mouseup);       
     }
+    
+    /**
+     * Called when user starts drawing
+     */
+    onStartDrawing(paper:paper.Paper, point:point.Point) {
+    
+    }
+    
+    onDraw(paper:paper.Paper, point:point.Point) {
+    
+    }
+    
+    /**
+     * Called when user stops drawing
+     */
+    onStopDrawing(paper:paper.Paper, point:point.Point) {
+    
+    }
+    
+    onPaperClick(pt : point.Point) {
+    
+    }    
+    
     
     /**
      * Adds an icon inside the toolbar, in the tools category.
@@ -57,11 +94,30 @@ export class Tool extends extension.Extension
         return id;
     }
     
-    onPaperClick(pt : point.Point) {
-    }
-    
+    // Event handler
     private paper_click(ev : JQueryMouseEventObject) {
         var cord = this.paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
         this.onPaperClick(cord);
-    }    
+    }
+     
+    private paper_mousedown(ev : JQueryMouseEventObject) {
+        this.drawing = true;
+        var cord = this.paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
+        this.onStartDrawing(this.paint.currentPaper, cord);
+    }
+    
+    private document_mousemove(ev : JQueryMouseEventObject) {
+        if(this.drawing) {
+            var cord = this.paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
+            this.onDraw(this.paint.currentPaper, cord);
+        }
+    }
+        
+    private document_mouseup(ev) {
+        if(this.drawing) {
+            this.drawing = false;
+            var cord = this.paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
+            this.onStopDrawing(this.paint.currentPaper, cord);
+        }
+    }  
 }

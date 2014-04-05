@@ -1,6 +1,6 @@
 import glob = require('../../classes/Global');
 import color = require('../../classes/Color');
-import drawTool = require('../../classes/DrawingTool');
+import tool = require('../../classes/Tool');
 import point = require('../../classes/Point');
 import paper = require('../../classes/Paper');
 import paperLayer = require('../../classes/PaperLayer');
@@ -72,7 +72,7 @@ class Shapes
     }
 }
 
-export class ShapeDrawer extends drawTool.DrawingTool
+export class ShapeDrawer extends tool.Tool
 {
     static EXTENSION_NAME : string = "ShapeDrawer";
     paint : glob.Paint;
