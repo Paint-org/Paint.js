@@ -1,4 +1,5 @@
 import glob = require('./Global');
+import color = require('./Color');
 
 export class Extension {
     static EXTENSION_NAME : string = "";
@@ -12,6 +13,22 @@ export class Extension {
     
     init() {
     
+    }
+    
+    /**
+     * Gets called when user changes primary color.
+     * \param color the new color
+     */    
+    onPrimaryColorChanged(color : color.Color) {
+        
+    }
+
+    /**
+     * Gets called when user changes secondary color.
+     * \param color the new color
+     */    
+    onSecondaryColorChanged(color : color.Color) {
+        
     }
     
     /**

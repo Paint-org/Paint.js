@@ -32,17 +32,29 @@ export class ColorChooser extends extension.Extension
         $(this.inputSecondaryColor).on("change", $.proxy(this.setSecondaryColor, this)).change();
     }
     
+    onPrimaryColorChanged(color : color.Color) {
+        var $ = this.paint.$;
+
+        $("#toolColor1").val(color.HexString);
+    }
+    
+    onSecondaryColorChanged(color : color.Color) {
+        var $ = this.paint.$;
+
+        $("#toolColor2").val(color.HexString);
+    }
+    
     /**
      * Primary color changed, update on paint object
      */
-    private setPrimaryColor(ev) {
+    private setPrimaryColor(ev : JQueryInputEventObject) {
         this.paint.primaryColor = new color.Color(this.paint.$(this.inputPrimaryColor).val());
     }
     
     /**
      * Secondary color changed, update on paint object
      */
-    private setSecondaryColor(ev) {
+    private setSecondaryColor(ev : JQueryInputEventObject) {
         this.paint.secondaryColor = new color.Color(this.paint.$(this.inputSecondaryColor).val());        
     }
 }

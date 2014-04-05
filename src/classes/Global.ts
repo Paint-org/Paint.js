@@ -44,7 +44,9 @@ export class Paint {
     
     set primaryColor(value : color.Color) {
         this._primaryColor = value;
-        this._$("#toolColor1").val(value.HexString);
+        
+        for (var ext in this.extensions)
+            this.extensions[ext].onPrimaryColorChanged(value);
     }
     
     get primaryColor() {
@@ -53,9 +55,10 @@ export class Paint {
     
     set secondaryColor(value : color.Color) {
         this._secondaryColor = value;
-        this.$("#toolColor2").val(value.HexString);
+        for (var ext in this.extensions)
+            this.extensions[ext].onSecondaryColorChanged(value);
     }
-    
+
     get secondaryColor() {
         return this._secondaryColor;
     }
