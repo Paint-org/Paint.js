@@ -162,7 +162,6 @@ export class Paper {
         return this._zoom;    
     }
     
-    
     setCursorFromURL(cursor:string) : void {
         this.setCursor("url(" + encodeURI(cursor) + ")");
     }
@@ -177,7 +176,7 @@ export class Paper {
         $(this.paperElement).css('cursor', '');
     }
     
-    save(filename, callback) {
+    getCanvas() : HTMLCanvasElement {
         var paper = this._paint.$(this._paper);
         var saveCanvas = this._paint.document.createElement('canvas');
         saveCanvas.width = paper.width();
@@ -188,10 +187,6 @@ export class Paper {
             saveCanvas.getContext('2d').drawImage(layer.canvas, 0, 0);
         }
         
-        var image = saveCanvas.toDataURL();
-        image = image.replace(/^data:image\/png;base64,/,"");
-        
-        var fs = require('fs');
-        fs.writeFile(filename, image, "base64", callback);
+        return saveCanvas;
     }
 }

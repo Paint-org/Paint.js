@@ -30,15 +30,18 @@ export class ImageSaver extends extension.Extension
         
         // add handler for click
         mnuSave.click = function() {
-            _this.chooseFile(_this.saveFileDialog, function(file) {
-                if(file != "") {
-                    paint.currentPaper.save(file, function(err) {
+            _this.chooseFile(_this.saveFileDialog, function(filename) {
+                if(filename != "") {
+                    var image = paint.currentPaper.getCanvas().toDataURL();
+                    image = image.replace(/^data:image\/png;base64,/,"");
+                    
+                    paint.save(filename, image, "base64", function(err) {
                         if(err) {
                             console.log(err);
                         }
-                    });
-                }
-            });
+                    });   
+                } 
+            });                   
         }
         
         // Add Save submenu to File menu
