@@ -1,5 +1,4 @@
 import glob = require('./Global');
-import color = require('./Color');
 
 export class Extension {
     /** The internal name of the extension. This is not the display name!
@@ -21,7 +20,7 @@ export class Extension {
     
     /**
      * Gets called when user changes primary color.
-     * \param color the new color
+     *
      */    
     onPrimaryColorChanged(color : color.Color) {
         
@@ -29,9 +28,9 @@ export class Extension {
 
     /**
      * Gets called when user changes secondary color.
-     * \param color the new color
+     * 
      */    
-    onSecondaryColorChanged(color : color.Color) {
+    onSecondaryColorChanged() {
         
     }
     
