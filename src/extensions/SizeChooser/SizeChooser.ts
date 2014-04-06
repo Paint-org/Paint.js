@@ -6,7 +6,7 @@ export class SizeChooser extends extension.Extension
     static EXTENSION_NAME : string = "com.paintjs.SizeChooser";
     paint : glob.Paint;
     
-    inputNode : HTMLInputElement;
+    private inputNode : HTMLInputElement;
     
     public constructor(paint:glob.Paint) {
         super(paint);

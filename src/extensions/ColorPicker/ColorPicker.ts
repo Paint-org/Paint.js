@@ -46,7 +46,7 @@ export class ColorPicker extends tool.Tool
         this.paint.primaryColor = color.Color.White;
     }
     
-    tryFindColor(layer : paperLayer.PaperLayer, pt : point.Point) : color.Color {
+    private tryFindColor(layer : paperLayer.PaperLayer, pt : point.Point) : color.Color {
         var col = layer.getCanvasMatrix().colorMatrix.getValue(pt.X, pt.Y);
         
         if(!col.equals(color.Color.White))

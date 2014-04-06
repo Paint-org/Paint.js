@@ -6,7 +6,7 @@ export class Zoom extends extension.Extension
     static EXTENSION_NAME : string = "com.paintjs.Zoom";
     paint : glob.Paint;
     
-    inputNode : HTMLInputElement;
+    private inputNode : HTMLInputElement;
     
     public constructor(paint:glob.Paint) {
         super(paint);

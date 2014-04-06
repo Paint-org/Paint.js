@@ -7,8 +7,8 @@ export class ColorChooser extends extension.Extension
     static EXTENSION_NAME : string = "com.paintjs.ColorChooser";
     paint : glob.Paint;
     
-    inputPrimaryColor : HTMLInputElement;
-    inputSecondaryColor : HTMLInputElement;
+    private inputPrimaryColor : HTMLInputElement;
+    private inputSecondaryColor : HTMLInputElement;
     
     public constructor(paint:glob.Paint) {
         super(paint);

@@ -10,7 +10,6 @@ export class ImageSaver extends extension.Extension
 {
     static EXTENSION_NAME : string = "com.paintjs.ImageSaver";
     paint : glob.Paint;
-    gui;
     
     private saveFileDialog : HTMLInputElement;
     
