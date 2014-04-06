@@ -25,6 +25,7 @@ export class Brush extends tool.Tool
     }
     
     init() {
+        super.init();
         this.addToolbarToolItem(null, "Brush");
     }
     
