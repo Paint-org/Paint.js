@@ -13,6 +13,8 @@ export class Zoom extends extension.Extension
     }
     
     init() {
+        super.init();
+        
         var paint = this.paint;
         var $ = this.paint.$;
         

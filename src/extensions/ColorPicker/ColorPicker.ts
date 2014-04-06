@@ -14,6 +14,7 @@ export class ColorPicker extends tool.Tool
     }
     
     init() {
+        super.init();
         this.addToolbarToolItem(null, "ColorPicker");
     }
 

@@ -11,7 +11,8 @@ export class PaperSize extends extension.Extension
         super(paint);
     }
     
-    init() {        
+    init() {
+        super.init();
         this.indicator = this.addTextIndicatorItem(null, 0, false);        
         this.onResize();
     }

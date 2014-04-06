@@ -90,6 +90,7 @@ export class ShapeDrawer extends tool.Tool
     }
     
     init() {
+        super.init();
         
         // Add Rectangle shape
         this._shapes.addShape(

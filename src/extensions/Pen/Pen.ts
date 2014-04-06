@@ -19,6 +19,7 @@ export class Pen extends tool.Tool
     }
     
     init() {
+        super.init();
         this.addToolbarToolItem(null, "Pen");
     }
 

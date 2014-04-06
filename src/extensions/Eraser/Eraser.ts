@@ -16,6 +16,7 @@ export class Eraser extends tool.Tool
     }
     
     init() {
+        super.init();
         this.addToolbarToolItem(null, "Eraser");
     }
 

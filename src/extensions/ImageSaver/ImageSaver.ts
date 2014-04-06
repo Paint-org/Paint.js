@@ -19,6 +19,7 @@ export class ImageSaver extends extension.Extension
     }
     
     init() {
+        super.init();
         var paint = this.paint,
             $ = this.paint.$,
             _this = this;

@@ -15,6 +15,7 @@ export class Pencil extends tool.Tool
     }
     
     init() {
+        super.init();
         this.addToolbarToolItem(null, "Pencil");
     }
 
