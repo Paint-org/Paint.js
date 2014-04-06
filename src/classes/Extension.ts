@@ -2,6 +2,10 @@ import glob = require('./Global');
 import color = require('./Color');
 
 export class Extension {
+    /** The internal name of the extension. This is not the display name!
+     * Note that this value should be unique! A good example is
+     * com.yourfullname.extensionname
+     */
     static EXTENSION_NAME : string = "";
     
     paint : glob.Paint;
@@ -70,12 +74,5 @@ export class Extension {
         
         return textSpan;
     }
-    
-    /*
-        addToolbarIcon()
-        addIndicator()
-        addMenuItem()
-        ...
-    */
 
 }
