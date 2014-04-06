@@ -55,7 +55,11 @@ export class Extension {
     onResize() {      
     }
     
-    
+    /**
+     * Gets called when zoom changes
+     */
+    onZoom() {   
+    }
     
     /**
      * Return a unique ID string to apply to dynamically generated HTML elements.

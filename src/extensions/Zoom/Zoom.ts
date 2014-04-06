@@ -24,15 +24,17 @@ export class Zoom extends extension.Extension
         
         this.addCustomIndicatorItem(indicator[0], 0, true);
         
-        this.inputNode = <HTMLInputElement> $('#ext-zoom')[0];
+        var inputNode = this.inputNode = <HTMLInputElement> $('#ext-zoom')[0];
         
-        $(this.inputNode).on("change", $.proxy(this.zoomChanged, this)).change();
+        $(this.inputNode).on("change", function(ev){
+            var zoom = parseInt($(inputNode).val());
+            paint.currentPaper.Zoom = zoom / 100;
+        }).change();
     }
     
-    private zoomChanged(ev) {
-        var $ = this.paint.$;
-        var zoom = parseInt($(this.inputNode).val());
-        this.paint.currentPaper.Zoom = zoom / 100;
-        $('#ext-zoom-val').text(zoom + "%");
+    onZoom() {
+        var zoom = this.paint.currentPaper.Zoom;
+
+        this.paint.$('#ext-zoom').val(zoom * 100);
     }
 }

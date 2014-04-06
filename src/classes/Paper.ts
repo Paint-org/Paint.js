@@ -153,6 +153,9 @@ export class Paper {
         
         $("#paperWrapper").width(realWidth * value);
         $("#paperWrapper").height(realHeight * value);
+        
+        for (var i in this._paint.extensions) 
+            this._paint.extensions[i].onZoom();             
     }
 
     get Zoom() : number {
