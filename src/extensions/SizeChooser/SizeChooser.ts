@@ -31,6 +31,6 @@ export class SizeChooser extends extension.Extension
     onToolSizeChanged() {
         var size = this.paint.toolSize;
         
-        this.paint.$(this.inputNode).val(size);
+        this.paint.$(this.inputNode).val(size.toString());
     }
 }

@@ -1,5 +1,4 @@
 /// <reference path="../../libs/node/node.d.ts" />
-/// <reference path="../../libs/jquery/jquery.d.ts" />
 
 import glob = require('../../classes/Global');
 import extension = require('../../classes/Extension');

@@ -37,6 +37,6 @@ export class Zoom extends extension.Extension
     onZoom() {
         var zoom = this.paint.currentPaper.Zoom;
 
-        this.paint.$('#ext-zoom').val(zoom * 100);
+        this.paint.$('#ext-zoom').val((zoom * 100).toString());
     }
 }
