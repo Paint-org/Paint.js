@@ -46,7 +46,7 @@ export class Paint {
         this._primaryColor = value;
         
         for (var ext in this.extensions)
-            this.extensions[ext].onPrimaryColorChanged(value);
+            this.extensions[ext].onPrimaryColorChanged();
     }
     
     get primaryColor() {
@@ -56,29 +56,19 @@ export class Paint {
     set secondaryColor(value : color.Color) {
         this._secondaryColor = value;
         for (var ext in this.extensions)
-            this.extensions[ext].onSecondaryColorChanged(value);
+            this.extensions[ext].onSecondaryColorChanged();
     }
 
     get secondaryColor() {
         return this._secondaryColor;
     }
     
-    /*
-    set currentTool(tool:tool.Tool) {
-        if(this._currentTool !== null)
-            this._currentTool.deactivated();
-        
-        this._currentTool = tool;
-        tool.activated();
-    }
-    */
-    
     /**
      * Change active Tool
      * \param tool the new tool to be activated
      * \param idElement the element that caused tool activation
      */
-    setCurrentTool(tool:tool.Tool, idElement) {
+    setCurrentTool(tool : tool.Tool, idElement : string) {
         if(this._currentTool !== null)
             this._currentTool.deactivated();
         

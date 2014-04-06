@@ -34,12 +34,24 @@ export class Extension {
         
     }
     
+    /**
+     * Gets called when start resizing paper.
+     * 
+     */        
     onResizeStart() {
     }
-    
+
+    /**
+     * Gets called when finish resizing paper.
+     * 
+     */
     onResizeEnd() {
     }
-    
+
+    /**
+     * Gets called when paper is resized.
+     * 
+     */    
     onResize() {      
     }
     
