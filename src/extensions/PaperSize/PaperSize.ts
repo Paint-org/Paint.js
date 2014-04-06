@@ -11,16 +11,12 @@ export class PaperSize extends extension.Extension
         super(paint);
     }
     
-    init() {
-        var $ = this.paint.$;
-        
-        this.indicator = this.addTextIndicatorItem(null, 0, false);
-        
-        $("#paperWrapper").on("resize", $.proxy(this.onResize, this));
-        this.onResize(null);
+    init() {        
+        this.indicator = this.addTextIndicatorItem(null, 0, false);        
+        this.onResize();
     }
     
-    private onResize(ev) {
+    onResize() {
         var $ = this.paint.$;
         var baseCanvas = this.paint.currentPaper.baseLayer.canvas;
         

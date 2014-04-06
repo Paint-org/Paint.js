@@ -5,6 +5,7 @@ import pt = require('./Point');
 import color = require('./Color');
 import paperLayer = require('./PaperLayer');
 import colorMatrix = require('./ColorMatrix');
+import extension = require('./Extension');
 
 export class Paper {
     
@@ -99,6 +100,9 @@ export class Paper {
             
             this._savedCanvas[i] = savedCanvas;
         }
+        
+        for (var i in this._paint.extensions) 
+            this._paint.extensions[i].onResizeStart();
     }
     
     onResize() {
@@ -116,10 +120,16 @@ export class Paper {
             // Reload canvas content
             layer.restoreImage(this._savedCanvas[i]);
         };
+        
+        for (var i in this._paint.extensions) 
+            this._paint.extensions[i].onResize();
     }
     
     onResizeEnd() {
         this._savedCanvas = [];
+        
+        for (var i in this._paint.extensions) 
+            this._paint.extensions[i].onResizeEnd();        
     }
     
     /**

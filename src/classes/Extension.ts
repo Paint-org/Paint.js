@@ -22,7 +22,7 @@ export class Extension {
      * Gets called when user changes primary color.
      *
      */    
-    onPrimaryColorChanged(color : color.Color) {
+    onPrimaryColorChanged() {
         
     }
 
@@ -33,6 +33,17 @@ export class Extension {
     onSecondaryColorChanged() {
         
     }
+    
+    onResizeStart() {
+    }
+    
+    onResizeEnd() {
+    }
+    
+    onResize() {      
+    }
+    
+    
     
     /**
      * Return a unique ID string to apply to dynamically generated HTML elements.
