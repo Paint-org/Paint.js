@@ -24,7 +24,7 @@ export class Paint {
     public currentPaper : paper.Paper;
     public _primaryColor : color.Color;
     public _secondaryColor : color.Color;
-    public toolSize : number;
+    public _toolSize : number;
     public File;
     public FileList;
         
@@ -61,6 +61,16 @@ export class Paint {
 
     get secondaryColor() {
         return this._secondaryColor;
+    }
+    
+    set toolSize(value:number) {
+        this._toolSize = value;        
+        for (var ext in this.extensions)
+            this.extensions[ext].onToolSizeChanged();
+    }
+    
+    get toolSize() {
+        return this._toolSize;
     }
     
     /**

@@ -18,12 +18,17 @@ export class SizeChooser extends extension.Extension
         
         $("#topBar").append('Size: 1 <input type="range" id="toolSize" value="3" min="1" max="20" /> 20');
         
-        this.inputNode = <HTMLInputElement> $('#toolSize')[0];
+        var inputNode = this.inputNode = <HTMLInputElement> $('#toolSize')[0];
         
-        $(this.inputNode).on("change", $.proxy(this.sizeChanged, this)).change();
+        $(this.inputNode).on("change", function(ev){
+            var size = parseInt(paint.$(inputNode).val());
+            paint.toolSize = size; 
+        }).change();        
     }
     
-    private sizeChanged(ev) {
-        this.paint.toolSize = parseInt(this.paint.$(this.inputNode).val());        
+    onToolSizeChanged() {
+        var size = this.paint.toolSize;
+        
+        this.paint.$(this.inputNode).val(size);
     }
 }

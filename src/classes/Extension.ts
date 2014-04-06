@@ -15,7 +15,6 @@ export class Extension {
     }
     
     init() {
-    
     }
     
     /**
@@ -23,7 +22,6 @@ export class Extension {
      *
      */    
     onPrimaryColorChanged() {
-        
     }
 
     /**
@@ -31,7 +29,13 @@ export class Extension {
      * 
      */    
     onSecondaryColorChanged() {
-        
+    }
+
+    /**
+     * Gets called when tool size changes.
+     * 
+     */    
+    onToolSizeChanged() {
     }
     
     /**
