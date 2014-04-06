@@ -6,7 +6,7 @@ import paper = require('../../classes/Paper');
    
 export class Eraser extends tool.Tool
 {
-    static EXTENSION_NAME : string = "Eraser";
+    static EXTENSION_NAME : string = "com.paintjs.Eraser";
     paint : glob.Paint;
     
     private _lastPt : point.Point = null;

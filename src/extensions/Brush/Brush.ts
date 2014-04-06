@@ -6,7 +6,7 @@ import color = require('../../classes/Color');
 
 export class Brush extends tool.Tool
 {
-    static EXTENSION_NAME : string = "Brush";
+    static EXTENSION_NAME : string = "com.paintjs.Brush";
     paint : glob.Paint;
     
     private _lastPt : point.Point = null;

@@ -3,7 +3,7 @@ import extension = require('../../classes/Extension');
 
 export class PaperSize extends extension.Extension
 {
-    static EXTENSION_NAME : string = "PaperSize";
+    static EXTENSION_NAME : string = "com.paintjs.PaperSize";
     paint : glob.Paint;
     private indicator : HTMLElement;
     
