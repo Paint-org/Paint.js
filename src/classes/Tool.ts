@@ -52,6 +52,10 @@ export class Tool extends extension.Extension
         $(document).off("mouseup", this.document_mouseup);       
     }
     
+    get isActive() : boolean {
+        return this.paint.currentTool === this;
+    }
+    
     /**
      * Called when user starts drawing
      */

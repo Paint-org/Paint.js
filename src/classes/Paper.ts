@@ -162,13 +162,22 @@ export class Paper {
         return this._zoom;    
     }
     
-    setCursorFromURL(cursor:string) : void {
-        this.setCursor("url(" + encodeURI(cursor) + ")");
+    setCursorFromURL(cursor:string, x:number=null, y:number=null) : void {
+        this.setCursor("url(" + encodeURI(cursor) + ")", x, y);
     }
     
-    setCursor(cursor:string) : void {
+    setCursor(cursor:string, x:number=null, y:number=null) : void {
         var $ = this._paint.$;
-        $(this.paperElement).css('cursor', cursor + ",default");
+        
+        if((x === null && y !== null) || (x !== null && y === null))
+            throw "Both or none of the coordinates should be specified.";
+        
+        var offset = "";
+        if(x !== null) {
+            offset = " " + x + " " + y;
+        }
+        
+        $(this.paperElement).css('cursor', cursor + offset + ",default");
     }
     
     restoreCursor() {

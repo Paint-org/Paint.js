@@ -12,7 +12,6 @@ export class Pen extends tool.Tool
     
     private _layer : paperLayer.PaperLayer;
     private _points : point.Point[] = [];
-    private _oldCursor = "";
     
     public constructor(paint:glob.Paint) {
         super(paint);
