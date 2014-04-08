@@ -64,7 +64,21 @@ export class Tool extends extension.Extension
     }
     
     onDraw(paper:paper.Paper, point:point.Point) {
-    
+        var $ = this.paint.$;
+        var canvas = paper.getCanvas();
+        
+        var png = this.paint.document.createElement('img');
+        png.src = canvas.toDataURL();
+        
+        var zoomedCanvas = (<HTMLCanvasElement>$("#prova")[0]);
+        
+        zoomedCanvas.width = paper.baseLayer.canvas.width * this.paint.currentPaper.Zoom;
+        zoomedCanvas.height = paper.baseLayer.canvas.height * this.paint.currentPaper.Zoom;
+        
+        var ctx = zoomedCanvas.getContext('2d');
+        (<any>ctx).imageSmoothingEnabled = false;
+        (<any>ctx).webkitImageSmoothingEnabled = false;
+        ctx.drawImage(png, 0, 0, zoomedCanvas.width * this.paint.currentPaper.Zoom, zoomedCanvas.height * this.paint.currentPaper.Zoom);
     }
     
     /**
