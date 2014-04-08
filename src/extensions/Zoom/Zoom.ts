@@ -38,6 +38,6 @@ export class Zoom extends extension.Extension
         var zoom = this.paint.currentPaper.Zoom;
 
         this.paint.$('#ext-zoom').val((zoom * 100).toString());
-        this.paint.$('#ext-zoom-val').text((parseInt(zoom * 100)).toString() + '%');
+        this.paint.$('#ext-zoom-val').text(Math.round(zoom * 100).toString() + '%');
     }
 }
