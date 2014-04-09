@@ -89,7 +89,11 @@ export class Tool extends extension.Extension
         var escapedStr = $('<div />').text(text).html();
         var id = extension.Extension.getUniqueHtmlId();
         
-        $("#tools").append('<button id="' + id + '">' + escapedStr + '</button>');
+        //$("#tools").append('<button id="' + id + '">' + escapedStr + '</button>');
+        $("#tools").append('<div class="smallicon" id="' + id + '">\
+                              <img src="libs/ribbon/Icons/IgnoreConversation.png" />\
+                              <div class="iconlegend">' + escapedStr + '</div>\
+                            </div>');
         
         $("#" + id).click($.proxy(function() {
             this.paint.setCurrentTool(this, id);
