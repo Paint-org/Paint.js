@@ -13,7 +13,7 @@ tr,td {
 
 #mainSpace {
 	position: absolute;
-	top: 100px;
+	top: 117px;
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -32,10 +32,11 @@ tr,td {
 }
 
 #topBar {
+	position: absolute;
 	left: 0;
 	right: 0;
 	top: 0;
-	height: 100px;
+	height: 117px;
 	background-color: #f5f6f7;
 	border-bottom: 1px solid #dadbdc;
 	z-index: 2;

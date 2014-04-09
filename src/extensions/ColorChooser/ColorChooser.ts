@@ -20,7 +20,7 @@ export class ColorChooser extends extension.Extension
         var $ = this.paint.$;
     
         // add input color
-        $("#topBar").append('<div>\
+        $("#miscToolbar").append('<div>\
                 Primary color: <input type="color" id="toolColor1" value="#000000" />\
                 Secondary color: <input type="color" id="toolColor2" value="#ffffff" />\
            </div>');
