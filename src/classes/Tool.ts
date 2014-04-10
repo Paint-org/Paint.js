@@ -17,6 +17,7 @@ export class Tool extends extension.Extension
     }
     
     init() {
+        super.init();
         this.paint.registerTool(this);
     }
     
