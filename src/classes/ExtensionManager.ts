@@ -14,12 +14,17 @@ export class ExtensionManager {
     addSingleExtension(mainDirectory) {
         
         var paint = this.paint,
-            ext = require(mainDirectory + '/main.js');
+            manifest = require(mainDirectory + '/package.json');
         
-        ext.Extensions.forEach(function(ext){
-            var ist = new ext(paint);
-            ist.init();
-         });
+        if (typeof (manifest.main) === "string") {
+            var ext = require(mainDirectory + '/' + manifest.main);
+            
+            ext.Extensions.forEach(function(ext){
+                var ist = new ext(paint);
+                ist.init();
+             });
+            
+        }
     
     }
     
