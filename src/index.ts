@@ -139,58 +139,48 @@ function createMenu()
 }
 
 function loadExtensions() {
+    var extensions : extension.Extension[] = [];
+    var defaultTool : tool.Tool;
     
     // Registra il tool Pencil
-    paint.tools[toolPencil.Pencil.EXTENSION_NAME] = new toolPencil.Pencil(paint);
-    paint.extensions[toolPencil.Pencil.EXTENSION_NAME] = paint.tools[toolPencil.Pencil.EXTENSION_NAME];
-    paint.tools[toolPencil.Pencil.EXTENSION_NAME].init();
+    extensions.push(new toolPencil.Pencil(paint));
     
     // Registra il tool Pen
-    paint.tools[toolPen.Pen.EXTENSION_NAME] = new toolPen.Pen(paint);
-    paint.extensions[toolPen.Pen.EXTENSION_NAME] = paint.tools[toolPen.Pen.EXTENSION_NAME];
-    paint.tools[toolPen.Pen.EXTENSION_NAME].init();
+    defaultTool = new toolPen.Pen(paint);
+    extensions.push(defaultTool);
     
     // Registra il tool Eraser
-    paint.tools[toolEraser.Eraser.EXTENSION_NAME] = new toolEraser.Eraser(paint);
-    paint.extensions[toolEraser.Eraser.EXTENSION_NAME] = paint.tools[toolEraser.Eraser.EXTENSION_NAME];
-    paint.tools[toolEraser.Eraser.EXTENSION_NAME].init();
+    extensions.push(new toolEraser.Eraser(paint));
     
     // Registra il tool Brush
-    paint.tools[toolBrush.Brush.EXTENSION_NAME] = new toolBrush.Brush(paint);
-    paint.extensions[toolBrush.Brush.EXTENSION_NAME] = paint.tools[toolBrush.Brush.EXTENSION_NAME];
-    paint.tools[toolBrush.Brush.EXTENSION_NAME].init();
+    extensions.push(new toolBrush.Brush(paint));
     
     // Registra il tool Line
-    paint.tools[toolShapeDrawer.ShapeDrawer.EXTENSION_NAME] = new toolShapeDrawer.ShapeDrawer(paint);
-    paint.extensions[toolShapeDrawer.ShapeDrawer.EXTENSION_NAME] = paint.tools[toolShapeDrawer.ShapeDrawer.EXTENSION_NAME];
-    paint.tools[toolShapeDrawer.ShapeDrawer.EXTENSION_NAME].init();
-    
+    extensions.push(new toolShapeDrawer.ShapeDrawer(paint));
     
     // Registra il tool ColorPicker
-    paint.tools[toolColorPicker.ColorPicker.EXTENSION_NAME] = new toolColorPicker.ColorPicker(paint);
-    paint.extensions[toolColorPicker.ColorPicker.EXTENSION_NAME] = paint.tools[toolColorPicker.ColorPicker.EXTENSION_NAME];
-    paint.tools[toolColorPicker.ColorPicker.EXTENSION_NAME].init();
-    
-    // Setta il tool corrente
-    paint.setCurrentTool(paint.tools[toolPen.Pen.EXTENSION_NAME], null);
+    extensions.push(new toolColorPicker.ColorPicker(paint));
     
     // Registra l'estensione ColorChooser per la scelta dei colori
-    paint.extensions[extColorChooser.ColorChooser.EXTENSION_NAME] = new extColorChooser.ColorChooser(paint);
-    paint.extensions[extColorChooser.ColorChooser.EXTENSION_NAME].init();
+    extensions.push(new extColorChooser.ColorChooser(paint));
     
     // Registra l'estensione SizeChooser per la scelta della dimensione
-    paint.extensions[extSizeChooser.SizeChooser.EXTENSION_NAME] = new extSizeChooser.SizeChooser(paint);
-    paint.extensions[extSizeChooser.SizeChooser.EXTENSION_NAME].init();
+    extensions.push(new extSizeChooser.SizeChooser(paint));
     
     // Registra l'estensione PaperSize
-    paint.extensions[extPaperSize.PaperSize.EXTENSION_NAME] = new extPaperSize.PaperSize(paint);
-    paint.extensions[extPaperSize.PaperSize.EXTENSION_NAME].init();
+    extensions.push(new extPaperSize.PaperSize(paint));
     
     // Registra l'estensione Zoom
-    paint.extensions[extZoom.Zoom.EXTENSION_NAME] = new extZoom.Zoom(paint);
-    paint.extensions[extZoom.Zoom.EXTENSION_NAME].init();
+    extensions.push(new extZoom.Zoom(paint));
     
     // Registra l'estensione ImageSaver
-    paint.extensions[extImageSaver.ImageSaver.EXTENSION_NAME] = new extImageSaver.ImageSaver(paint);
-    paint.extensions[extImageSaver.ImageSaver.EXTENSION_NAME].init();
+    extensions.push(new extImageSaver.ImageSaver(paint));
+    
+    
+    extensions.forEach(function(extension){
+        extension.init();
+    });
+    
+    // Setta il tool corrente
+    paint.setCurrentTool(defaultTool, null);
 }

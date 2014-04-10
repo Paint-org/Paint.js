@@ -3,7 +3,7 @@ import extension = require('../../classes/Extension');
 
 export class Zoom extends extension.Extension
 {
-    static EXTENSION_NAME : string = "com.paintjs.Zoom";
+    public EXTENSION_NAME : string = "com.paintjs.Zoom";
     paint : glob.Paint;
     
     private inputNode : HTMLInputElement;

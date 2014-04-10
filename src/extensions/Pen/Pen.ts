@@ -7,7 +7,7 @@ import paperLayer = require('../../classes/PaperLayer');
    
 export class Pen extends tool.Tool
 {
-    static EXTENSION_NAME : string = "com.paintjs.Pen";
+    public EXTENSION_NAME : string = "com.paintjs.Pen";
     paint : glob.Paint;
     
     private _layer : paperLayer.PaperLayer;

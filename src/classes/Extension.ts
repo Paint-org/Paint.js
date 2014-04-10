@@ -5,7 +5,7 @@ export class Extension {
      * Note that this value should be unique! A good example is
      * com.yourfullname.extensionname
      */
-    static EXTENSION_NAME : string = "";
+    public EXTENSION_NAME : string = "";
     
     paint : glob.Paint;
     private static htmlIdCount = 0;
@@ -15,6 +15,7 @@ export class Extension {
     }
     
     init() {
+        this.paint.registerExtension(this);
     }
     
     /**

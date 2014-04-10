@@ -14,10 +14,11 @@ export class Tool extends extension.Extension
     
     constructor(paint:glob.Paint) {
         super(paint);
-        // FIXME paint.registerAsTool()
     }
     
     init() {
+        super.init();
+        this.paint.registerTool(this);
     }
     
     /**

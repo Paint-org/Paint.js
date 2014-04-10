@@ -3,7 +3,7 @@ import extension = require('../../classes/Extension');
 
 export class SizeChooser extends extension.Extension
 {
-    static EXTENSION_NAME : string = "com.paintjs.SizeChooser";
+    public EXTENSION_NAME : string = "com.paintjs.SizeChooser";
     paint : glob.Paint;
     
     private inputNode : HTMLInputElement;

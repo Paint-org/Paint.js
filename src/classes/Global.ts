@@ -49,6 +49,14 @@ export class Paint {
         return this._$;
     }
     
+    registerExtension(instance : extension.Extension) {
+        this.extensions[instance.EXTENSION_NAME] = instance;
+    }
+    
+    registerTool(instance : tool.Tool) {
+        this.tools[instance.EXTENSION_NAME] = instance;
+    }
+    
     set primaryColor(value : color.Color) {
         this._primaryColor = value;
         

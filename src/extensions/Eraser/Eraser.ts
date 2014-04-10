@@ -8,7 +8,7 @@ import paperLayer = require('../../classes/PaperLayer');
    
 export class Eraser extends tool.Tool
 {
-    static EXTENSION_NAME : string = "com.paintjs.Eraser";
+    public EXTENSION_NAME : string = "com.paintjs.Eraser";
     paint : glob.Paint;
     
     private _layer : paperLayer.PaperLayer;
