@@ -1,7 +1,7 @@
 import glob = require('../../classes/Global');
 import extension = require('../../classes/Extension');
 
-export class Zoom extends extension.Extension
+class Zoom extends extension.Extension
 {
     public EXTENSION_NAME : string = "com.paintjs.Zoom";
     paint : glob.Paint;
@@ -41,3 +41,6 @@ export class Zoom extends extension.Extension
         this.paint.$('#ext-zoom-val').text(Math.round(zoom * 100).toString() + '%');
     }
 }
+
+exports.Extensions = new Array();
+exports.Extensions.push(Zoom);

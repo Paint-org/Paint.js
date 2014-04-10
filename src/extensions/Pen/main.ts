@@ -3,12 +3,11 @@ import color = require('../../classes/Color');
 import tool = require('../../classes/Tool');
 import point = require('../../classes/Point');
 import paper = require('../../classes/Paper');
-import canvasMatrix = require('../../classes/CanvasMatrix');
 import paperLayer = require('../../classes/PaperLayer');
    
-export class Eraser extends tool.Tool
+class Pen extends tool.Tool
 {
-    public EXTENSION_NAME : string = "com.paintjs.Eraser";
+    public EXTENSION_NAME : string = "com.paintjs.Pen";
     paint : glob.Paint;
     
     private _layer : paperLayer.PaperLayer;
@@ -20,54 +19,17 @@ export class Eraser extends tool.Tool
     
     init() {
         super.init();
-        this.addToolbarToolItem(null, "Eraser");
+        this.addToolbarToolItem(null, "Pen");
     }
 
-    activated(id : string) {
+    activated(id:string) {
         super.activated(id);
-        this.onToolSizeChanged();
+        this.paint.currentPaper.setCursorFromURL("cursors/brush.cur");
     }
     
     deactivated() {
         super.deactivated();
         this.paint.currentPaper.restoreCursor();
-    }
-    
-    onToolSizeChanged() {
-        if(this.isActive) {
-            var size = this.paint.toolSize;
-            
-            var cur = this.getCursorForSize(size);
-            this.paint.currentPaper.setCursorFromURL(cur, size/2, size/2);
-        }
-    }
-    
-    private getCursorForSize(size:number) : string {
-        var $ = this.paint.$;
-        
-        var newCanvas = $('<canvas />')
-        newCanvas.css('position', 'absolute');
-        newCanvas.css('top', 0);
-        newCanvas.css('left', 0);
-        newCanvas.attr("width", size);
-        newCanvas.attr("height", size);
-        
-        var el = <HTMLCanvasElement>newCanvas[0];
-        var ctx = el.getContext('2d');
-        
-        ctx.fillStyle = color.Color.White.HexString;
-        ctx.fillRect(0, 0, size, size);
-        
-        var mat = new canvasMatrix.CanvasMatrix(ctx.getImageData(0, 0, size, size));
-        
-        paperLayer.PaperLayer.drawAliasedLine(0, 0, size-1, 0, 1, color.Color.Black, mat.colorMatrix);
-        paperLayer.PaperLayer.drawAliasedLine(0, 0, 0, size-1, 1, color.Color.Black, mat.colorMatrix);
-        paperLayer.PaperLayer.drawAliasedLine(size-1, 0, size-1, size-1, 1, color.Color.Black, mat.colorMatrix);
-        paperLayer.PaperLayer.drawAliasedLine(0, size-1, size-1, size-1, 1, color.Color.Black, mat.colorMatrix);
-        
-        mat.apply(ctx);
-        
-        return el.toDataURL();
     }
     
     onStartDrawing(paper:paper.Paper, point:point.Point) {
@@ -79,8 +41,8 @@ export class Eraser extends tool.Tool
         var context = this._layer.getContext();
         
         context.lineWidth = this.paint.toolSize;
-        context.strokeStyle = this.paint.secondaryColor.HexString;
-        context.lineCap = 'square';
+        context.strokeStyle = this.paint.primaryColor.HexString;
+        context.lineCap = 'round';
         context.lineJoin = 'round';
         
         this.onDraw(paper, point);
@@ -136,3 +98,6 @@ export class Eraser extends tool.Tool
         this._points = [];
     }
 }
+
+exports.Extensions = new Array();
+exports.Extensions.push(Pen);

@@ -7,7 +7,7 @@ import glob = require('./classes/Global');
 import pt = require('./classes/Point');
 import tool = require('./classes/Tool');
 import extension = require('./classes/Extension');
-
+/*
 import toolPencil = require('./extensions/Pencil/Pencil');
 import toolPen = require('./extensions/Pen/Pen');
 import toolEraser = require('./extensions/Eraser/Eraser');
@@ -21,7 +21,7 @@ import extSizeChooser = require('./extensions/SizeChooser/SizeChooser');
 import extZoom = require('./extensions/Zoom/Zoom');
 import extImageSaver = require('./extensions/ImageSaver/ImageSaver');
 import extPaperSize = require('./extensions/PaperSize/PaperSize');
-
+*/
 // node-webkit requires
 var gui = require('nw.gui');
 var paint:glob.Paint;
@@ -47,7 +47,8 @@ $(document).ready(function() {
     createMenu();
     
     // Load Extensions and Tools
-    loadExtensions();
+    paint.extensionManager.addExtensions();
+    //loadExtensions();
         
 });
 
@@ -139,6 +140,7 @@ function createMenu()
 }
 
 function loadExtensions() {
+    /*
     var extensions : extension.Extension[] = [];
     var defaultTool : tool.Tool;
     
@@ -182,5 +184,7 @@ function loadExtensions() {
     });
     
     // Setta il tool corrente
+    
     paint.setCurrentTool(defaultTool, null);
+    */
 }

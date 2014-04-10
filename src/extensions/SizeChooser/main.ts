@@ -1,7 +1,7 @@
 import glob = require('../../classes/Global');
 import extension = require('../../classes/Extension');
 
-export class SizeChooser extends extension.Extension
+class SizeChooser extends extension.Extension
 {
     public EXTENSION_NAME : string = "com.paintjs.SizeChooser";
     paint : glob.Paint;
@@ -34,3 +34,6 @@ export class SizeChooser extends extension.Extension
         this.paint.$(this.inputNode).val(size.toString());
     }
 }
+
+exports.Extensions = new Array();
+exports.Extensions.push(SizeChooser);
