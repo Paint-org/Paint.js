@@ -74,7 +74,7 @@ class Shapes
 
 export class ShapeDrawer extends tool.Tool
 {
-    static EXTENSION_NAME : string = "com.paintjs.ShapeDrawer";
+    public EXTENSION_NAME : string = "com.paintjs.ShapeDrawer";
     paint : glob.Paint;
     
     private _startPt : point.Point = null;

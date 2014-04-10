@@ -6,7 +6,7 @@ import color = require('../../classes/Color');
 
 export class ColorPicker extends tool.Tool   
 {
-    static EXTENSION_NAME : string = "com.paintjs.ColorPicker";
+    public EXTENSION_NAME : string = "com.paintjs.ColorPicker";
     paint : glob.Paint;
     
     constructor(paint : glob.Paint) {

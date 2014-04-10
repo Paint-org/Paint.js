@@ -7,7 +7,7 @@ var gui = global.window.nwDispatcher.requireNwGui();
 
 export class ImageSaver extends extension.Extension
 {
-    static EXTENSION_NAME : string = "com.paintjs.ImageSaver";
+    public EXTENSION_NAME : string = "com.paintjs.ImageSaver";
     paint : glob.Paint;
     
     private saveFileDialog : HTMLInputElement;

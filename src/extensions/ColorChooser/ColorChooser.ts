@@ -4,7 +4,7 @@ import color = require('../../classes/Color');
 
 export class ColorChooser extends extension.Extension 
 {
-    static EXTENSION_NAME : string = "com.paintjs.ColorChooser";
+    public EXTENSION_NAME : string = "com.paintjs.ColorChooser";
     paint : glob.Paint;
     
     private inputPrimaryColor : HTMLInputElement;
