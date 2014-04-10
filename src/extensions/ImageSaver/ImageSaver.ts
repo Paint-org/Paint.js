@@ -2,6 +2,7 @@
 
 import glob = require('../../classes/Global');
 import extension = require('../../classes/Extension');
+var fs = require('fs');
 
 var gui = global.window.nwDispatcher.requireNwGui();
 
@@ -35,15 +36,15 @@ export class ImageSaver extends extension.Extension
                     var image = paint.currentPaper.getCanvas().toDataURL();
                     image = image.replace(/^data:image\/png;base64,/,"");
                     
-                    paint.save(filename, image, "base64", function(err) {
+                    fs.writeFile(filename, image, "base64" , function(err) {
                         if(err) {
                             console.log(err);
                         }
                     });   
-                } 
-            });                   
+                }
+            });
         }
-        
+
         // Add Save submenu to File menu
         var menus = gui.Window.get().menu.items;
 

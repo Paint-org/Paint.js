@@ -96,10 +96,4 @@ export class Paint {
     get currentTool() : tool.Tool {
         return this._currentTool;
     }
-    
-    
-    save(filename : string, data : string, encoding : string, callback) {
-        var fs = require('fs');
-        fs.writeFile(filename, data, encoding, callback);
-    }    
 }
