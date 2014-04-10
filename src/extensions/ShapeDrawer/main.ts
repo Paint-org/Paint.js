@@ -72,7 +72,7 @@ class Shapes
     }
 }
 
-export class ShapeDrawer extends tool.Tool
+class ShapeDrawer extends tool.Tool
 {
     public EXTENSION_NAME : string = "com.paintjs.ShapeDrawer";
     paint : glob.Paint;
@@ -159,3 +159,6 @@ export class ShapeDrawer extends tool.Tool
         paper.removeLayer(this._layer);
     }
 }
+
+exports.Extensions = new Array();
+exports.Extensions.push(ShapeDrawer);

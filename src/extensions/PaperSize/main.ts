@@ -1,7 +1,7 @@
 import glob = require('../../classes/Global');
 import extension = require('../../classes/Extension');
 
-export class PaperSize extends extension.Extension
+class PaperSize extends extension.Extension
 {
     public EXTENSION_NAME : string = "com.paintjs.PaperSize";
     paint : glob.Paint;
@@ -24,3 +24,6 @@ export class PaperSize extends extension.Extension
         $(this.indicator).html(baseCanvas.width + " &times; " + baseCanvas.height + "px");
     }
 }
+
+exports.Extensions = new Array();
+exports.Extensions.push(PaperSize);

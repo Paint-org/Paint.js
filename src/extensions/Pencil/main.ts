@@ -4,7 +4,7 @@ import point = require('../../classes/Point');
 import paper = require('../../classes/Paper');
 import paperLayer = require('../../classes/PaperLayer');
    
-export class Pencil extends tool.Tool
+class Pencil extends tool.Tool
 {
     public EXTENSION_NAME : string = "com.paintjs.Pencil";
     paint : glob.Paint;
@@ -55,3 +55,6 @@ export class Pencil extends tool.Tool
         this._lastPt = point;
     }
 }
+
+exports.Extensions = new Array();
+exports.Extensions.push(Pencil);

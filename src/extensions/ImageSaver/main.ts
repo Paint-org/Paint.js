@@ -6,7 +6,7 @@ var fs = require('fs');
 
 var gui = global.window.nwDispatcher.requireNwGui();
 
-export class ImageSaver extends extension.Extension
+class ImageSaver extends extension.Extension
 {
     public EXTENSION_NAME : string = "com.paintjs.ImageSaver";
     paint : glob.Paint;
@@ -79,3 +79,6 @@ export class ImageSaver extends extension.Extension
         chooser.trigger('click');
     }    
 }
+
+exports.Extensions = new Array();
+exports.Extensions.push(ImageSaver);

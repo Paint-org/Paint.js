@@ -5,6 +5,7 @@ import paper = require('./Paper');
 import tool = require('./Tool');
 import extension = require('./Extension');
 import barManager = require('./BarManager');
+import extensionManager = require('./ExtensionManager');
 
 /**
  * This class contains a reference to most of the global
@@ -24,8 +25,11 @@ export class Paint {
     /** Current Paper object (the one at the base of the level hierarchy) */
     public currentPaper : paper.Paper;
     
-    /** Bar manager */
+    /** Bar Manager */
     public barManager : barManager.BarManager;
+   
+    /** Extension Manager */
+    public extensionManager : extensionManager.ExtensionManager;
     
     /** Current colors */
     public _primaryColor : color.Color;
@@ -40,7 +44,10 @@ export class Paint {
         this._$ = $;
         
         this.currentPaper = new paper.Paper(this, $('#paper')[0]);
+        
         this.barManager = new barManager.BarManager(this);
+        this.extensionManager = new extensionManager.ExtensionManager(this);
+        
         this._primaryColor = color.Color.Black;
         this._secondaryColor = color.Color.White;
     }

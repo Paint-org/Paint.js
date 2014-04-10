@@ -4,7 +4,7 @@ import point = require('../../classes/Point');
 import paper = require('../../classes/Paper');
 import color = require('../../classes/Color');
 
-export class Brush extends tool.Tool
+class Brush extends tool.Tool
 {
     public EXTENSION_NAME : string = "com.paintjs.Brush";
     paint : glob.Paint;
@@ -128,3 +128,6 @@ export class Brush extends tool.Tool
         }
     }
 }
+
+exports.Extensions = new Array();
+exports.Extensions.push(Brush);

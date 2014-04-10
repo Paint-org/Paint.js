@@ -4,7 +4,7 @@ import point = require('../../classes/Point');
 import paperLayer = require('../../classes/PaperLayer');
 import color = require('../../classes/Color');
 
-export class ColorPicker extends tool.Tool   
+class ColorPicker extends tool.Tool   
 {
     public EXTENSION_NAME : string = "com.paintjs.ColorPicker";
     paint : glob.Paint;
@@ -54,6 +54,7 @@ export class ColorPicker extends tool.Tool
         
         return null;
     }
-    
-
 }
+
+exports.Extensions = new Array();
+exports.Extensions.push(ColorPicker);

@@ -2,7 +2,7 @@ import glob = require('../../classes/Global');
 import extension = require('../../classes/Extension');
 import color = require('../../classes/Color');
 
-export class ColorChooser extends extension.Extension 
+class ColorChooser extends extension.Extension 
 {
     public EXTENSION_NAME : string = "com.paintjs.ColorChooser";
     paint : glob.Paint;
@@ -61,3 +61,6 @@ export class ColorChooser extends extension.Extension
         this.paint.secondaryColor = new color.Color(this.paint.$(this.inputSecondaryColor).val());        
     }
 }
+
+exports.Extensions = new Array();
+exports.Extensions.push(ColorChooser);
