@@ -1,6 +1,7 @@
 /// <reference path="../libs/node/node.d.ts" />
 
 import glob = require('./Global');
+import extension = require('./Extension');
 var fs = require('fs');
 
 export class ExtensionManager {
@@ -19,11 +20,14 @@ export class ExtensionManager {
         if (typeof (manifest.main) === "string") {
             var ext = require(mainDirectory + '/' + manifest.main);
             
-            ext.Extensions.forEach(function(ext){
-                var ist = new ext(paint);
-                ist.init();
-             });
-            
+            if(ext.Extensions instanceof Array) {
+                ext.Extensions.forEach(function(ext){
+                    var ist = new ext(paint);
+                    ist.init();
+                });
+            } else {
+                console.warn("Extension " + mainDirectory + " not loaded: no valid exports found.");
+            }
         }
     
     }
