@@ -10,7 +10,7 @@ Setup development environment
 
 Compile (for development)
 -------------------------
-    tsc --sourcemap --module commonjs -t ES5 index.ts
+    tsc --sourcemap --module commonjs -t ES5 index.ts extensions/**/*.ts
 
 (tip: add the `-w` parameter to automatically recompile files whenever they get saved)
 
