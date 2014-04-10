@@ -14,6 +14,7 @@ export class Tool extends extension.Extension
     
     constructor(paint:glob.Paint) {
         super(paint);
+        // FIXME paint.registerAsTool()
     }
     
     init() {
@@ -91,9 +92,20 @@ export class Tool extends extension.Extension
         
         //$("#tools").append('<button id="' + id + '">' + escapedStr + '</button>');
         $("#tools").append('<div class="smallicon" id="' + id + '">\
-                              <img src="libs/ribbon/Icons/IgnoreConversation.png" />\
-                              <div class="iconlegend">' + escapedStr + '</div>\
+                              <img src="libs/ribbon/Icons/IgnoreConversation.png" width="16" height="16" />\
+                              <div class="iconlegend"></div>\
                             </div>');
+        
+        var containerHeight = $("#tools").height();
+        var iconHeight = 24; //$("#tools").height();
+        var iconWidth = 24; //$("#tools").width();
+        var epsilon = 3;
+        var n = $("#tools").children(".smallicon").length;
+        
+        $("#tools").css('width', (iconWidth + epsilon) * Math.ceil(n / 3));
+        
+        $("#" + id).css('display', 'inline-block');
+        $("#" + id).attr('title', escapedStr);
         
         $("#" + id).click($.proxy(function() {
             this.paint.setCurrentTool(this, id);
