@@ -38,8 +38,9 @@ export class Paint {
         
     private _currentTool : any = null;
     
-    constructor($ : JQueryStatic) {
+    constructor($ : JQueryStatic, document : Document) {
         this._$ = $;
+        this.document = document;
         
         this.currentPaper = new paper.Paper(this, $('#paper')[0]);
         
@@ -102,7 +103,14 @@ export class Paint {
      * \param idElement the element that caused tool activation
      */
     setCurrentTool(tool : any, idElement : string) {
+        /* Set new tool and call Activated() and Deactivated() if tool listen these events */
+        if (this._currentTool !== null && this._currentTool.deactivated)
+            this._currentTool.deactivated();
+        
         this._currentTool = tool;
+        
+        if (this._currentTool.activated)
+            this._currentTool.activated(idElement);
     }
     
     get currentTool() : any {

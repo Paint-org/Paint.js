@@ -218,7 +218,7 @@ export class Paper {
     
     onPaperMouseDown(ev) {
         var current = this._paint.currentTool;
-        
+
         if (current && current.onStartDrawing) {
             current.drawing = true;
             var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
@@ -228,7 +228,7 @@ export class Paper {
     
     onDocumentMouseMove(ev) {
         var current = this._paint.currentTool;
-            
+
         if(current && current.drawing && current.onDraw) {
             var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
             current.onDraw(this._paint.currentPaper, cord);   
@@ -238,10 +238,12 @@ export class Paper {
     onDocumentMouseUp(ev) {
         var current = this._paint.currentTool;
         
-        if (current && current.drawing && current.onStopDrawing) {
+        if (current && current.drawing) {
             current.drawing = false;
             var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
-            current.onStopDrawing(this._paint.currentPaper, cord);
+            
+            if (current.onStopDrawing)
+                current.onStopDrawing(this._paint.currentPaper, cord);
         }
     }
 }

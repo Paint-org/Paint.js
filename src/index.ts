@@ -16,8 +16,7 @@ declare var FileList;
 $(document).ready(function() {
    
     // Initialize global object containing Paper and Brush up to now
-    paint = new glob.Paint($);
-    paint.document = document;
+    paint = new glob.Paint($, document);
     paint.File = File;
     paint.FileList = FileList;
 
