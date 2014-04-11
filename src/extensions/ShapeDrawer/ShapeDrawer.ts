@@ -1,6 +1,5 @@
 import glob = require('../../classes/Global');
 import color = require('../../classes/Color');
-import tool = require('../../classes/Tool');
 import point = require('../../classes/Point');
 import paper = require('../../classes/Paper');
 import paperLayer = require('../../classes/PaperLayer');
@@ -72,7 +71,7 @@ class Shapes
     }
 }
 
-class ShapeDrawer extends tool.Tool
+class ShapeDrawer
 {
     public EXTENSION_NAME : string = "com.paintjs.ShapeDrawer";
     paint : glob.Paint;
@@ -85,47 +84,42 @@ class ShapeDrawer extends tool.Tool
     private _currentShape : typeof Shape;
     
     public constructor(paint:glob.Paint) {
-        super(paint);
+        this.paint = paint;
         this._shapes = new Shapes();
     }
     
     init() {
-        super.init();
-        
         // Add Rectangle shape
         this._shapes.addShape(
-            this.addToolbarToolItem(null, Rectangle.name),
+            this.paint.barManager.addToolbarToolItem(null, Rectangle.name, this),
             Rectangle
         );
         
         // Add Line shape
         this._shapes.addShape(
-            this.addToolbarToolItem(null, Line.name),
+            this.paint.barManager.addToolbarToolItem(null, Line.name, this),
             Line
         );
 
         this._shapes.addShape(
-            this.addToolbarToolItem(null, Ellipse.name),
+            this.paint.barManager.addToolbarToolItem(null, Ellipse.name, this),
             Ellipse
         );
         
+        this.paint.registerTool(this);
     }
     
     activated(id:string) {
-        super.activated(id);
         this.paint.currentPaper.setCursorFromURL("cursors/cross.cur");
         this._currentShape = this._shapes.getShape(id);
     }
     
     deactivated() {
-        super.deactivated();
         this.paint.currentPaper.restoreCursor();
         this._currentShape = null;
     }
     
     onStartDrawing(paper:paper.Paper, point:point.Point) {
-        super.onStartDrawing(paper, point);
-        
         this._startPt = point;
         
         this._layer = paper.addLayer(null);
@@ -137,8 +131,6 @@ class ShapeDrawer extends tool.Tool
     }
     
     onDraw(paper:paper.Paper, point:point.Point) {
-        super.onDraw(paper, point);
-        
         var context = this._layer.getContext();
         var canvas = this._layer.canvas;
         
@@ -153,8 +145,6 @@ class ShapeDrawer extends tool.Tool
     }
     
     onStopDrawing(paper:paper.Paper, point:point.Point) {
-        super.onStopDrawing(paper, point);
-        
         this._layer.copyTo(paper.baseLayer);
         paper.removeLayer(this._layer);
     }

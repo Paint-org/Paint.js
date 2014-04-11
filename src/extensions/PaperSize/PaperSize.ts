@@ -1,19 +1,18 @@
 import glob = require('../../classes/Global');
-import extension = require('../../classes/Extension');
 
-class PaperSize extends extension.Extension
+class PaperSize
 {
     public EXTENSION_NAME : string = "com.paintjs.PaperSize";
     paint : glob.Paint;
     private indicator : HTMLElement;
     
     public constructor(paint:glob.Paint) {
-        super(paint);
+        this.paint = paint;
     }
     
     init() {
-        super.init();
-        this.indicator = this.addTextIndicatorItem(null, 0, false);        
+        this.indicator = this.paint.barManager.addTextIndicatorItem(null, 0, false);        
+        this.paint.registerExtension(this);
         this.onResize();
     }
     

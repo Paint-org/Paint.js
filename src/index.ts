@@ -5,8 +5,6 @@
 import color = require('./classes/Color');
 import glob = require('./classes/Global');
 import pt = require('./classes/Point');
-import tool = require('./classes/Tool');
-import extension = require('./classes/Extension');
 
 // node-webkit requires
 var gui = require('nw.gui');

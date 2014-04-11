@@ -1,30 +1,26 @@
-import tool = require('../../classes/Tool');
 import glob = require('../../classes/Global');
 import point = require('../../classes/Point');
 import paperLayer = require('../../classes/PaperLayer');
 import color = require('../../classes/Color');
 
-class ColorPicker extends tool.Tool   
+class ColorPicker
 {
     public EXTENSION_NAME : string = "com.paintjs.ColorPicker";
     paint : glob.Paint;
     
     constructor(paint : glob.Paint) {
-        super(paint);
+        this.paint = paint;
     }
     
     init() {
-        super.init();
-        this.addToolbarToolItem(null, "ColorPicker");
+        this.paint.barManager.addToolbarToolItem(null, "ColorPicker", this);
     }
 
     activated(id:string) {
-        super.activated(id);
         this.paint.currentPaper.setCursorFromURL("cursors/picker.cur");        
     }
     
     deactivated() {
-        super.deactivated();
         this.paint.currentPaper.restoreCursor();
     }
     

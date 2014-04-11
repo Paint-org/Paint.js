@@ -1,7 +1,6 @@
 import glob = require('../../classes/Global');
-import extension = require('../../classes/Extension');
 
-class SizeChooser extends extension.Extension
+class SizeChooser
 {
     public EXTENSION_NAME : string = "com.paintjs.SizeChooser";
     paint : glob.Paint;
@@ -9,12 +8,10 @@ class SizeChooser extends extension.Extension
     private inputNode : HTMLInputElement;
     
     public constructor(paint:glob.Paint) {
-        super(paint);
+        this.paint = paint;
     }
     
     init() {
-        super.init();
-        
         var paint = this.paint;
         var $ = this.paint.$;
         
@@ -25,7 +22,9 @@ class SizeChooser extends extension.Extension
         $(this.inputNode).on("change", function(ev){
             var size = parseInt(paint.$(inputNode).val());
             paint.toolSize = size; 
-        }).change();        
+        }).change();  
+        
+        this.paint.registerExtension(this);
     }
     
     onToolSizeChanged() {

@@ -5,7 +5,6 @@ import pt = require('./Point');
 import color = require('./Color');
 import paperLayer = require('./PaperLayer');
 import colorMatrix = require('./ColorMatrix');
-import extension = require('./Extension');
 
 export class Paper {
     
@@ -21,7 +20,15 @@ export class Paper {
         this._paint = paint;
         this._paper = element;
         
+        var $ = this._paint.$;
+        
         this.addLayer(color.Color.White);
+        
+        $(this._paper).on("click", $.proxy(this.onPaperClick,this));
+        $(this._paper).on("mousedown", $.proxy(this.onPaperMouseDown, this));
+        
+        $(this._paint.document).on("mousemove", $.proxy(this.onDocumentMouseMove, this));
+        $(this._paint.document).on("mouseup", $.proxy(this.onDocumentMouseUp, this));  
     }
     
     get paperElement() : HTMLElement {
@@ -154,8 +161,9 @@ export class Paper {
         $("#paperWrapper").width(realWidth * value);
         $("#paperWrapper").height(realHeight * value);
         
-        for (var i in this._paint.extensions) 
-            this._paint.extensions[i].onZoom();             
+        for (var i in this._paint.extensions)
+            if (this._paint.extensions[i].onZoom)
+                this._paint.extensions[i].onZoom();             
     }
 
     get Zoom() : number {
@@ -197,5 +205,43 @@ export class Paper {
         }
         
         return saveCanvas;
+    }
+    
+    onPaperClick(ev) {
+        var current = this._paint.currentTool;
+        
+        if (current && current.onPaperClick) {
+            var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
+            current.onPaperClick(cord);
+        }
+    }
+    
+    onPaperMouseDown(ev) {
+        var current = this._paint.currentTool;
+        
+        if (current && current.onStartDrawing) {
+            current.drawing = true;
+            var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
+            current.onStartDrawing(this._paint.currentPaper, cord); 
+        }   
+    }
+    
+    onDocumentMouseMove(ev) {
+        var current = this._paint.currentTool;
+            
+        if(current && current.drawing && current.onDraw) {
+            var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
+            current.onDraw(this._paint.currentPaper, cord);   
+        }
+    }
+    
+    onDocumentMouseUp(ev) {
+        var current = this._paint.currentTool;
+        
+        if (current && current.drawing && current.onStopDrawing) {
+            current.drawing = false;
+            var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
+            current.onStopDrawing(this._paint.currentPaper, cord);
+        }
     }
 }

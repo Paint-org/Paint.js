@@ -1,7 +1,6 @@
 /// <reference path="../libs/node/node.d.ts" />
 
 import glob = require('./Global');
-import extension = require('./Extension');
 var fs = require('fs');
 
 export class ExtensionManager {

@@ -1,12 +1,11 @@
 /// <reference path="../../libs/node/node.d.ts" />
 
 import glob = require('../../classes/Global');
-import extension = require('../../classes/Extension');
 var fs = require('fs');
 
 var gui = global.window.nwDispatcher.requireNwGui();
 
-class ImageSaver extends extension.Extension
+class ImageSaver
 {
     public EXTENSION_NAME : string = "com.paintjs.ImageSaver";
     paint : glob.Paint;
@@ -14,11 +13,10 @@ class ImageSaver extends extension.Extension
     private saveFileDialog : HTMLInputElement;
     
     public constructor(paint:glob.Paint) {
-        super(paint);
+        this.paint = paint;
     }
     
     init() {
-        super.init();
         var paint = this.paint,
             $ = this.paint.$,
             _this = this;
@@ -54,6 +52,7 @@ class ImageSaver extends extension.Extension
                 menus[i].submenu.append(mnuSave);            
         }
 
+        this.paint.registerExtension(this);
     }    
     
     private chooseFile(dialog:HTMLInputElement, callback) {

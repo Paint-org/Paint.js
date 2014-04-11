@@ -1,8 +1,7 @@
 import glob = require('../../classes/Global');
-import extension = require('../../classes/Extension');
 import color = require('../../classes/Color');
 
-class ColorChooser extends extension.Extension 
+class ColorChooser 
 {
     public EXTENSION_NAME : string = "com.paintjs.ColorChooser";
     paint : glob.Paint;
@@ -11,11 +10,10 @@ class ColorChooser extends extension.Extension
     private inputSecondaryColor : HTMLInputElement;
     
     public constructor(paint:glob.Paint) {
-        super(paint);
+        this.paint = paint;
     }
     
     init() {
-        super.init();
         var paint = this.paint;
         var $ = this.paint.$;
     
@@ -31,6 +29,8 @@ class ColorChooser extends extension.Extension
         // set event handlers
         $(this.inputPrimaryColor).on("change", $.proxy(this.setPrimaryColor, this)).change();
         $(this.inputSecondaryColor).on("change", $.proxy(this.setSecondaryColor, this)).change();
+        
+        this.paint.registerExtension(this);
     }
     
     onPrimaryColorChanged() {

@@ -1,10 +1,9 @@
 import glob = require('../../classes/Global');
-import tool = require('../../classes/Tool');
 import point = require('../../classes/Point');
 import paper = require('../../classes/Paper');
 import color = require('../../classes/Color');
 
-class Brush extends tool.Tool
+class Brush
 {
     public EXTENSION_NAME : string = "com.paintjs.Brush";
     paint : glob.Paint;
@@ -15,7 +14,6 @@ class Brush extends tool.Tool
     private coloredBrush : HTMLImageElement;
     
     public constructor(paint:glob.Paint) {
-        super(paint);
         this.paint = paint;
         
         this.brush = paint.document.createElement('img');
@@ -25,17 +23,11 @@ class Brush extends tool.Tool
     }
     
     init() {
-        super.init();
-        this.addToolbarToolItem(null, "Brush");
-    }
-    
-    activated(id : string) {
-        super.activated(id);
+        this.paint.registerTool(this);
+        this.paint.barManager.addToolbarToolItem(null, "Brush", this);
     }
     
     onStartDrawing(paper:paper.Paper, point:point.Point) {
-        super.onStartDrawing(paper, point);
-        
         this._lastPt = point;
         
         this.coloredBrush = this.getColoredBrush(this.paint.primaryColor);
@@ -44,7 +36,6 @@ class Brush extends tool.Tool
     }
     
     onStopDrawing(paper:paper.Paper, point:point.Point) {
-        super.onStopDrawing(paper, point);
         this._lastPt = null;
     }
     
@@ -72,7 +63,6 @@ class Brush extends tool.Tool
         this.brush.height = 1;
         
         // Change colors
-        
         var img = ctx.getImageData(0, 0, newCanvas.width, newCanvas.height);
         var len = img.data.length;
         

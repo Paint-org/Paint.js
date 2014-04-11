@@ -2,8 +2,6 @@
 
 import color = require('./Color');
 import paper = require('./Paper');
-import tool = require('./Tool');
-import extension = require('./Extension');
 import barManager = require('./BarManager');
 import extensionManager = require('./ExtensionManager');
 
@@ -18,9 +16,9 @@ export class Paint {
     public document : Document;
     
     /** Insieme di tutte le estensioni caricate */
-    public extensions : { [index: string]: extension.Extension; } = {};
+    public extensions : { [index: string]: any; } = {};
     /** Sottoinsieme di 'extensions' che contiene solo le estensioni di tipo Tool */
-    public tools : { [index: string]: tool.Tool; } = {};
+    public tools : { [index: string]: any; } = {};
     
     /** Current Paper object (the one at the base of the level hierarchy) */
     public currentPaper : paper.Paper;
@@ -38,7 +36,7 @@ export class Paint {
     public File;
     public FileList;
         
-    private _currentTool : tool.Tool = null;
+    private _currentTool : any = null;
     
     constructor($ : JQueryStatic) {
         this._$ = $;
@@ -56,11 +54,11 @@ export class Paint {
         return this._$;
     }
     
-    registerExtension(instance : extension.Extension) {
+    registerExtension(instance : any) {
         this.extensions[instance.EXTENSION_NAME] = instance;
     }
     
-    registerTool(instance : tool.Tool) {
+    registerTool(instance : any) {
         this.tools[instance.EXTENSION_NAME] = instance;
     }
     
@@ -68,7 +66,8 @@ export class Paint {
         this._primaryColor = value;
         
         for (var ext in this.extensions)
-            this.extensions[ext].onPrimaryColorChanged();
+            if (this.extensions[ext].onPrimaryColorChanged)
+                this.extensions[ext].onPrimaryColorChanged();
     }
     
     get primaryColor() {
@@ -78,7 +77,8 @@ export class Paint {
     set secondaryColor(value : color.Color) {
         this._secondaryColor = value;
         for (var ext in this.extensions)
-            this.extensions[ext].onSecondaryColorChanged();
+            if (this.extensions[ext].onSecondaryColorChanged)
+                this.extensions[ext].onSecondaryColorChanged();
     }
 
     get secondaryColor() {
@@ -88,7 +88,8 @@ export class Paint {
     set toolSize(value:number) {
         this._toolSize = value;        
         for (var ext in this.extensions)
-            this.extensions[ext].onToolSizeChanged();
+            if (this.extensions[ext].onToolSizeChanged)
+                this.extensions[ext].onToolSizeChanged();
     }
     
     get toolSize() {
@@ -100,15 +101,11 @@ export class Paint {
      * \param tool the new tool to be activated
      * \param idElement the element that caused tool activation
      */
-    setCurrentTool(tool : tool.Tool, idElement : string) {
-        if(this._currentTool !== null)
-            this._currentTool.deactivated();
-        
+    setCurrentTool(tool : any, idElement : string) {
         this._currentTool = tool;
-        tool.activated(idElement);        
     }
     
-    get currentTool() : tool.Tool {
+    get currentTool() : any {
         return this._currentTool;
     }
 }

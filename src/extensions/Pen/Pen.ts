@@ -1,11 +1,10 @@
 import glob = require('../../classes/Global');
 import color = require('../../classes/Color');
-import tool = require('../../classes/Tool');
 import point = require('../../classes/Point');
 import paper = require('../../classes/Paper');
 import paperLayer = require('../../classes/PaperLayer');
    
-class Pen extends tool.Tool
+class Pen
 {
     public EXTENSION_NAME : string = "com.paintjs.Pen";
     paint : glob.Paint;
@@ -14,27 +13,23 @@ class Pen extends tool.Tool
     private _points : point.Point[] = [];
     
     public constructor(paint:glob.Paint) {
-        super(paint);
+        this.paint = paint;
     }
     
     init() {
-        super.init();
-        this.addToolbarToolItem(null, "Pen");
+        this.paint.barManager.addToolbarToolItem(null, "Pen", this);
+        this.paint.registerTool(this);
     }
 
     activated(id:string) {
-        super.activated(id);
         this.paint.currentPaper.setCursorFromURL("cursors/brush.cur");
     }
     
     deactivated() {
-        super.deactivated();
         this.paint.currentPaper.restoreCursor();
     }
     
     onStartDrawing(paper:paper.Paper, point:point.Point) {
-        super.onStartDrawing(paper, point);
-        
         this._points = [];
         
         this._layer = paper.addLayer(null);
@@ -48,9 +43,7 @@ class Pen extends tool.Tool
         this.onDraw(paper, point);
     }
     
-    onDraw(paper:paper.Paper, point:point.Point) {
-        super.onDraw(paper, point);
-        
+    onDraw(paper:paper.Paper, point:point.Point) {        
         var context = this._layer.getContext();
         var canvas = this._layer.canvas;
         
@@ -90,8 +83,6 @@ class Pen extends tool.Tool
     }
     
     onStopDrawing(paper:paper.Paper, point:point.Point) {
-        super.onStopDrawing(paper, point);
-        
         this._layer.copyTo(paper.baseLayer);
         paper.removeLayer(this._layer);
         

@@ -1,7 +1,6 @@
 import glob = require('../../classes/Global');
-import extension = require('../../classes/Extension');
 
-class Zoom extends extension.Extension
+class Zoom
 {
     public EXTENSION_NAME : string = "com.paintjs.Zoom";
     paint : glob.Paint;
@@ -9,12 +8,10 @@ class Zoom extends extension.Extension
     private inputNode : HTMLInputElement;
     
     public constructor(paint:glob.Paint) {
-        super(paint);
+        this.paint = paint;
     }
     
     init() {
-        super.init();
-        
         var paint = this.paint;
         var $ = this.paint.$;
         
@@ -24,7 +21,7 @@ class Zoom extends extension.Extension
             <input type="range" id="ext-zoom" value="100" min="10" max="400" step="10" style="vertical-align: middle;" />\
         ');
         
-        this.addCustomIndicatorItem(indicator[0], 0, true);
+        this.paint.barManager.addCustomIndicatorItem(indicator[0], 0, true);
         
         var inputNode = this.inputNode = <HTMLInputElement> $('#ext-zoom')[0];
         
@@ -32,6 +29,8 @@ class Zoom extends extension.Extension
             var zoom = parseInt($(inputNode).val());
             paint.currentPaper.Zoom = zoom / 100;
         }).change();
+        
+        this.paint.registerExtension(this);
     }
     
     onZoom() {

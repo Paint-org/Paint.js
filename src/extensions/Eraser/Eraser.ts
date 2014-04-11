@@ -1,12 +1,11 @@
 import glob = require('../../classes/Global');
 import color = require('../../classes/Color');
-import tool = require('../../classes/Tool');
 import point = require('../../classes/Point');
 import paper = require('../../classes/Paper');
 import canvasMatrix = require('../../classes/CanvasMatrix');
 import paperLayer = require('../../classes/PaperLayer');
    
-class Eraser extends tool.Tool
+class Eraser
 {
     public EXTENSION_NAME : string = "com.paintjs.Eraser";
     paint : glob.Paint;
@@ -15,26 +14,24 @@ class Eraser extends tool.Tool
     private _points : point.Point[] = [];
     
     public constructor(paint:glob.Paint) {
-        super(paint);
+        this.paint = paint;
     }
     
     init() {
-        super.init();
-        this.addToolbarToolItem(null, "Eraser");
+        this.paint.barManager.addToolbarToolItem(null, "Eraser", this);
+        this.paint.registerTool(this);
     }
 
     activated(id : string) {
-        super.activated(id);
         this.onToolSizeChanged();
     }
     
     deactivated() {
-        super.deactivated();
         this.paint.currentPaper.restoreCursor();
     }
     
     onToolSizeChanged() {
-        if(this.isActive) {
+        if(this.paint.currentTool == this) {
             var size = this.paint.toolSize;
             
             var cur = this.getCursorForSize(size);
@@ -71,8 +68,6 @@ class Eraser extends tool.Tool
     }
     
     onStartDrawing(paper:paper.Paper, point:point.Point) {
-        super.onStartDrawing(paper, point);
-        
         this._points = [];
         
         this._layer = paper.addLayer(null);
@@ -87,8 +82,6 @@ class Eraser extends tool.Tool
     }
     
     onDraw(paper:paper.Paper, point:point.Point) {
-        super.onDraw(paper, point);
-        
         var context = this._layer.getContext();
         var canvas = this._layer.canvas;
         
@@ -128,8 +121,6 @@ class Eraser extends tool.Tool
     }
     
     onStopDrawing(paper:paper.Paper, point:point.Point) {
-        super.onStopDrawing(paper, point);
-        
         this._layer.copyTo(paper.baseLayer);
         paper.removeLayer(this._layer);
         
