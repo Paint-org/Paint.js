@@ -15,21 +15,16 @@ export class ExtensionManager {
     addSingleExtension(mainDirectory) {
         
         var paint = this.paint,
-            manifest = require(mainDirectory + '/package.json');
+            ext = require(mainDirectory);
         
-        if (typeof (manifest.main) === "string") {
-            var ext = require(mainDirectory + '/' + manifest.main);
-            
-            if(ext.Extensions instanceof Array) {
+        if(ext.Extensions instanceof Array) {
                 ext.Extensions.forEach(function(ext){
                     var ist = new ext(paint);
                     ist.init();
                 });
-            } else {
-                console.warn("Extension " + mainDirectory + " not loaded: no valid exports found.");
-            }
+        } else {
+            console.warn("Extension " + mainDirectory + " not loaded: no valid exports found.");
         }
-    
     }
     
     addExtensions() {
