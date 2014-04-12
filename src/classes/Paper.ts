@@ -108,8 +108,9 @@ export class Paper {
             this._savedCanvas[i] = savedCanvas;
         }
         
-        for (var i in this._paint.extensions) 
-            this._paint.extensions[i].onResizeStart();
+        for (var i in this._paint.extensions)
+            if (this._paint.extensions[i].onResizeStart)
+                this._paint.extensions[i].onResizeStart();
     }
     
     onResize() {
@@ -128,15 +129,17 @@ export class Paper {
             layer.restoreImage(this._savedCanvas[i]);
         };
         
-        for (var i in this._paint.extensions) 
-            this._paint.extensions[i].onResize();
+        for (var i in this._paint.extensions)
+            if (this._paint.extensions[i].onResize)
+                this._paint.extensions[i].onResize();
     }
     
     onResizeEnd() {
         this._savedCanvas = [];
         
-        for (var i in this._paint.extensions) 
-            this._paint.extensions[i].onResizeEnd();        
+        for (var i in this._paint.extensions)
+            if (this._paint.extensions[i].onResizeEnd)
+                this._paint.extensions[i].onResizeEnd();        
     }
     
     /**
