@@ -106,6 +106,7 @@ class ShapeDrawer
             Ellipse
         );
         
+        this.paint.registerExtension(this);
         this.paint.registerTool(this);
     }
     

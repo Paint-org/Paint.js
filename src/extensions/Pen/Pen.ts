@@ -18,6 +18,7 @@ class Pen
     
     init() {
         this.paint.barManager.addToolbarToolItem(null, "Pen", this);
+        this.paint.registerExtension(this);
         this.paint.registerTool(this);
     }
 

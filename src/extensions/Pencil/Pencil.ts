@@ -15,6 +15,7 @@ class Pencil
     
     init() {
         this.paint.barManager.addToolbarToolItem(null, "Pencil", this);
+        this.paint.registerExtension(this);
         this.paint.registerTool(this);
     }
 
