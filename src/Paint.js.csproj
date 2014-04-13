@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{231AAF4B-A44B-445A-A481-479184AFA874}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <OutputPath>bin</OutputPath>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="index.ts" />
+    <Content Include="package.json" />
+    <Content Include="index.html" />
+    <TypeScriptCompile Include="extensions\Brush\Brush.ts" />
+    <Content Include="extensions\Brush\brush21.png" />
+    <Content Include="extensions\Brush\package.json" />
+    <TypeScriptCompile Include="extensions\ColorChooser\ColorChooser.ts" />
+    <Content Include="extensions\ColorChooser\package.json" />
+    <TypeScriptCompile Include="extensions\ColorPicker\ColorPicker.ts" />
+    <Content Include="extensions\ColorPicker\package.json" />
+    <TypeScriptCompile Include="extensions\Eraser\Eraser.ts" />
+    <Content Include="extensions\Eraser\package.json" />
+    <TypeScriptCompile Include="extensions\ImageSaver\ImageSaver.ts" />
+    <Content Include="extensions\ImageSaver\package.json" />
+    <Content Include="extensions\PaperSize\package.json" />
+    <TypeScriptCompile Include="extensions\PaperSize\PaperSize.ts" />
+    <Content Include="extensions\Pencil\package.json" />
+    <TypeScriptCompile Include="extensions\Pencil\Pencil.ts" />
+    <Content Include="extensions\Pen\package.json" />
+    <TypeScriptCompile Include="extensions\Pen\Pen.ts" />
+    <Content Include="extensions\ShapeDrawer\package.json" />
+    <TypeScriptCompile Include="extensions\ShapeDrawer\ShapeDrawer.ts" />
+    <Content Include="extensions\SizeChooser\package.json" />
+    <TypeScriptCompile Include="extensions\SizeChooser\SizeChooser.ts" />
+    <Content Include="extensions\Zoom\package.json" />
+    <TypeScriptCompile Include="extensions\Zoom\Zoom.ts" />
+    <Content Include="cursors\**" />
+    <TypeScriptCompile Include="classes\BarManager.ts" />
+    <TypeScriptCompile Include="classes\CanvasMatrix.ts" />
+    <TypeScriptCompile Include="classes\Color.ts" />
+    <TypeScriptCompile Include="classes\ColorMatrix.ts" />
+    <TypeScriptCompile Include="classes\Extension.ts" />
+    <TypeScriptCompile Include="classes\ExtensionManager.ts" />
+    <TypeScriptCompile Include="classes\Global.ts" />
+    <TypeScriptCompile Include="classes\Paper.ts" />
+    <TypeScriptCompile Include="classes\PaperLayer.ts" />
+    <TypeScriptCompile Include="classes\Point.ts" />
+    <TypeScriptCompile Include="classes\Tool.ts" />
+    <Content Include="libs\**" />
+    <Content Include="styles\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>Paint.js</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyName>Paint.js</AssemblyName>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptModuleKind>commonjs</TypeScriptModuleKind>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+    <TypeScriptModuleKind>commonjs</TypeScriptModuleKind>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3671</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:3306/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://none</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
