@@ -18,9 +18,9 @@ export class Paint {
     public document : Document;
     
     /** Insieme di tutte le estensioni caricate */
-    public extensions : { [index: string]: extension.Extension; } = {};
+    private extensions : { [index: string]: extension.Extension; } = {};
     /** Sottoinsieme di 'extensions' che contiene solo le estensioni di tipo Tool */
-    public tools : { [index: string]: tool.Tool; } = {};
+    private tools : { [index: string]: tool.Tool; } = {};
     
     /** Current Paper object (the one at the base of the level hierarchy) */
     public currentPaper : paper.Paper;
@@ -117,7 +117,7 @@ export class Paint {
         return this._currentTool;
     }
 
-    private forEachExtension(callback: (ext:extension.Extension) => void) {
+    public forEachExtension(callback: (ext:extension.Extension) => void) {
         for (var ext in this.extensions) {
             if (this.extensions.hasOwnProperty(ext)) {
                 callback(this.extensions[ext]);
