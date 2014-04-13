@@ -43,14 +43,7 @@ class ImageSaver
             });
         }
 
-        // Add Save submenu to File menu
-        var menus = gui.Window.get().menu.items;
-
-        // Search for File menu
-        for (var i = 0; i < menus.length; i++) {
-            if (menus[i].label === 'File')
-                menus[i].submenu.append(mnuSave);            
-        }
+        this.paint.menu.File.submenu.append(mnuSave);
 
         this.paint.registerExtension(this);
     }    

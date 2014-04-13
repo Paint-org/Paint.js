@@ -1,7 +1,22 @@
 /src/*.js
 /src/*.js.map
+/src/classes/*.js
+/src/classes/*.js.map
 /src/classes/**/*.js
 /src/classes/**/*.js.map
 /src/extensions/**/*.js
 /src/extensions/**/*.js.map
-.*
+/.*
+
+
+# Visual Studio
+/src/bin
+/src/obj
+/*.sln
+/*.suo
+/src/*.csproj
+/src/*.csproj.user
+/src/*.suo
+/src/web.Debug.config
+/src/web.Release.config
+/src/web.config

@@ -116,6 +116,15 @@ function createMenu()
     
     var mnuFile = new gui.MenuItem({ label: 'File', submenu: new gui.Menu() });
     menu.append(mnuFile);
+    paint.menu.File = mnuFile;
+
+    var mnuHelp = new gui.MenuItem({ label: 'Help', submenu: new gui.Menu() });
+    menu.append(mnuHelp);
+    paint.menu.Help = mnuHelp;
+
+    var mnuHelp_About = new gui.MenuItem({ label: 'About' });
+    mnuHelp_About.click = () => window.open("about.html");
+    mnuHelp.submenu.append(mnuHelp_About);
 
     gui.Window.get().menu = menu;
 }
