@@ -37,6 +37,7 @@ export class Paint {
     public _toolSize : number;
     public File;
     public FileList;
+    public menu = { File: null, Help: null };
         
     private _currentTool : tool.Tool = null;
     
