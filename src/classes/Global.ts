@@ -67,19 +67,21 @@ export class Paint {
     
     set primaryColor(value : color.Color) {
         this._primaryColor = value;
-        
-        for (var ext in this.extensions)
-            this.extensions[ext].onPrimaryColorChanged();
+
+        this.forEachExtension(function (ext) {
+            ext.onPrimaryColorChanged();
+        });
     }
     
     get primaryColor() {
-        return this._primaryColor;   
+        return this._primaryColor;
     }
     
     set secondaryColor(value : color.Color) {
         this._secondaryColor = value;
-        for (var ext in this.extensions)
-            this.extensions[ext].onSecondaryColorChanged();
+        this.forEachExtension(function (ext) {
+            ext.onSecondaryColorChanged();
+        });
     }
 
     get secondaryColor() {
@@ -87,9 +89,10 @@ export class Paint {
     }
     
     set toolSize(value:number) {
-        this._toolSize = value;        
-        for (var ext in this.extensions)
-            this.extensions[ext].onToolSizeChanged();
+        this._toolSize = value;
+        this.forEachExtension(function (ext) {
+            ext.onToolSizeChanged();
+        });
     }
     
     get toolSize() {
@@ -102,14 +105,23 @@ export class Paint {
      * \param idElement the element that caused tool activation
      */
     setCurrentTool(tool : tool.Tool, idElement : string) {
-        if(this._currentTool !== null)
+        if (this._currentTool !== null) {
             this._currentTool.deactivated();
+        }
         
         this._currentTool = tool;
-        tool.activated(idElement);        
+        tool.activated(idElement);
     }
     
     get currentTool() : tool.Tool {
         return this._currentTool;
+    }
+
+    private forEachExtension(callback: (ext:extension.Extension) => void) {
+        for (var ext in this.extensions) {
+            if (this.extensions.hasOwnProperty(ext)) {
+                callback(this.extensions[ext]);
+            }
+        }
     }
 }
