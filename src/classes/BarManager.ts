@@ -109,7 +109,7 @@ export class BarManager {
         
         //$("#tools").append('<button id="' + id + '">' + escapedStr + '</button>');
         $("#tools").append('<div class="smallicon" id="' + id + '">\
-                              <img src="libs/ribbon/Icons/IgnoreConversation.png" style="width: 16px; height:16px" />\
+                              <img draggable="false" src="libs/ribbon/Icons/IgnoreConversation.png" style="width: 16px; height:16px" />\
                               <div class="iconlegend"></div>\
                             </div>');
         
@@ -153,12 +153,21 @@ export class BarManager {
      * \param autoWidth specifies if the indicator space width will be auto sized to the content.
      * \returns the element that contains the text
      */
-    addTextIndicatorItem(icon, priority:number, autoWidth:boolean) : HTMLElement {
+    addTextIndicatorItem(icon: string, priority: number, autoWidth: boolean): HTMLElement {
         var $ = this.paint.$;
-        
-        var textSpan = $("<span />")[0];
-        this.addCustomIndicatorItem(textSpan, priority, autoWidth);
-        
+
+        var div = $("<span />");
+        if (icon !== null) {
+            // FIXME Spostare stili nel CSS
+            var img = $('<img style="vertical-align:middle; width:16px; height: 16px; margin-right: 5px;" />');
+            img.attr("draggable", "false");
+            img.attr("src", icon);
+            div.append(img);
+        }
+        var textSpan = $('<span />')[0];
+        div.append(textSpan);
+        this.addCustomIndicatorItem(div[0], priority, autoWidth);
+
         return textSpan;
-    }    
+    }
 }
