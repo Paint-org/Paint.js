@@ -107,10 +107,12 @@ export class Paper {
             
             this._savedCanvas[i] = savedCanvas;
         }
-        
-        for (var i in this._paint.extensions)
-            if (this._paint.extensions[i].onResizeStart)
-                this._paint.extensions[i].onResizeStart();
+
+        this._paint.forEachExtension(function (ext) {
+            if (ext.onResizeStart) {
+                ext.onResizeStart();
+            }
+        });
     }
     
     onResize() {
@@ -128,18 +130,22 @@ export class Paper {
             // Reload canvas content
             layer.restoreImage(this._savedCanvas[i]);
         };
-        
-        for (var i in this._paint.extensions)
-            if (this._paint.extensions[i].onResize)
-                this._paint.extensions[i].onResize();
+
+        this._paint.forEachExtension(function (ext) {
+            if (ext.onResize) {
+                ext.onResize();
+            }
+        });
     }
     
     onResizeEnd() {
         this._savedCanvas = [];
-        
-        for (var i in this._paint.extensions)
-            if (this._paint.extensions[i].onResizeEnd)
-                this._paint.extensions[i].onResizeEnd();        
+
+        this._paint.forEachExtension(function (ext) {
+            if (ext.onResizeEnd) {
+                ext.onResizeEnd();
+            }
+        });
     }
     
     /**
@@ -163,10 +169,12 @@ export class Paper {
         
         $("#paperWrapper").width(realWidth * value);
         $("#paperWrapper").height(realHeight * value);
-        
-        for (var i in this._paint.extensions)
-            if (this._paint.extensions[i].onZoom)
-                this._paint.extensions[i].onZoom();             
+
+        this._paint.forEachExtension(function (ext) {
+            if (ext.onZoom) {
+                ext.onZoom();
+            }
+        });
     }
 
     get Zoom() : number {

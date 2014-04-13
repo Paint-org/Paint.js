@@ -16,9 +16,9 @@ export class Paint {
     public document : Document;
     
     /** Insieme di tutte le estensioni caricate */
-    public extensions : { [index: string]: any; } = {};
+    private extensions : { [index: string]: any; } = {};
     /** Sottoinsieme di 'extensions' che contiene solo le estensioni di tipo Tool */
-    public tools : { [index: string]: any; } = {};
+    private tools : { [index: string]: any; } = {};
     
     /** Current Paper object (the one at the base of the level hierarchy) */
     public currentPaper : paper.Paper;
@@ -66,21 +66,26 @@ export class Paint {
     
     set primaryColor(value : color.Color) {
         this._primaryColor = value;
-        
-        for (var ext in this.extensions)
-            if (this.extensions[ext].onPrimaryColorChanged)
-                this.extensions[ext].onPrimaryColorChanged();
+
+        this.forEachExtension(function (ext) {
+            if (ext.onPrimaryColorChanged) {
+                ext.onPrimaryColorChanged();
+            }
+        });
     }
     
     get primaryColor() {
-        return this._primaryColor;   
+        return this._primaryColor;
     }
     
     set secondaryColor(value : color.Color) {
         this._secondaryColor = value;
-        for (var ext in this.extensions)
-            if (this.extensions[ext].onSecondaryColorChanged)
-                this.extensions[ext].onSecondaryColorChanged();
+
+        this.forEachExtension(function (ext) {
+            if (ext.onSecondaryColorChanged) {
+                ext.onSecondaryColorChanged();
+            }
+        });
     }
 
     get secondaryColor() {
@@ -88,10 +93,12 @@ export class Paint {
     }
     
     set toolSize(value:number) {
-        this._toolSize = value;        
-        for (var ext in this.extensions)
-            if (this.extensions[ext].onToolSizeChanged)
-                this.extensions[ext].onToolSizeChanged();
+        this._toolSize = value;
+        this.forEachExtension(function (ext) {
+            if (ext.onToolSizeChanged) {
+                ext.onToolSizeChanged();
+            }
+        });
     }
     
     get toolSize() {
@@ -105,16 +112,26 @@ export class Paint {
      */
     setCurrentTool(tool : any, idElement : string) {
         /* Set new tool and call Activated() and Deactivated() if tool listen these events */
-        if (this._currentTool !== null && this._currentTool.deactivated)
+        if (this._currentTool !== null && this._currentTool.deactivated) {
             this._currentTool.deactivated();
+        }
         
         this._currentTool = tool;
-        
-        if (this._currentTool.activated)
+
+        if (this._currentTool.activated) {
             this._currentTool.activated(idElement);
+        }
     }
     
     get currentTool() : any {
         return this._currentTool;
+    }
+
+    public forEachExtension(callback: (ext:any) => void) {
+        for (var ext in this.extensions) {
+            if (this.extensions.hasOwnProperty(ext)) {
+                callback(this.extensions[ext]);
+            }
+        }
     }
 }
