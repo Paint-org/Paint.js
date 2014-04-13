@@ -12,9 +12,7 @@
 # Visual Studio
 /src/bin
 /src/obj
-/*.sln
 /*.suo
-/src/*.csproj
 /src/*.csproj.user
 /src/*.suo
 /src/web.Debug.config
