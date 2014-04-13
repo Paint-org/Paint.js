@@ -17,4 +17,3 @@
 /src/*.suo
 /src/web.Debug.config
 /src/web.Release.config
-/src/web.config
