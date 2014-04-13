@@ -44,8 +44,6 @@ class ImageSaver
         }
 
         this.paint.menu.File.submenu.append(mnuSave);
-
-        this.paint.registerExtension(this);
     }    
     
     private chooseFile(dialog:HTMLInputElement, callback) {

@@ -12,7 +12,6 @@ class PaperSize
     
     init() {
         this.indicator = this.paint.barManager.addTextIndicatorItem(null, 0, false);        
-        this.paint.registerExtension(this);
         this.onResize();
     }
     

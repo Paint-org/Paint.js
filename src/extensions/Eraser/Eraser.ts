@@ -18,7 +18,6 @@ class Eraser
     }
     
     init() {
-        this.paint.registerExtension(this);
         this.paint.registerTool(this);
         this.paint.barManager.addToolbarToolItem(null, "Eraser", this);
     }

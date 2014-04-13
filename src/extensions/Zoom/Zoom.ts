@@ -29,8 +29,6 @@ class Zoom
             var zoom = parseInt($(inputNode).val());
             paint.currentPaper.Zoom = zoom / 100;
         }).change();
-        
-        this.paint.registerExtension(this);
     }
     
     onZoom() {

@@ -22,9 +22,7 @@ class SizeChooser
         $(this.inputNode).on("change", function(ev){
             var size = parseInt(paint.$(inputNode).val());
             paint.toolSize = size; 
-        }).change();  
-        
-        this.paint.registerExtension(this);
+        }).change();
     }
     
     onToolSizeChanged() {

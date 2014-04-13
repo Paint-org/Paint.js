@@ -13,7 +13,6 @@ class ColorPicker
     }
     
     init() {
-        this.paint.registerExtension(this);
         this.paint.registerTool(this);
         this.paint.barManager.addToolbarToolItem(null, "ColorPicker", this);
     }

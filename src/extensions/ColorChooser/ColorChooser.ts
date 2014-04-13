@@ -29,8 +29,6 @@ class ColorChooser
         // set event handlers
         $(this.inputPrimaryColor).on("change", $.proxy(this.setPrimaryColor, this)).change();
         $(this.inputSecondaryColor).on("change", $.proxy(this.setSecondaryColor, this)).change();
-        
-        this.paint.registerExtension(this);
     }
     
     onPrimaryColorChanged() {

@@ -19,6 +19,7 @@ export class ExtensionManager {
         if(ext.Extensions instanceof Array) {
                 ext.Extensions.forEach(function(ext){
                     var ist = new ext(paint);
+                    paint.registerExtension(ist);
                     ist.init();
                 });
         } else {
@@ -37,9 +38,12 @@ export class ExtensionManager {
                 console.log(error);
                 return;
             }
-            
-            for (var extFolder in list)
-                this.addSingleExtension(extPath + list[extFolder]);
+
+            for (var extFolder in list) {
+                if (list.hasOwnProperty(extFolder)) {
+                    this.addSingleExtension(extPath + list[extFolder]);
+                }
+            }
         }, this));
     }
 }
