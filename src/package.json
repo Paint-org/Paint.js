@@ -1,5 +1,8 @@
 {
   "name": "Paint.JS",
-  "main": "index.html"
+  "main": "index.html",
+  "window": {
+      "toolbar": false
+  }
 }
 

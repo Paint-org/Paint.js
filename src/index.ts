@@ -47,18 +47,18 @@ function attachPaperEvents() {
             'se': '#segrip',
             's': '#sgrip'
         },
-    
+
         // Save canvas content before resizing
-        start: function(event, ui) {
+        start: function (event, ui) {
             paint.currentPaper.onResizeStart();
         },
-        
-        stop: function(event, ui) {
+
+        stop: function (event, ui) {
             // Restore default cursor
             $("body").css('cursor', '');
             paint.currentPaper.onResizeEnd();
         }
-    })
+    });
     
     paint.currentPaper.Zoom = 1.0;
   
@@ -94,26 +94,25 @@ function attachPaperEvents() {
  */
 function preventWorkspaceScrollOnDrag() {
     var scrollX = 0, scrollY = 0, preventScroll = false;
-    $("#paperWrapper").mousedown(function(){
+    $("#paperWrapper").mousedown(function () {
         scrollX = $("#workspace").scrollLeft();
         scrollY = $("#workspace").scrollTop();
         preventScroll = true;
     });
-    $("#workspace").scroll(function(){
-        if(preventScroll) {
+    $("#workspace").scroll(function () {
+        if (preventScroll) {
             $(this).scrollLeft(scrollX);
             $(this).scrollTop(scrollY);
         }
     });
-    $(document).mouseup(function(){
+    $(document).mouseup(function () {
         preventScroll = false;
     });
 }
 
-function createMenu()
-{
+function createMenu() {
     var menu = new gui.Menu({ type: 'menubar' });
-    
+
     var mnuFile = new gui.MenuItem({ label: 'File', submenu: new gui.Menu() });
     menu.append(mnuFile);
     paint.menu.File = mnuFile;
@@ -121,6 +120,10 @@ function createMenu()
     var mnuHelp = new gui.MenuItem({ label: 'Help', submenu: new gui.Menu() });
     menu.append(mnuHelp);
     paint.menu.Help = mnuHelp;
+
+    var mnuHelp_Debug = new gui.MenuItem({ label: 'Debug' });
+    mnuHelp_Debug.click = () => gui.Window.get().showDevTools();
+    mnuHelp.submenu.append(mnuHelp_Debug);
 
     var mnuHelp_About = new gui.MenuItem({ label: 'About' });
     mnuHelp_About.click = () => window.open("about.html");

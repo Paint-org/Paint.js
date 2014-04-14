@@ -48,13 +48,11 @@
     <TypeScriptCompile Include="classes\CanvasMatrix.ts" />
     <TypeScriptCompile Include="classes\Color.ts" />
     <TypeScriptCompile Include="classes\ColorMatrix.ts" />
-    <TypeScriptCompile Include="classes\Extension.ts" />
     <TypeScriptCompile Include="classes\ExtensionManager.ts" />
     <TypeScriptCompile Include="classes\Global.ts" />
     <TypeScriptCompile Include="classes\Paper.ts" />
     <TypeScriptCompile Include="classes\PaperLayer.ts" />
     <TypeScriptCompile Include="classes\Point.ts" />
-    <TypeScriptCompile Include="classes\Tool.ts" />
     <Content Include="libs\**" />
     <Content Include="styles\**" />
   </ItemGroup>
