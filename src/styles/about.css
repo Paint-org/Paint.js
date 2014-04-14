@@ -4,8 +4,13 @@
 	cursor: default;
 }
 
+a:link {color: #808080;}
+a:visited {color: #808080;}
+a:hover {color: #979797;}
+a:active {color: #808080;}
+
 .app-title {
-    margin-top: 20px;
+    margin-top: 40px;
     font-size: 5em;
     text-align: center;
 }
@@ -14,4 +19,14 @@
     margin-top: 5px;
     color: #808080;
     text-align: center;
+}
+
+#license_container {
+    margin-top: 80px;
+}
+
+#license {
+    margin-top: 5px;
+    color: #808080;
+    display: none;
 }

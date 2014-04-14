@@ -2,16 +2,35 @@
 <html>
 <head>
     <link rel="stylesheet" href="styles/about.css">
+    <script src="libs/jquery/jquery-2.1.0.min.js"></script>
 	<title>About</title>
 </head>
 <body>
-	<div class="app-title">
+    <div class="app-title">
         Paint.js
     </div>
     <div class="copyright">Copyright &copy; Antaniasdasd 2014</div>
+    <div id="license_container">
+        <a href="#" id="license_link">License information</a>
+        <div id="license">
+            <p>Paint.js is licensed under the MIT license.</p>
+            <p>
+                JQuery,
+                jQuery UI,
+                <a href="libs/node-webkit/LICENSE">node-webkit</a>,
+                and <a href="libs/ribbon/License.txt">OfficeWebControls</a> are property of their respective authors.
+            </p>
+        </div>
+    </div>
+
     <script>
         var gui = require('nw.gui');
         gui.Window.get().setResizable(false);
+
+        $("#license_link").click(function () {
+            $("#license").show();
+            return false;
+        });
     </script>
 </body>
 </html>
