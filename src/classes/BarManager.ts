@@ -45,7 +45,7 @@ export class BarManager {
     private getSeparator() {
         var $ = this.$;
         
-        var sep = $('<div>​&nbsp;​</div>​');
+        var sep = $('<div>​​</div>​');
         sep.addClass('seperator relative inline');
         
         return sep;
@@ -65,12 +65,12 @@ export class BarManager {
         return newGroup;
     }​
 
-    addGroup(tabId : string, groupId : string, groupName : string) {
+    addGroup(tabId : string, groupName : string) {
         var $ = this.$;
         var content = $('#' + tabId + ' > div');
         
         if (content.length === 1) {
-            var newGroup = this.createGroup(groupId, groupName);
+            var newGroup = this.createGroup(BarManager.getUniqueHtmlId(), groupName);
             
             // If has already some groups of icons, then add a separator
             if (content.children().length > 0)
@@ -79,7 +79,7 @@ export class BarManager {
             content.append(newGroup);
         }
         
-        return newGroup;
+        return newGroup.attr('id');
     }
     
     // Da decidere come passare gli elementi
@@ -95,6 +95,33 @@ export class BarManager {
     public static getUniqueHtmlId() : string {
         var count = this.htmlIdCount++;
         return 'uniq-dynamic-ext-id-' + count;
+    }
+    
+    addToolbarItem(icon, groupId : string, text: string, tool) : string {
+        var $ = this.paint.$;
+        
+        var group = $('#' + groupId);
+        
+        if (group.length === 0)
+            return;
+        
+        var escapedStr = $('<div />').text(text).html();
+        var id = BarManager.getUniqueHtmlId();
+        
+        //$("#tools").append('<button id="' + id + '">' + escapedStr + '</button>');
+        $(group).append('<div class="smallicon" id="' + id + '">\
+                              <img draggable="false" src="libs/ribbon/Icons/IgnoreConversation.png" style="width: 16px; height:16px" />\
+                              <div class="iconlegend"></div>\
+                            </div>');
+        
+        $("#" + id).css('display', 'inline-block');
+        $("#" + id).attr('title', escapedStr);
+        
+        $("#" + id).click($.proxy(function() {
+            this.paint.setCurrentTool(tool, id);
+        }, this));
+        
+        return id;
     }
     
     /**

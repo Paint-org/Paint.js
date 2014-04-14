@@ -83,30 +83,33 @@ class ShapeDrawer
     private _shapes : Shapes;
     private _currentShape : typeof Shape;
     
+    private ToolBarGroup : string;
+    
     public constructor(paint:glob.Paint) {
         this.paint = paint;
         this._shapes = new Shapes();
     }
     
     init() {
+        this.paint.registerTool(this);
+        this.ToolBarGroup = this.paint.barManager.addGroup('tabTools', 'Shapes');
+        
         // Add Rectangle shape
         this._shapes.addShape(
-            this.paint.barManager.addToolbarToolItem(null, Rectangle.name, this),
+            this.paint.barManager.addToolbarItem(null, this.ToolBarGroup, Rectangle.name, this),
             Rectangle
         );
         
         // Add Line shape
         this._shapes.addShape(
-            this.paint.barManager.addToolbarToolItem(null, Line.name, this),
+            this.paint.barManager.addToolbarItem(null, this.ToolBarGroup , Line.name, this),
             Line
         );
 
         this._shapes.addShape(
-            this.paint.barManager.addToolbarToolItem(null, Ellipse.name, this),
+            this.paint.barManager.addToolbarItem(null, this.ToolBarGroup , Ellipse.name, this),
             Ellipse
-        );
-        
-        this.paint.registerTool(this);
+        );        
     }
     
     activated(id:string) {
