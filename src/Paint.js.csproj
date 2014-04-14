@@ -18,6 +18,7 @@
   </PropertyGroup>
   <ItemGroup>
     <TypeScriptCompile Include="index.ts" />
+    <Content Include="about.html" />
     <Content Include="package.json" />
     <Content Include="index.html" />
     <TypeScriptCompile Include="extensions\Brush\Brush.ts" />

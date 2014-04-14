@@ -126,7 +126,7 @@ function createMenu() {
     mnuHelp.submenu.append(mnuHelp_Debug);
 
     var mnuHelp_About = new gui.MenuItem({ label: 'About' });
-    mnuHelp_About.click = () => window.open("about.html");
+    mnuHelp_About.click = () => window.open("about.html", "", "width=500,height=400");
     mnuHelp.submenu.append(mnuHelp_About);
 
     gui.Window.get().menu = menu;

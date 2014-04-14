@@ -1,0 +1,17 @@
+﻿html,body {
+    font: 13px/1.4 Helvetica, arial, freesans, clean, sans-serif;
+    -webkit-user-select: none;
+	cursor: default;
+}
+
+.app-title {
+    margin-top: 20px;
+    font-size: 5em;
+    text-align: center;
+}
+
+.copyright {
+    margin-top: 5px;
+    color: #808080;
+    text-align: center;
+}
