@@ -68,15 +68,6 @@ function attachPaperEvents() {
         
         paint.currentPaper.onResize();
     });
-//    
-//    $(document).mousemove(function(ev) {
-//        var cord = paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
-//        
-//        if (ev.target === paper) {
-//           $("#cursorPositionX").text(cord.X);
-//           $("#cursorPositionY").text(cord.Y);
-//        }
-//    });
 }
 
 /**
