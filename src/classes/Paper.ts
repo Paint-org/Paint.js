@@ -26,9 +26,12 @@ export class Paper {
         
         $(this._paper).on("click", $.proxy(this.onPaperClick,this));
         $(this._paper).on("mousedown", $.proxy(this.onPaperMouseDown, this));
+        $(this._paper).on("mouseenter", $.proxy(this.onPaperMouseEnter, this));
+        $(this._paper).on("mouseleave", $.proxy(this.onPaperMouseLeave, this));
+        
         
         $(this._paint.document).on("mousemove", $.proxy(this.onDocumentMouseMove, this));
-        $(this._paint.document).on("mouseup", $.proxy(this.onDocumentMouseUp, this));  
+        $(this._paint.document).on("mouseup", $.proxy(this.onDocumentMouseUp, this));
     }
     
     get paperElement() : HTMLElement {
@@ -237,13 +240,42 @@ export class Paper {
         }   
     }
     
-    onDocumentMouseMove(ev) {
-        var current = this._paint.currentTool;
+    onPaperMouseEnter(ev) {
+        var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
+        
+        this._paint.forEachExtension(function(ext){
+           if (ext.onPaperMouseEnter)
+                ext.onPaperMouseEnter(cord);     
+        });
+    }
+    
+    onPaperMouseMove(ev) {
+        var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
+        
 
-        if(current && current.drawing && current.onDraw) {
-            var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
+    }
+    
+    onPaperMouseLeave(ev) {
+        var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
+        
+        this._paint.forEachExtension(function(ext){
+           if (ext.onPaperMouseLeave)
+                ext.onPaperMouseLeave(cord);
+        });
+    }
+    
+    onDocumentMouseMove(ev) {
+        var current = this._paint.currentTool,
+            cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
+
+        if(current && current.drawing && current.onDraw)
             current.onDraw(this._paint.currentPaper, cord);   
-        }
+        
+        if (ev.target === this.paperElement)
+            this._paint.forEachExtension(function(ext){
+               if (ext.onPaperMouseMove)
+                    ext.onPaperMouseMove(cord);
+            });
     }
     
     onDocumentMouseUp(ev) {

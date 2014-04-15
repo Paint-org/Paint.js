@@ -69,12 +69,6 @@ function attachPaperEvents() {
         paint.currentPaper.onResize();
     });
 //    
-//    $("#cursorPosition").hide();
-//    
-//    $(paper).mouseenter(function(ev) {
-//        $("#cursorPosition").show();
-//    });
-//    
 //    $(document).mousemove(function(ev) {
 //        var cord = paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
 //        
@@ -82,10 +76,6 @@ function attachPaperEvents() {
 //           $("#cursorPositionX").text(cord.X);
 //           $("#cursorPositionY").text(cord.Y);
 //        }
-//    });
-//    
-//    $(paper).mouseleave(function(ev) {
-//        $("#cursorPosition").hide();
 //    });
 }
 

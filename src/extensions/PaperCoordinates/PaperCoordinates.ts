@@ -11,7 +11,25 @@ class PaperPosition {
     }
 
     init() {
-        this.indicator = this.paint.barManager.addTextIndicatorItem("extensions/PaperSize/icon.png", 0, false);
+        this.indicator = this.paint.barManager.addTextIndicatorItem("extensions/PaperCoordinates/PaperPosition.png", 0, false);
+    }
+    
+    onPaperMouseEnter(pt) {
+        var $ = this.paint.$;
+        
+        $(this.indicator).show();        
+    }
+    
+    onPaperMouseMove(pt) {
+        var $ = this.paint.$;
+                
+        $(this.indicator).html(pt.X + " &times; " + pt.Y + "px");
+    }
+    
+    onPaperMouseLeave(pt) {
+        var $ = this.paint.$;
+        
+        $(this.indicator).hide();        
     }
 }
 
@@ -26,7 +44,7 @@ class PaperSize {
     }
 
     init() {
-        this.indicator = this.paint.barManager.addTextIndicatorItem("extensions/PaperSize/icon.png", 0, false);
+        this.indicator = this.paint.barManager.addTextIndicatorItem("extensions/PaperCoordinates/PaperSize.png", 0, false);
         this.onResize();
     }
 
