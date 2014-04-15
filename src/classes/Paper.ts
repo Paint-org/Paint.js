@@ -142,6 +142,8 @@ export class Paper {
             
             this._savedCanvas[i] = savedCanvas;
         }
+        
+        this._paint.eventEmitter.triggerOn
 
         this._paint.forEachExtension(function (ext) {
             if (ext.onResizeStart) {

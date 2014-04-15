@@ -71,12 +71,7 @@ export class Paint {
 
     set primaryColor(value: color.Color) {
         this._primaryColor = value;
-
-        this.forEachExtension(function (ext) {
-            if (ext.onPrimaryColorChanged) {
-                ext.onPrimaryColorChanged();
-            }
-        });
+        this.eventEmitter.triggerOnPrimaryColorChanged(null);
     }
 
     get primaryColor() {
@@ -85,12 +80,7 @@ export class Paint {
 
     set secondaryColor(value: color.Color) {
         this._secondaryColor = value;
-
-        this.forEachExtension(function (ext) {
-            if (ext.onSecondaryColorChanged) {
-                ext.onSecondaryColorChanged();
-            }
-        });
+        this.eventEmitter.triggerOnSecondaryColorChanged(null);
     }
 
     get secondaryColor() {
@@ -99,11 +89,7 @@ export class Paint {
 
     set toolSize(value: number) {
         this._toolSize = value;
-        this.forEachExtension(function (ext) {
-            if (ext.onToolSizeChanged) {
-                ext.onToolSizeChanged();
-            }
-        });
+        this.eventEmitter.triggerOnToolSizeChanged(null);
     }
 
     get toolSize() {

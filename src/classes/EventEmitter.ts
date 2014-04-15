@@ -114,9 +114,38 @@ export class EventEmitter {
        var list = this.getExtensionList(dest);
        
        this.triggerForEach(list, function (ext) {
-            if (ext.onZoom) {
+            if (ext.onZoom) 
                 ext.onZoom();
-            }
+        });
+    }
+    
+    static triggerOnToolSizeChanged(dest) {
+        
+        var list = this.getExtensionList(dest);
+        
+        this.triggerForEach(list, function(ext) {
+            if (ext.onToolSizeChanged)
+                ext.onToolSizeChanged();
+        });
+    }
+    
+    static triggerOnPrimaryColorChanged(dest) {
+     
+        var list = this.getExtensionList(dest);
+        
+        this.triggerForEach(list, function(ext) {
+            if (ext.onPrimaryColorChanged)
+                ext.onPrimaryColorChanged();
+        });
+    }
+    
+    static triggerOnSecondaryColorChanged(dest) {
+     
+        var list = this.getExtensionList(dest);
+        
+        this.triggerForEach(list, function(ext) {
+            if (ext.onSecondartColorChanged)
+                ext.onSecondartColorChanged();
         });
     }
 
