@@ -17,8 +17,12 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="classes\EventEmitter.ts" />
+    <TypeScriptCompile Include="extensions\PaperCoordinates\PaperCoordinates.ts" />
     <TypeScriptCompile Include="index.ts" />
     <Content Include="about.html" />
+    <Content Include="extensions\PaperCoordinates\PaperPosition.png" />
+    <Content Include="extensions\PaperCoordinates\PaperSize.png" />
     <Content Include="package.json" />
     <Content Include="index.html" />
     <TypeScriptCompile Include="extensions\Brush\Brush.ts" />
@@ -32,8 +36,6 @@
     <Content Include="extensions\Eraser\package.json" />
     <TypeScriptCompile Include="extensions\ImageSaver\ImageSaver.ts" />
     <Content Include="extensions\ImageSaver\package.json" />
-    <Content Include="extensions\PaperSize\package.json" />
-    <TypeScriptCompile Include="extensions\PaperSize\PaperSize.ts" />
     <Content Include="extensions\Pencil\package.json" />
     <TypeScriptCompile Include="extensions\Pencil\Pencil.ts" />
     <Content Include="extensions\Pen\package.json" />
@@ -59,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
+    <Content Include="extensions\PaperCoordinates\package.json" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

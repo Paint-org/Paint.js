@@ -144,8 +144,8 @@ export class EventEmitter {
         var list = this.getExtensionList(dest);
         
         this.triggerForEach(list, function(ext) {
-            if (ext.onSecondartColorChanged)
-                ext.onSecondartColorChanged();
+            if (ext.onSecondaryColorChanged)
+                ext.onSecondaryColorChanged();
         });
     }
 
