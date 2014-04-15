@@ -29,19 +29,41 @@ export class Paper {
             emitter = this._paint.eventEmitter;
         
         $(this._paper).on("click", $.proxy(function(ev){
-            emitter.triggerOnPaperClick(this.pageXYtoPaperXY(ev.pageX, ev.pageY), this._paint.currentTool);
+            var cT = this._paint.currentTool;
+            
+            if (cT)
+                emitter.triggerOnPaperClick(this.pageXYtoPaperXY(ev.pageX, ev.pageY), cT);
         }, this));
         
         $(this._paper).on("mousedown", $.proxy(function(ev){
             emitter.triggerOnStartDrawing(this.pageXYtoPaperXY(ev.pageX, ev.pageY), this._paint.currentTool);
         }, this));
         
-        $(this._paper).on("mouseenter", $.proxy(this.onPaperMouseEnter, this));
-        $(this._paper).on("mouseleave", $.proxy(this.onPaperMouseLeave, this));
+        $(this._paper).on("mouseenter", $.proxy(function(ev){
+            emitter.triggerOnPaperMouseEnter(this.pageXYtoPaperXY(ev.pageX, ev.pageY), null);
+        }, this));
         
+        $(this._paper).on("mousemove", $.proxy(function(ev){
+            emitter.triggerOnPaperMouseMove(this.pageXYtoPaperXY(ev.pageX, ev.pageY), null);
+        }, this));
         
-        $(this._paint.document).on("mousemove", $.proxy(this.onDocumentMouseMove, this));
-        $(this._paint.document).on("mouseup", $.proxy(this.onDocumentMouseUp, this));
+        $(this._paper).on("mouseleave", $.proxy(function(ev){
+            emitter.triggerOnPaperMouseLeave(this.pageXYtoPaperXY(ev.pageX, ev.pageY), null);
+        }, this));
+        
+        $(this._paint.document).on("mousemove", $.proxy(function(ev){
+            var cT = this._paint.currentTool;
+            
+            if (cT)
+                emitter.triggerOnDraw(this.pageXYtoPaperXY(ev.pageX, ev.pageY), cT);
+        }, this));
+        
+        $(this._paint.document).on("mouseup", $.proxy(function(ev){
+            var cT = this._paint.currentTool;
+            
+            if (cT)
+                emitter.triggerOnStopDrawing(this.pageXYtoPaperXY(ev.pageX, ev.pageY), cT);
+        }, this));
     }
     
     get paperElement() : HTMLElement {
@@ -226,48 +248,5 @@ export class Paper {
         
         return saveCanvas;
     }
-    
-    onPaperMouseEnter(ev) {
-        var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
-        
-        this._paint.forEachExtension(function(ext){
-           if (ext.onPaperMouseEnter)
-                ext.onPaperMouseEnter(cord);     
-        });
-    }
-    
-    onPaperMouseLeave(ev) {
-        var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
-        
-        this._paint.forEachExtension(function(ext){
-           if (ext.onPaperMouseLeave)
-                ext.onPaperMouseLeave(cord);
-        });
-    }
-    
-    onDocumentMouseMove(ev) {
-        var current = this._paint.currentTool,
-            cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
-
-        if(current && current.drawing && current.onDraw)
-            current.onDraw(this._paint.currentPaper, cord);   
-        
-        if (ev.target === this.paperElement)
-            this._paint.forEachExtension(function(ext){
-               if (ext.onPaperMouseMove)
-                    ext.onPaperMouseMove(cord);
-            });
-    }
-    
-    onDocumentMouseUp(ev) {
-        var current = this._paint.currentTool;
-        
-        if (current && current.drawing) {
-            current.drawing = false;
-            var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
-            
-            if (current.onStopDrawing)
-                current.onStopDrawing(this._paint.currentPaper, cord);
-        }
-    }
+   
 }

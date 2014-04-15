@@ -41,6 +41,30 @@ export class EventEmitter {
         });
     }
     
+    static triggerOnDraw(pt : point.Point, dest) {
+     
+        var list = this.getExtensionList(dest),
+            paint = this.paint;
+        
+        this.triggerForEach(list, function(ext) {
+            if (ext.drawing && ext.onDraw)
+                ext.onDraw(paint.currentPaper, pt);    
+        });
+    }
+
+    static triggerOnStopDrawing(pt : point.Point, dest) {
+     
+        var list = this.getExtensionList(dest),
+            paint = this.paint;
+        
+        this.triggerForEach(list, function(ext) {
+            if (ext.drawing && ext.onStopDrawing) {
+                ext.drawing = false;
+                ext.onStopDrawing(paint.currentPaper, pt);
+            }
+        });
+    }
+    
     /**
      * get triggere when click on Paper
      */
@@ -51,6 +75,37 @@ export class EventEmitter {
         this.triggerForEach(list, function(ext) {
             if (ext.onPaperClick)
                 ext.onPaperClick(pt);
+        });
+    }
+    
+    static triggerOnPaperMouseEnter(pt : point.Point, dest) {
+
+        var list = this.getExtensionList(dest);
+        
+        this.triggerForEach(list, function(ext) {
+            if (ext.onPaperMouseEnter)
+                ext.onPaperMouseEnter(pt);     
+        });
+    }
+    
+    static triggerOnPaperMouseLeave(pt : point.Point, dest) {
+
+        var list = this.getExtensionList(dest);
+        
+        this.triggerForEach(list, function(ext) {
+            if (ext.onPaperMouseLeave)
+                ext.onPaperMouseLeave(pt);     
+        });
+    }
+    
+
+    static triggerOnPaperMouseMove(pt : point.Point, dest) {
+        
+        var list = this.getExtensionList(dest);   
+    
+        this.triggerForEach(list, function(ext) {
+            if (ext.onPaperMouseMove)
+                ext.onPaperMouseMove(pt);    
         });
     }
     
