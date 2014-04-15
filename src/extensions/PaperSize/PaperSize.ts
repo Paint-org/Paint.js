@@ -1,5 +1,20 @@
 import glob = require('../../classes/Global');
 
+
+class PaperPosition {
+    public EXTENSION_NAME: string = "com.paintjs.PaperPosition";
+    paint: glob.Paint;
+    private indicator: HTMLElement;
+
+    public constructor(paint: glob.Paint) {
+        this.paint = paint;
+    }
+
+    init() {
+        this.indicator = this.paint.barManager.addTextIndicatorItem("extensions/PaperSize/icon.png", 0, false);
+    }
+}
+
 class PaperSize {
     public EXTENSION_NAME: string = "com.paintjs.PaperSize";
     paint: glob.Paint;
@@ -24,4 +39,5 @@ class PaperSize {
 }
 
 exports.Extensions = new Array();
+exports.Extensions.push(PaperPosition);
 exports.Extensions.push(PaperSize);
