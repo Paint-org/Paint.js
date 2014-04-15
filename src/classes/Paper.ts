@@ -19,13 +19,23 @@ export class Paper {
 
         this._paint = paint;
         this._paper = element;
+
+        this.addLayer(color.Color.White);        
+        this.setHandlers();
+    }
+    
+    setHandlers() {
+        var $ = this._paint.$,
+            emitter = this._paint.eventEmitter;
         
-        var $ = this._paint.$;
+        $(this._paper).on("click", $.proxy(function(ev){
+            emitter.triggerOnPaperClick(this.pageXYtoPaperXY(ev.pageX, ev.pageY), this._paint.currentTool);
+        }, this));
         
-        this.addLayer(color.Color.White);
+        $(this._paper).on("mousedown", $.proxy(function(ev){
+            emitter.triggerOnStartDrawing(this.pageXYtoPaperXY(ev.pageX, ev.pageY), this._paint.currentTool);
+        }, this));
         
-        $(this._paper).on("click", $.proxy(this.onPaperClick,this));
-        $(this._paper).on("mousedown", $.proxy(this.onPaperMouseDown, this));
         $(this._paper).on("mouseenter", $.proxy(this.onPaperMouseEnter, this));
         $(this._paper).on("mouseleave", $.proxy(this.onPaperMouseLeave, this));
         
@@ -173,11 +183,7 @@ export class Paper {
         $("#paperWrapper").width(realWidth * value);
         $("#paperWrapper").height(realHeight * value);
 
-        this._paint.forEachExtension(function (ext) {
-            if (ext.onZoom) {
-                ext.onZoom();
-            }
-        });
+        this._paint.eventEmitter.triggerOnZoom(null);
     }
 
     get Zoom() : number {
@@ -221,25 +227,6 @@ export class Paper {
         return saveCanvas;
     }
     
-    onPaperClick(ev) {
-        var current = this._paint.currentTool;
-        
-        if (current && current.onPaperClick) {
-            var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
-            current.onPaperClick(cord);
-        }
-    }
-    
-    onPaperMouseDown(ev) {
-        var current = this._paint.currentTool;
-
-        if (current && current.onStartDrawing) {
-            current.drawing = true;
-            var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
-            current.onStartDrawing(this._paint.currentPaper, cord); 
-        }   
-    }
-    
     onPaperMouseEnter(ev) {
         var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
         
@@ -247,12 +234,6 @@ export class Paper {
            if (ext.onPaperMouseEnter)
                 ext.onPaperMouseEnter(cord);     
         });
-    }
-    
-    onPaperMouseMove(ev) {
-        var cord = this._paint.currentPaper.pageXYtoPaperXY(ev.pageX, ev.pageY);
-        
-
     }
     
     onPaperMouseLeave(ev) {

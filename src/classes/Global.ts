@@ -4,6 +4,7 @@ import color = require('./Color');
 import paper = require('./Paper');
 import barManager = require('./BarManager');
 import extensionManager = require('./ExtensionManager');
+import eventEmitter = require('./EventEmitter');
 
 /**
  * This class contains a reference to most of the global
@@ -29,6 +30,9 @@ export class Paint {
     /** Extension Manager */
     public extensionManager: extensionManager.ExtensionManager;
 
+    /** Event Manager */
+    public eventEmitter = eventEmitter.EventEmitter;
+    
     /** Current colors */
     public _primaryColor: color.Color;
     public _secondaryColor: color.Color;
@@ -45,6 +49,7 @@ export class Paint {
 
         this.currentPaper = new paper.Paper(this, $('#paper')[0]);
 
+        this.eventEmitter.paint = this;
         this.barManager = new barManager.BarManager(this);
         this.extensionManager = new extensionManager.ExtensionManager(this);
 
@@ -105,6 +110,10 @@ export class Paint {
         return this._toolSize;
     }
 
+    get Extensions() {
+        return this.extensions;
+    }
+    
     /**
      * Change active Tool
      * \param tool the new tool to be activated

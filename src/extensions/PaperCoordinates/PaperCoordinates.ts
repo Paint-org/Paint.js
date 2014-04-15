@@ -17,7 +17,7 @@ class PaperPosition {
     onPaperMouseEnter(pt) {
         var $ = this.paint.$;
         
-        $(this.indicator).show();        
+        $(this.indicator).show();
     }
     
     onPaperMouseMove(pt) {
