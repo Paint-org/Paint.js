@@ -136,10 +136,12 @@ export class Paint {
     }
 
     public refreshMenu(): void {
-        var gui = global.window.nwDispatcher.requireNwGui();
-        var oldmenu = gui.Window.get().menu;
-        oldmenu.append(this.menu.Help);
-        oldmenu.removeAt(oldmenu.items.length - 1);
-        gui.Window.get().menu = oldmenu;
+        if (process.platform === "win32") {
+            var gui = global.window.nwDispatcher.requireNwGui();
+            var oldmenu = gui.Window.get().menu;
+            oldmenu.append(this.menu.Help);
+            oldmenu.removeAt(oldmenu.items.length - 1);
+            gui.Window.get().menu = oldmenu;
+        }
     }
 }
