@@ -117,6 +117,13 @@ function createMenu() {
     menu.append(mnuFile);
     paint.menu.File = mnuFile;
 
+    var mnuFile_Exit = new gui.MenuItem({ label: 'Exit' });
+    mnuFile_Exit.click = function () {
+        gui.Window.get().close();
+    };
+    mnuFile.submenu.append(mnuFile_Exit);
+
+
     var mnuHelp = new gui.MenuItem({ label: 'Help', submenu: new gui.Menu() });
     menu.append(mnuHelp);
     paint.menu.Help = mnuHelp;
