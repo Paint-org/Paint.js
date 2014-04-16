@@ -33,13 +33,15 @@ $(document).ready(function() {
     createMenu();
     
     // Load Extensions and Tools
-    paint.extensionManager.addExtensions();
+    paint.extensionManager.addExtensions(function () {
 
-    // Set default tool (FIXME al momento non funziona)
-    var pen = paint.getTool("com.paintjs.Pen");
-    if (pen !== null) {
-        paint.setCurrentTool(pen, null);
-    }
+        // Set default tool
+        var pen = paint.getTool("com.paintjs.Pen");
+        if (pen !== null) {
+            paint.setCurrentTool(pen, null);
+        }
+
+    });
 });
 
 /**

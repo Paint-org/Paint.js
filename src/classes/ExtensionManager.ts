@@ -28,7 +28,7 @@ export class ExtensionManager {
         }
     }
 
-    addExtensions() {
+    addExtensions(callback: () => void) {
 
         var extPath = __dirname + '/../extensions/',
             $ = this.paint.$;
@@ -45,6 +45,8 @@ export class ExtensionManager {
                     this.addSingleExtension(extPath + list[extFolder]);
                 }
             }
+
+            if(callback !== null) callback();
         }, this));
     }
 }
