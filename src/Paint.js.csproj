@@ -19,6 +19,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="classes\EventEmitter.ts" />
     <TypeScriptCompile Include="extensions\PaperCoordinates\PaperCoordinates.ts" />
+    <TypeScriptCompile Include="extensions\Selection\Selection.ts" />
     <TypeScriptCompile Include="index.ts" />
     <Content Include="about.html" />
     <Content Include="extensions\PaperCoordinates\PaperPosition.png" />
@@ -62,6 +63,7 @@
   <ItemGroup>
     <Content Include="web.config" />
     <Content Include="extensions\PaperCoordinates\package.json" />
+    <Content Include="extensions\Selection\package.json" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
