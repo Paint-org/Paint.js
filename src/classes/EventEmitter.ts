@@ -60,10 +60,11 @@ export class EventEmitter {
             paint = this.paint;
         
         this.triggerForEach(list, function(ext) {
-            if (ext.drawing)
+            if (ext.drawing) {
                 ext.drawing = false;
-            if (ext.onStopDrawing)
-                ext.onStopDrawing(paint.currentPaper, pt);
+                if (ext.onStopDrawing)
+                    ext.onStopDrawing(paint.currentPaper, pt);
+            }
         });
     }
     

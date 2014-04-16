@@ -156,7 +156,6 @@ export class BarManager {
         return id;
     }
    
-    
     /**
      * Adds a custom indicator to the status bar.
      * \param item HTMLElement to add to the status bar

@@ -47,11 +47,6 @@ class Pencil
         
         this._lastPt = point;
     }
-    
-    onStopDrawing() {
-        
-        
-    }
 }
 
 exports.Extensions = new Array();
