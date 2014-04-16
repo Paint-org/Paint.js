@@ -95,10 +95,6 @@ export class Paint {
     get toolSize() {
         return this._toolSize;
     }
-
-    get Extensions() {
-        return this.extensions;
-    }
     
     /**
      * Change active Tool
@@ -127,6 +123,14 @@ export class Paint {
             if (this.extensions.hasOwnProperty(ext)) {
                 callback(this.extensions[ext]);
             }
+        }
+    }
+
+    public getTool(name: string) {
+        if (this.tools[name] !== undefined) {
+            return this.tools[name];
+        } else {
+            return null;
         }
     }
 

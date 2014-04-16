@@ -31,6 +31,12 @@ $(document).ready(function() {
     
     // Load Extensions and Tools
     paint.extensionManager.addExtensions();
+
+    // Set default tool (FIXME al momento non funziona)
+    var pen = paint.getTool("com.paintjs.Pen");
+    if (pen !== null) {
+        paint.setCurrentTool(pen, null);
+    }
 });
 
 /**

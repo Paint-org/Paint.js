@@ -34,9 +34,10 @@ export class Paper {
             if (cT)
                 emitter.triggerOnPaperClick(this.pageXYtoPaperXY(ev.pageX, ev.pageY), cT);
         }, this));
-        
-        $(this._paper).on("mousedown", $.proxy(function(ev){
-            emitter.triggerOnStartDrawing(this.pageXYtoPaperXY(ev.pageX, ev.pageY), this._paint.currentTool);
+
+        $(this._paper).on("mousedown", $.proxy(function (ev) {
+            if (this._paint.currentTool)
+                emitter.triggerOnStartDrawing(this.pageXYtoPaperXY(ev.pageX, ev.pageY), this._paint.currentTool);
         }, this));
         
         $(this._paper).on("mouseenter", $.proxy(function(ev){

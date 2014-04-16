@@ -14,11 +14,8 @@ export class EventEmitter {
         
         /** null, then all extensions must be included */
         if (!list) { 
-            var extList = this.paint.Extensions;
-            for (var ext in extList) {
-                if (extList.hasOwnProperty(ext))
-                    l.push(extList[ext]);
-            }
+            this.paint.forEachExtension(e => l.push(e));
+
         /** Array of extensions */
         } else if (list.contructor === Array)
           
