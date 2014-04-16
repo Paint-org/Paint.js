@@ -1,10 +1,11 @@
-html,body {
-	margin: 0;
-	height: 100%;
-	overflow: hidden;
-	font: 13px/1.4 Helvetica, arial, freesans, clean, sans-serif;
-	-webkit-user-select: none;
-	cursor: default;
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    font: 13px/1.4 Helvetica, arial, freesans, clean, sans-serif;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
 }
 
 tr,td {
@@ -78,11 +79,11 @@ tr,td {
 	vertical-align: middle;
 }
 
-#segrip,#egrip,#sgrip {
-	width: 3px;
-	height: 3px;
-	background-color: #ffffff;
-	border: 1px solid #000000;
+#segrip, #egrip, #sgrip {
+    width: 3px;
+    height: 3px;
+    background-color: #ffffff;
+    border: 1px solid #555555;
 }
 
 #segrip {
