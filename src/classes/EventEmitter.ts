@@ -12,16 +12,18 @@ export class EventEmitter {
         
         var l = new Array();
         
+        /** null, then all extensions must be included */
         if (!list) { 
             var extList = this.paint.Extensions;
             for (var ext in extList) {
                 if (extList.hasOwnProperty(ext))
                     l.push(extList[ext]);
             }
+        /** Array of extensions */
         } else if (list.contructor === Array)
           
             l = list;
-        
+        /** Single extension */
         else 
             l = [list];
         
@@ -58,10 +60,10 @@ export class EventEmitter {
             paint = this.paint;
         
         this.triggerForEach(list, function(ext) {
-            if (ext.drawing && ext.onStopDrawing) {
+            if (ext.drawing)
                 ext.drawing = false;
+            if (ext.onStopDrawing)
                 ext.onStopDrawing(paint.currentPaper, pt);
-            }
         });
     }
     
@@ -118,6 +120,36 @@ export class EventEmitter {
                 ext.onZoom();
         });
     }
+    
+    static triggerOnResizeStart(dest) {
+        
+        var list = this.getExtensionList(dest);
+        
+        this.triggerForEach(list, function(ext) {
+            if (ext.onResizeStart)
+                ext.onResizeStart();    
+        });
+    }
+    
+    static triggerOnResizeEnd(dest) {
+        
+        var list = this.getExtensionList(dest);
+        
+        this.triggerForEach(list, function(ext) {
+            if (ext.onResizeEnd)
+                ext.onResizeEnd();
+        });
+    }
+    
+    static triggerOnResize(dest) {
+        
+        var list = this.getExtensionList(dest);
+        
+        this.triggerForEach(list, function(ext) {
+            if (ext.onResize)
+                ext.onResize();    
+        });
+    }    
     
     static triggerOnToolSizeChanged(dest) {
         

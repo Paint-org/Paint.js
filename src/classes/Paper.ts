@@ -143,11 +143,7 @@ export class Paper {
             this._savedCanvas[i] = savedCanvas;
         }
 
-        this._paint.forEachExtension(function (ext) {
-            if (ext.onResizeStart) {
-                ext.onResizeStart();
-            }
-        });
+        this._paint.eventEmitter.triggerOnResizeStart(null);
     }
     
     onResize() {
@@ -166,21 +162,12 @@ export class Paper {
             layer.restoreImage(this._savedCanvas[i]);
         };
 
-        this._paint.forEachExtension(function (ext) {
-            if (ext.onResize) {
-                ext.onResize();
-            }
-        });
+        this._paint.eventEmitter.triggerOnResize(null);
     }
     
     onResizeEnd() {
         this._savedCanvas = [];
-
-        this._paint.forEachExtension(function (ext) {
-            if (ext.onResizeEnd) {
-                ext.onResizeEnd();
-            }
-        });
+        this._paint.eventEmitter.triggerOnResizeEnd(null);
     }
     
     /**

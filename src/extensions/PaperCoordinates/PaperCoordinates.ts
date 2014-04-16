@@ -51,7 +51,7 @@ class PaperSize {
     onResize() {
         var $ = this.paint.$;
         var baseCanvas = this.paint.currentPaper.baseLayer.canvas;
-
+        console.log('resize!');
         $(this.indicator).html(baseCanvas.width + " &times; " + baseCanvas.height + "px");
     }
 }
