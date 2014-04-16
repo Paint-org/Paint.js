@@ -14,7 +14,10 @@ declare var File;
 declare var FileList;
 
 $(document).ready(function() {
-   
+
+    // Apply runtime changes to the style
+    tweakCSS();
+
     // Initialize global object containing Paper and Brush up to now
     paint = new glob.Paint($, document);
     paint.File = File;
@@ -38,6 +41,17 @@ $(document).ready(function() {
         paint.setCurrentTool(pen, null);
     }
 });
+
+/**
+ * Apply runtime changes to the style
+ */
+function tweakCSS() {
+    if (process.platform === "win32") {
+        var el = $("html,body");
+        el.css("font-family", "Segoe UI, Helvetica, arial, freesans, clean, sans-serif");
+        el.css("font-size", "12px");
+    }
+}
 
 /**
  * Set event handler on canvas
