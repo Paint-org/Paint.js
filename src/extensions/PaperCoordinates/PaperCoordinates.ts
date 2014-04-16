@@ -1,8 +1,8 @@
 import glob = require('../../classes/Global');
 
 
-class PaperPosition {
-    public EXTENSION_NAME: string = "com.paintjs.PaperPosition";
+class CursorPosition {
+    public EXTENSION_NAME: string = "com.paintjs.CursorPosition";
     paint: glob.Paint;
     private indicator: HTMLElement;
 
@@ -11,25 +11,25 @@ class PaperPosition {
     }
 
     init() {
-        this.indicator = this.paint.barManager.addTextIndicatorItem("extensions/PaperCoordinates/PaperPosition.png", 0, false);
+        this.indicator = this.paint.barManager.addTextIndicatorItem("extensions/PaperCoordinates/CursorPosition.png", 0, false);
     }
-    
+
     onPaperMouseEnter(pt) {
         var $ = this.paint.$;
-        
+
         $(this.indicator).show();
     }
-    
+
     onPaperMouseMove(pt) {
         var $ = this.paint.$;
-                
-        $(this.indicator).html(pt.X + " &times; " + pt.Y + "px");
+
+        $(this.indicator).html(pt.X + ", " + pt.Y + "px");
     }
-    
+
     onPaperMouseLeave(pt) {
         var $ = this.paint.$;
-        
-        $(this.indicator).hide();        
+
+        $(this.indicator).hide();
     }
 }
 
@@ -56,5 +56,5 @@ class PaperSize {
 }
 
 exports.Extensions = new Array();
-exports.Extensions.push(PaperPosition);
+exports.Extensions.push(CursorPosition);
 exports.Extensions.push(PaperSize);
