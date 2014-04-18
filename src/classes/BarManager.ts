@@ -136,10 +136,11 @@ export class BarManager {
         
         //$("#tools").append('<button id="' + id + '">' + escapedStr + '</button>');
         $("#tools").append('<div class="smallicon" id="' + id + '">\
-                              <img draggable="false" src="libs/ribbon/Icons/IgnoreConversation.png" style="width: 16px; height:16px" />\
+                              <img draggable="false" style="width: 16px; height:16px" />\
                               <div class="iconlegend"></div>\
                             </div>');
         
+        $("#" + id + " > img").attr("src", icon);
         $("#" + id).css('display', 'inline-block');
         $("#" + id).attr('title', escapedStr);
         

@@ -7,7 +7,7 @@
 /src/extensions/**/*.js
 /src/extensions/**/*.js.map
 /.*
-
+/src/.*
 
 # Visual Studio
 /src/bin
