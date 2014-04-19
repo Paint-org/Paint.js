@@ -133,8 +133,7 @@ export class BarManager {
         
         var escapedStr = $('<div />').text(text).html();
         var id = BarManager.getUniqueHtmlId();
-        
-        //$("#tools").append('<button id="' + id + '">' + escapedStr + '</button>');
+
         $("#tools").append('<div class="smallicon" id="' + id + '">\
                               <img draggable="false" style="width: 16px; height:16px" />\
                               <div class="iconlegend"></div>\
@@ -145,10 +144,12 @@ export class BarManager {
         $("#" + id).attr('title', escapedStr);
         
         // Set group width to avoid overflow
+        // FIXME Use CSS3 column-width, column-gap. Needs WebKit support. http://www.w3.org/TR/css3-multicol/
         var iconWidth = 24;
         var epsilon = 3;
+        var iconsPerColumn = 2;
         var n = $("#tools").children(".smallicon").length;
-        $("#tools").css('width', (iconWidth + epsilon) * Math.ceil(n / 3));
+        $("#tools").css('width', (iconWidth + epsilon) * Math.ceil(n / iconsPerColumn));
         
         $("#" + id).click($.proxy(function() {
             this.paint.setCurrentTool(tool, id);
