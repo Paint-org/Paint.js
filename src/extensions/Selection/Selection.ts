@@ -16,7 +16,7 @@ class Selection {
 
     init() {
         this.paint.registerTool(this);
-        this.paint.barManager.addToolbarToolItem(null, "Select", this);
+        this.paint.barManager.addToolbarToolItem("extensions/Selection/icon.png", "Select", this);
     }
 
     onStartDrawing(paper: paper.Paper, point: point.Point) {

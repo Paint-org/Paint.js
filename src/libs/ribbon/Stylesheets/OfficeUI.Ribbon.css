@@ -10,7 +10,7 @@ li[role=tab] { padding-left: 12px; padding-right: 13px; border: 1px solid transp
 .contents { left: 0px; color: #444444; height: 93px; width: 100%; display: none; }
 .contents.active { display: block; }
 .group { height: 91px; margin-top: 3px; vertical-align: top; }
-.legend { bottom: 0px; text-align: center; height: 20px; line-height: 20px; width: 100%; }
+.legend { bottom: 0px; text-align: center; height: 20px; line-height: 20px; width: 100%; color: rgb(156, 156, 156); }
 .icongroup { height: 75px; padding-top: 2px; margin-left: 4px; vertical-align: top; }
 .arrow { bottom: 2px; left: 2px; }
 .seperator { background-color: #D4D4D4; height: 84px; margin-left: 5px; margin-right: 5px; margin-top: 4px; width: 1px; }

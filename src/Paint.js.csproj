@@ -22,7 +22,6 @@
     <TypeScriptCompile Include="extensions\Selection\Selection.ts" />
     <TypeScriptCompile Include="index.ts" />
     <Content Include="about.html" />
-    <Content Include="extensions\PaperCoordinates\PaperPosition.png" />
     <Content Include="extensions\PaperCoordinates\PaperSize.png" />
     <Content Include="package.json" />
     <Content Include="index.html" />

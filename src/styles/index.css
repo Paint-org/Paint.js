@@ -60,7 +60,7 @@ tr,td {
 
 #paper {
 	background: white;
-	box-shadow: 6px 6px 3px 0px rgba(50, 50, 50, 0.2);
+	box-shadow: 6px 6px 3px 0 rgba(50, 50, 50, 0.2);
 }
 
 #paperWrapper {

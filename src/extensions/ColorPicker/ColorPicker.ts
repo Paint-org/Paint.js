@@ -13,7 +13,7 @@ class ColorPicker {
 
     init() {
         this.paint.registerTool(this);
-        this.paint.barManager.addToolbarToolItem(null, "Color Picker", this);
+        this.paint.barManager.addToolbarToolItem("extensions/ColorPicker/icon.png", "Color Picker", this);
     }
 
     activated(id: string) {
