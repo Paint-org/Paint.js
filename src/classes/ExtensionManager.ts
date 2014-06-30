@@ -1,52 +1,55 @@
 /// <reference path="../libs/node/node.d.ts" />
 
-import glob = require('./Global');
 var fs = require('fs');
 
-export class ExtensionManager {
+module Paint {
+    export class ExtensionManager {
 
-    private paint: glob.Paint;
+        private paint: Paint.Global;
 
-    constructor(paint: glob.Paint) {
-        this.paint = paint;
-    }
-
-    addSingleExtension(mainDirectory) {
-
-        var paint = this.paint,
-            ext = require(mainDirectory);
-
-        if (ext.Extensions instanceof Array) {
-            ext.Extensions.forEach(function (ext) {
-                var ist = new ext(paint);
-                paint.registerExtension(ist);
-                ist.init();
-            });
-
-        } else {
-            console.warn("Extension " + mainDirectory + " not loaded: no valid exports found.");
+        constructor(paint: Paint.Global) {
+            this.paint = paint;
         }
-    }
 
-    addExtensions(callback: () => void) {
+        addSingleExtension(mainDirectory) {
 
-        var extPath = __dirname + '/../extensions/',
-            $ = this.paint.$;
-
-        fs.readdir(extPath, $.proxy(function (error, list) {
-            if (error) {
-                console.error('Error while opening extension folder');
-                console.log(error);
-                return;
+            var paint = this.paint,
+                ext = require(mainDirectory);
+            console.log(ext);
+            if (ext.Extensions && ext.Extensions.forEach) {
+                ext.Extensions.forEach(function (ext) {
+                    var ist = new ext(paint);
+                    paint.registerExtension(ist);
+                    ist.init();
+                });
+            } else {
+                console.warn("Extension " + mainDirectory + " not loaded: no valid exports found.");
             }
+        }
 
-            for (var extFolder in list) {
-                if (list.hasOwnProperty(extFolder)) {
-                    this.addSingleExtension(extPath + list[extFolder]);
+        addExtensions(callback: () => void) {
+
+            var app_path = process.execPath.split('nw')[0];
+
+            var extPath = window.location.pathname.substring(1).split('index.html')[0]
+                + 'extensions/',
+                $ = this.paint.$;
+
+            fs.readdir(extPath, $.proxy(function (error, list) {
+                if (error) {
+                    console.error('Error while opening extension folder');
+                    console.log(error);
+                    return;
                 }
-            }
 
-            if(callback !== null) callback();
-        }, this));
+                for (var extFolder in list) {
+                    if (list.hasOwnProperty(extFolder)) {
+                        this.addSingleExtension(extPath + list[extFolder]);
+                    }
+                }
+
+                if (callback !== null) callback();
+            }, this));
+        }
     }
 }

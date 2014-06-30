@@ -18,34 +18,10 @@
   </PropertyGroup>
   <ItemGroup>
     <TypeScriptCompile Include="classes\EventEmitter.ts" />
-    <TypeScriptCompile Include="extensions\PaperCoordinates\PaperCoordinates.ts" />
-    <TypeScriptCompile Include="extensions\Selection\Selection.ts" />
     <TypeScriptCompile Include="index.ts" />
     <Content Include="about.html" />
-    <Content Include="extensions\PaperCoordinates\PaperSize.png" />
     <Content Include="package.json" />
     <Content Include="index.html" />
-    <TypeScriptCompile Include="extensions\Brush\Brush.ts" />
-    <Content Include="extensions\Brush\brush21.png" />
-    <Content Include="extensions\Brush\package.json" />
-    <TypeScriptCompile Include="extensions\ColorChooser\ColorChooser.ts" />
-    <Content Include="extensions\ColorChooser\package.json" />
-    <TypeScriptCompile Include="extensions\ColorPicker\ColorPicker.ts" />
-    <Content Include="extensions\ColorPicker\package.json" />
-    <TypeScriptCompile Include="extensions\Eraser\Eraser.ts" />
-    <Content Include="extensions\Eraser\package.json" />
-    <TypeScriptCompile Include="extensions\ImageSaver\ImageSaver.ts" />
-    <Content Include="extensions\ImageSaver\package.json" />
-    <Content Include="extensions\Pencil\package.json" />
-    <TypeScriptCompile Include="extensions\Pencil\Pencil.ts" />
-    <Content Include="extensions\Pen\package.json" />
-    <TypeScriptCompile Include="extensions\Pen\Pen.ts" />
-    <Content Include="extensions\ShapeDrawer\package.json" />
-    <TypeScriptCompile Include="extensions\ShapeDrawer\ShapeDrawer.ts" />
-    <Content Include="extensions\SizeChooser\package.json" />
-    <TypeScriptCompile Include="extensions\SizeChooser\SizeChooser.ts" />
-    <Content Include="extensions\Zoom\package.json" />
-    <TypeScriptCompile Include="extensions\Zoom\Zoom.ts" />
     <Content Include="cursors\**" />
     <TypeScriptCompile Include="classes\BarManager.ts" />
     <TypeScriptCompile Include="classes\CanvasMatrix.ts" />
@@ -61,8 +37,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
-    <Content Include="extensions\PaperCoordinates\package.json" />
-    <Content Include="extensions\Selection\package.json" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -92,8 +66,9 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <TypeScriptTarget>ES5</TypeScriptTarget>
     <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
-    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
     <TypeScriptModuleKind>commonjs</TypeScriptModuleKind>
+    <TypeScriptOutFile>index.js</TypeScriptOutFile>
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
   <ProjectExtensions>
