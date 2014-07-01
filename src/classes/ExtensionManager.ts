@@ -15,7 +15,7 @@ module Paint {
 
             var paint = this.paint,
                 ext = require(mainDirectory);
-            console.log(ext);
+            
             if (ext.Extensions && ext.Extensions.forEach) {
                 ext.Extensions.forEach(function (ext) {
                     var ist = new ext(paint);
@@ -29,10 +29,8 @@ module Paint {
 
         addExtensions(callback: () => void) {
 
-            var app_path = process.execPath.split('nw')[0];
-
             var extPath = window.location.pathname.substring(1).split('index.html')[0]
-                + 'extensions/',
+                + '../../Paint.js-core-extensions/extensions/',
                 $ = this.paint.$;
 
             fs.readdir(extPath, $.proxy(function (error, list) {
