@@ -47,6 +47,8 @@ module Paint {
                 if (ext.drawing && ext.onDraw)
                     ext.onDraw(paint.currentPaper, pt);
             });
+            // Questo rimuove temporaneamente l'antialias brutto 
+            // this.paint.currentPaper.baseLayer.getCanvasMatrix();
         }
 
         static triggerOnStopDrawing(pt: Paint.Point, dest) {

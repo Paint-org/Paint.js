@@ -51,35 +51,26 @@ module Paint {
             return sep;
         }
 
-        private createGroup(id: string, name: string) {
-            var $ = this.$;
-
-            var newGroup = $('<div id=' + id + '></div>');
-            newGroup.addClass("group relative inline");
-
-            var innerDiv = $('<div />');
-            innerDiv.text(name);
-            innerDiv.addClass('legend absolute');
-            newGroup.append(innerDiv);
-
-            return newGroup;
-        }
-
+        /**
+         * Aggiunge un nuovo gruppo alla barra principale
+         * \param tabId id della tab alla quale aggiungere il gruppo
+         * \param groupName nome del nuovo gruppo
+         */
         addGroup(tabId: string, groupName: string) {
             var $ = this.$;
-            var content = $('#' + tabId + ' > div');
+            var tabContent = $('#' + tabId + ' > div');
 
-            if (content.length === 1) {
-                var newGroup = this.createGroup(BarManager.getUniqueHtmlId(), groupName);
+            if (tabContent.length === 1) {
+                var newGroup = new Paint.BarGroup(this.paint, BarManager.getUniqueHtmlId(), groupName);
 
                 // If has already some groups of icons, then add a separator
-                if (content.children().length > 0)
-                    content.append(this.getSeparator());
+                if (tabContent.children().length > 0)
+                    tabContent.append(this.getSeparator());
 
-                content.append(newGroup);
+                tabContent.append(newGroup.node);
             }
 
-            return newGroup.attr('id');
+            return newGroup;
         }
 
         // Da decidere come passare gli elementi
@@ -95,34 +86,6 @@ module Paint {
         public static getUniqueHtmlId(): string {
             var count = this.htmlIdCount++;
             return 'uniq-dynamic-ext-id-' + count;
-        }
-
-        addToolbarItem(icon, groupId: string, text: string, tool): string {
-            var $ = this.paint.$;
-
-            var group = $('#' + groupId);
-
-            if (group.length === 0)
-                return;
-
-            var escapedStr = $('<div />').text(text).html();
-            var id = BarManager.getUniqueHtmlId();
-
-            //$("#tools").append('<button id="' + id + '">' + escapedStr + '</button>');
-            $(group).append('<div class="smallicon" id="' + id + '">\
-                              <img draggable="false" style="width: 16px; height:16px" />\
-                              <div class="iconlegend"></div>\
-                            </div>');
-
-            $("#" + id + " > img").attr("src", icon);
-            $("#" + id).css('display', 'inline-block');
-            $("#" + id).attr('title', escapedStr);
-
-            $("#" + id).click($.proxy(function () {
-                this.paint.setCurrentTool(tool, id);
-            }, this));
-
-            return id;
         }
 
         /**
@@ -198,6 +161,64 @@ module Paint {
             this.addCustomIndicatorItem(div[0], priority, autoWidth);
 
             return textSpan;
+        }
+    }
+
+    export class BarGroup {
+
+        id: string;
+        private _node: JQuery;
+        paint: Paint.Global;
+
+        get node() {
+            return this._node;
+        }
+
+        constructor(paint: Paint.Global, id: string, groupName: string) {
+            this.id = id;
+            this.paint = paint;
+
+            var $ = paint.$;
+
+            var newGroup = $('<div id=' + id + '></div>');
+            newGroup.addClass("group relative inline");
+
+            var innerDiv = $('<div />');
+            innerDiv.text(groupName);
+            innerDiv.addClass('legend absolute');
+            newGroup.append(innerDiv);
+
+            this._node = newGroup;
+        }
+
+        addCustom(text) {
+            this.node.append(text);
+        }
+
+        addTool(icon, text: string, tool): string {
+            var $ = this.paint.$;
+
+            if (this.node.length === 0)
+                return;
+
+            var escapedStr = $('<div />').text(text).html(),
+                id = BarManager.getUniqueHtmlId();
+
+            //$("#tools").append('<button id="' + id + '">' + escapedStr + '</button>');
+            this.node.append('<div class="smallicon" id="' + id + '">\
+                              <img draggable="false" style="width: 16px; height:16px" />\
+                              <div class="iconlegend"></div>\
+                            </div>');
+
+            $("#" + id + " > img").attr("src", icon);
+            $("#" + id).css('display', 'inline-block');
+            $("#" + id).attr('title', escapedStr);
+
+            $("#" + id).click($.proxy(function () {
+                this.paint.setCurrentTool(tool, id);
+            }, this));
+
+            return id;
         }
     }
 }
