@@ -6,9 +6,15 @@ module Paint {
     export class ExtensionManager {
 
         private paint: Paint.Global;
+        private extensionsPath: string;
 
         constructor(paint: Paint.Global) {
             this.paint = paint;
+            var path: string = window.location.pathname.split('index.html')[0];
+
+            /* pathname in Windows is '/C:/', so initial '/' mush be removed */
+            this.extensionsPath = ((process.platform === "win32") ? path.substring(1) : path)
+                + '../../Paint.js-core-extensions/extensions/';
         }
 
         addSingleExtension(mainDirectory) {
@@ -28,12 +34,9 @@ module Paint {
         }
 
         addExtensions(callback: () => void) {
+                var $ = this.paint.$;
 
-            var extPath = window.location.pathname.substring(1).split('index.html')[0]
-                + '../../Paint.js-core-extensions/extensions/',
-                $ = this.paint.$;
-
-            fs.readdir(extPath, $.proxy(function (error, list) {
+            fs.readdir(this.extensionsPath, $.proxy(function (error, list) {
                 if (error) {
                     console.error('Error while opening extension folder');
                     console.log(error);
@@ -42,7 +45,7 @@ module Paint {
 
                 for (var extFolder in list) {
                     if (list.hasOwnProperty(extFolder)) {
-                        this.addSingleExtension(extPath + list[extFolder]);
+                        this.addSingleExtension(this.extensionsPath + list[extFolder]);
                     }
                 }
 
