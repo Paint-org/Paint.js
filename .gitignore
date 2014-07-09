@@ -6,6 +6,8 @@
 /src/classes/**/*.js.map
 /.*
 /src/.*
+/src/nw
+/src/start.sh
 
 # Visual Studio
 /src/bin
