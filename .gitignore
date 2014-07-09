@@ -4,10 +4,10 @@
 /src/classes/*.js.map
 /src/classes/**/*.js
 /src/classes/**/*.js.map
-/src/extensions/**/*.js
-/src/extensions/**/*.js.map
 /.*
 /src/.*
+/src/nw
+/src/start.sh
 
 # Visual Studio
 /src/bin

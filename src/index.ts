@@ -2,13 +2,9 @@
 /// <reference path="libs/jquery/jquery.d.ts" />
 /// <reference path="libs/jqueryui/jqueryui.d.ts" />
 
-import color = require('./classes/Color');
-import glob = require('./classes/Global');
-import pt = require('./classes/Point');
-
 // node-webkit requires
 var gui = require('nw.gui');
-var paint:glob.Paint;
+var paint: Paint.Global;
 
 declare var File;
 declare var FileList;
@@ -19,7 +15,7 @@ $(document).ready(function() {
     tweakCSS();
 
     // Initialize global object containing Paper and Brush up to now
-    paint = new glob.Paint($, document);
+    paint = new Paint.Global($, document);
     paint.File = File;
     paint.FileList = FileList;
 
