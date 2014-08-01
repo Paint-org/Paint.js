@@ -33,6 +33,15 @@ module Paint {
             this._data[coord + 2] = value.B;
         }
 
+        // For high-performance comparisons
+        isValue(x: number, y: number, value: Paint.Color) {
+            var coord = this.translateCoordinates(x, y);
+
+            return this._data[coord] == value.R &&
+                this._data[coord + 1] == value.G &&
+                this._data[coord + 2] == value.B;
+        }
+
         get data(): Uint8Array {
             return this._data;
         }
