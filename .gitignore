@@ -7,7 +7,6 @@
 /.*
 /src/.*
 /src/nw
-/src/start.sh
 
 # Visual Studio
 /src/bin
