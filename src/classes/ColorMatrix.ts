@@ -34,7 +34,7 @@ module Paint {
         }
 
         // For high-performance comparisons
-        isValue(x: number, y: number, value: Paint.Color) {
+        isValue(x: number, y: number, value: Paint.Color): boolean {
             var coord = this.translateCoordinates(x, y);
 
             return this._data[coord] == value.R &&
