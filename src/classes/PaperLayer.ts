@@ -28,8 +28,11 @@ module Paint {
             return this._context;
         }
 
-        getCanvasMatrix(rect: Paint.Rectangle): Paint.CanvasMatrix {
-            
+        getCanvasMatrix(rect: Paint.Rectangle = null): Paint.CanvasMatrix {
+            if (rect === null) {
+                rect = new Paint.Rectangle(new Paint.Point(0, 0), this.canvas.width, this.canvas.height);
+            }
+
             var loc = rect.Location;
             var imgd = this._context.getImageData(loc.X, loc.Y, rect.Width, rect.Height);   
             var cm = new Paint.CanvasMatrix(imgd, rect);
