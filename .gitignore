@@ -7,8 +7,8 @@
 /.*
 /src/.*
 /src/nw
-/build/build.config
-/build/run.config
+/build/config/build.config
+/build/config/run.config
 
 # Visual Studio
 /src/bin

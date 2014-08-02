@@ -5,14 +5,14 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$DIR"
 cd ../src
 
-if [ ! -f ../build/build.config ]
+if [ ! -f ../build/config/build.config ]
 then
     echo Missing build configuration.
-	echo Copy "build.config.example" to "build.config" and apply your settings.
+	echo Copy "config/build.config.example" to "config/build.config" and edit it to apply your settings.
 	exit
 fi
 
-source ../build/build.config
+source ../build/config/build.config
 
 echo "Building Paint.js..."
 tsc -m commonjs -t ES5 index.ts classes/*.ts --sourcemap --declaration --out index.js

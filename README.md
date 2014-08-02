@@ -10,8 +10,8 @@ Setup development environment
 
 Compile (for development)
 -------------------------
-    build/build.sh
+Launch the script `build/build.sh`.
 
 Run
 ---
-    build/build-run.sh
+Launch the script `build/run.sh`, or `build/build-run.sh`.
