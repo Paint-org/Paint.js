@@ -14,7 +14,7 @@ fi
 # Build Paint.js
 ./build.sh
 
-source run.config
+source ./run.config
 
 # Start Paint.js
 echo "Starting..."

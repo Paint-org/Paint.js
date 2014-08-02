@@ -1,1 +1,1 @@
-RUN_NW_BINARY='/pato/to/node-webkit/nw.exe'
+RUN_NW_BINARY='/path/to/node-webkit/nw.exe'
