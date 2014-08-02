@@ -15,7 +15,7 @@ fi
 source ../build/build.config
 
 echo "Building Paint.js..."
-tsc -m commonjs -t ES5 index.ts classes/*.ts --declaration --out index.js
+tsc -m commonjs -t ES5 index.ts classes/*.ts --sourcemap --declaration --out index.js
 
 echo "Merging the declaration files for the extensions..."
 mkdir -p $EXTENSIONS_PROJECT_PATH/common-headers/
@@ -27,6 +27,6 @@ cat libs/node/node.d.ts \
 rm index.d.ts
 
 echo "Building extensions..."
-tsc -m commonjs -t ES5 $EXTENSIONS_PROJECT_PATH/extensions/**/*.ts
+tsc -m commonjs -t ES5 $EXTENSIONS_PROJECT_PATH/extensions/**/*.ts --sourcemap
 
 echo "Done."

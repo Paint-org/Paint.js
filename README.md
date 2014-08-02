@@ -10,12 +10,8 @@ Setup development environment
 
 Compile (for development)
 -------------------------
-    tsc --sourcemap --module commonjs -t ES5 index.ts extensions/**/*.ts
-
-(tip: add the `-w` parameter to automatically recompile files whenever they get saved)
+    build/build.sh
 
 Run
 ---
-Execute node-webkit passing the src folder of Paint.js as the first parameter:
-
-    path-to-node-webkit/nw path-to-paint-js/src
+    build/build-run.sh
