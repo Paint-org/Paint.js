@@ -6,7 +6,7 @@ cd "$DIR"
 
 if [ ! -f ./config/run.config ]
 then
-    echo Missing run configuration.
+	echo Missing run configuration.
 	echo Copy "config/run.config.example" to "config/run.config" and edit it to apply your settings.
 	exit
 fi

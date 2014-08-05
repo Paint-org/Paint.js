@@ -19,8 +19,8 @@ module Paint {
 
         addSingleExtension(mainDirectory) {
 
-            var paint = this.paint,
-                ext = require(mainDirectory);
+            var paint = this.paint;
+            var ext = require(mainDirectory);
             
             if (ext.Extensions && ext.Extensions.forEach) {
                 ext.Extensions.forEach(function (ext) {
@@ -34,7 +34,7 @@ module Paint {
         }
 
         addExtensions(callback: () => void) {
-                var $ = this.paint.$;
+            var $ = this.paint.$;
 
             fs.readdir(this.extensionsPath, $.proxy(function (error, list) {
                 if (error) {

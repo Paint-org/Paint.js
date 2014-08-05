@@ -7,7 +7,7 @@ cd ../src
 
 if [ ! -f ../build/config/build.config ]
 then
-    echo Missing build configuration.
+	echo Missing build configuration.
 	echo Copy "config/build.config.example" to "config/build.config" and edit it to apply your settings.
 	exit
 fi
