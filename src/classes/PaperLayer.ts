@@ -35,7 +35,7 @@ module Paint {
 
             var loc = rect.Location;
             var imgd = this._context.getImageData(loc.X, loc.Y, rect.Width, rect.Height);   
-            var cm = new Paint.CanvasMatrix(imgd, rect);
+            var cm = new Paint.CanvasMatrix(imgd, loc);
 
             return cm;
         }

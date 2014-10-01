@@ -2,12 +2,12 @@ module Paint {
     export class CanvasMatrix {
         private _img: ImageData;
         private _matrix: Paint.ColorMatrix;
-        private _rectangle: Paint.Rectangle;
+        private _location: Paint.Point;
 
-        constructor(img: ImageData, rect: Paint.Rectangle) {
+        constructor(img: ImageData, location: Paint.Point) {
             this._img = img;
             this._matrix = new Paint.ColorMatrix(img.data, img.width, img.height);
-            this._rectangle = rect;
+            this._location = location;
         }
 
         get colorMatrix(): Paint.ColorMatrix {
@@ -15,8 +15,7 @@ module Paint {
         }
 
         apply(context: CanvasRenderingContext2D) {
-            var loc = this._rectangle.Location;
-            context.putImageData(this._img, loc.X, loc.Y);
+            context.putImageData(this._img, this._location.X, this._location.Y);
         }
     }
 }
