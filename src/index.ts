@@ -29,7 +29,7 @@ $(document).ready(function() {
     createMenu();
     
     // Allows extensions to use Paint module
-    global.Paint = window.Paint;
+    global.Paint = (<any>window).Paint;
     // Load Extensions and Tools
     paint.extensionManager.addExtensions(function () {
 
