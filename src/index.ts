@@ -3,11 +3,8 @@
 /// <reference path="libs/jqueryui/jqueryui.d.ts" />
 
 // node-webkit requires
-var gui = require('nw.gui');
+//var gui = require('nw.gui');
 var paint: Paint.Global;
-
-declare var File;
-declare var FileList;
 
 $(document).ready(function() {
 
@@ -26,10 +23,10 @@ $(document).ready(function() {
     preventWorkspaceScrollOnDrag();
     
     // Create Application Menu
-    createMenu();
+//    createMenu();
     
     // Allows extensions to use Paint module
-    global.Paint = (<any>window).Paint;
+    
     // Load Extensions and Tools
     paint.extensionManager.addExtensions(function () {
 
@@ -46,11 +43,11 @@ $(document).ready(function() {
  * Apply runtime changes to the style
  */
 function tweakCSS() {
-    if (process.platform === "win32") {
-        var el = $("html,body");
-        el.css("font-family", "Segoe UI, Helvetica, arial, freesans, clean, sans-serif");
-        el.css("font-size", "12px");
-    }
+//    if (process.platform === "win32") {
+//        var el = $("html,body");
+//        el.css("font-family", "Segoe UI, Helvetica, arial, freesans, clean, sans-serif");
+//        el.css("font-size", "12px");
+//    }
 }
 
 /**
@@ -111,31 +108,31 @@ function preventWorkspaceScrollOnDrag() {
     });
 }
 
-function createMenu() {
-    var menu = new gui.Menu({ type: 'menubar' });
-
-    var mnuFile = new gui.MenuItem({ label: 'File', submenu: new gui.Menu() });
-    menu.append(mnuFile);
-    paint.menu.File = mnuFile;
-
-    var mnuFile_Exit = new gui.MenuItem({ label: 'Exit' });
-    mnuFile_Exit.click = function () {
-        gui.Window.get().close();
-    };
-    mnuFile.submenu.append(mnuFile_Exit);
-
-
-    var mnuHelp = new gui.MenuItem({ label: 'Help', submenu: new gui.Menu() });
-    menu.append(mnuHelp);
-    paint.menu.Help = mnuHelp;
-
-    var mnuHelp_Debug = new gui.MenuItem({ label: 'Debug' });
-    mnuHelp_Debug.click = () => gui.Window.get().showDevTools();
-    mnuHelp.submenu.append(mnuHelp_Debug);
-
-    var mnuHelp_About = new gui.MenuItem({ label: 'About' });
-    mnuHelp_About.click = () => window.open("about.html", "", "width=500,height=400");
-    mnuHelp.submenu.append(mnuHelp_About);
-
-    gui.Window.get().menu = menu;
-}
+//function createMenu() {
+//    var menu = new gui.Menu({ type: 'menubar' });
+//
+//    var mnuFile = new gui.MenuItem({ label: 'File', submenu: new gui.Menu() });
+//    menu.append(mnuFile);
+//    paint.menu.File = mnuFile;
+//
+//    var mnuFile_Exit = new gui.MenuItem({ label: 'Exit' });
+//    mnuFile_Exit.click = function () {
+//        gui.Window.get().close();
+//    };
+//    mnuFile.submenu.append(mnuFile_Exit);
+//
+//
+//    var mnuHelp = new gui.MenuItem({ label: 'Help', submenu: new gui.Menu() });
+//    menu.append(mnuHelp);
+//    paint.menu.Help = mnuHelp;
+//
+//    var mnuHelp_Debug = new gui.MenuItem({ label: 'Debug' });
+//    mnuHelp_Debug.click = () => gui.Window.get().showDevTools();
+//    mnuHelp.submenu.append(mnuHelp_Debug);
+//
+//    var mnuHelp_About = new gui.MenuItem({ label: 'About' });
+//    mnuHelp_About.click = () => window.open("about.html", "", "width=500,height=400");
+//    mnuHelp.submenu.append(mnuHelp_About);
+//
+//    gui.Window.get().menu = menu;
+//}

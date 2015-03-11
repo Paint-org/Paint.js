@@ -1,10 +1,10 @@
 module Paint {
     export class ColorMatrix {
-        private _data: Uint8Array;
+        private _data: number[];
         private _width: number;
         private _height: number;
 
-        constructor(data: Uint8Array, width: number, height: number) {
+        constructor(data: number[], width: number, height: number) {
             this._data = data;
             this._width = width;
             this._height = height;
@@ -42,7 +42,7 @@ module Paint {
                 this._data[coord + 2] == value.B;
         }
 
-        get data(): Uint8Array {
+        get data(): number[] {
             return this._data;
         }
 
